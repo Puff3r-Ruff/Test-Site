@@ -1,9 +1,200 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>My Site</title>
-  </head>
-  <body>
-    <h1>Hello, world!</h1>
-  </body>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simple Drag‑Drop Page Builder</title>
+
+  <!-- Gridstack CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/gridstack@12.4.2/dist/gridstack.min.css" rel="stylesheet"/>
+
+  <style>
+    :root{--sidebar-w:260px;--gap:12px}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;margin:0;height:100vh;display:flex;gap:var(--gap)}
+    .sidebar{width:var(--sidebar-w);padding:16px;background:#f7f7f8;border-right:1px solid #e3e3e6;box-sizing:border-box}
+    .canvas-wrap{flex:1;padding:16px;box-sizing:border-box;overflow:auto}
+    h3{margin:0 0 12px 0;font-size:16px}
+    .palette .item{background:#fff;border:1px dashed #cfcfcf;padding:10px;margin-bottom:10px;cursor:grab;border-radius:6px}
+    .controls{display:flex;gap:8px;margin-top:12px}
+    button{padding:8px 10px;border-radius:6px;border:1px solid #bbb;background:#fff;cursor:pointer}
+    .grid-stack{min-height:400px;background:linear-gradient(180deg,#fff,#fbfbfd);border:1px solid #e6e6ea;padding:8px}
+    .grid-stack-item-content{background:#fff;border:1px solid #ddd;border-radius:6px;padding:8px;box-sizing:border-box;overflow:hidden}
+    .grid-stack-item .edit-handle{font-size:12px;color:#666;margin-bottom:6px;display:block}
+    .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px}
+    textarea#savedJson{width:100%;height:120px;font-family:monospace;margin-top:8px}
+    .exported-html{white-space:pre-wrap;background:#111;color:#eee;padding:12px;border-radius:6px;margin-top:8px;max-height:220px;overflow:auto}
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar" aria-label="Components palette">
+    <h3>Components</h3>
+    <div class="palette">
+      <div class="item newWidget" data-gs-width="4" data-gs-height="1" draggable="true">
+        <strong>Text block</strong><div style="font-size:12px;color:#666">Editable text</div>
+      </div>
+      <div class="item newWidget" data-gs-width="4" data-gs-height="2" draggable="true">
+        <strong>Image block</strong><div style="font-size:12px;color:#666">Drop and replace image</div>
+      </div>
+      <div class="item newWidget" data-gs-width="2" data-gs-height="1" draggable="true">
+        <strong>Button</strong><div style="font-size:12px;color:#666">Clickable CTA</div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <button id="addText">Add Text</button>
+      <button id="addImage">Add Image</button>
+    </div>
+
+    <div style="margin-top:18px">
+      <h3>Save / Load</h3>
+      <div class="toolbar">
+        <button id="saveBtn">Save JSON</button>
+        <button id="loadBtn">Load JSON</button>
+        <button id="exportBtn">Export HTML</button>
+      </div>
+      <textarea id="savedJson" placeholder="Saved layout JSON appears here"></textarea>
+      <div id="exported" class="exported-html" aria-live="polite"></div>
+    </div>
+  </aside>
+
+  <main class="canvas-wrap">
+    <h3>Canvas</h3>
+    <div class="grid-stack"></div>
+  </main>
+
+  <!-- Gridstack JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/gridstack@12.4.2/dist/gridstack.all.js"></script>
+
+  <script>
+    // Initialize GridStack
+    const grid = GridStack.init({
+      column: 12,
+      float: true,
+      cellHeight: 80,
+      acceptWidgets: true,
+      removable: '#trash',
+      dragIn: '.newWidget',
+      dragInOptions: { revert: 'invalid', appendTo: 'body', helper: 'clone' }
+    });
+
+    // Helper to create a widget element
+    function createWidget(contentHtml, w=4, h=1) {
+      const el = document.createElement('div');
+      el.className = 'grid-stack-item';
+      el.setAttribute('data-gs-width', w);
+      el.setAttribute('data-gs-height', h);
+
+      const inner = document.createElement('div');
+      inner.className = 'grid-stack-item-content';
+      inner.innerHTML = contentHtml;
+      el.appendChild(inner);
+      return el;
+    }
+
+    // Make palette items draggable (native drag used by GridStack dragIn)
+    document.querySelectorAll('.newWidget').forEach(item => {
+      item.addEventListener('dragstart', ev => {
+        // Gridstack uses the element's outerHTML when dragging in
+        ev.dataTransfer.setData('text/html', item.outerHTML);
+      });
+    });
+
+    // Add default demo widgets
+    grid.addWidget(createWidget('<span class="edit-handle">Text</span><div contenteditable="true">Double-click to edit this text.</div>', 6, 1));
+    grid.addWidget(createWidget('<span class="edit-handle">Image</span><img src="https://via.placeholder.com/400x160" style="width:100%;height:auto;border-radius:6px" alt="placeholder">', 6, 2));
+
+    // Buttons to add programmatically
+    document.getElementById('addText').addEventListener('click', () => {
+      grid.addWidget(createWidget('<span class="edit-handle">Text</span><div contenteditable="true">New editable text</div>', 6, 1));
+    });
+    document.getElementById('addImage').addEventListener('click', () => {
+      grid.addWidget(createWidget('<span class="edit-handle">Image</span><img src="https://via.placeholder.com/400x160" style="width:100%;height:auto;border-radius:6px" alt="placeholder">', 6, 2));
+    });
+
+    // Save layout JSON
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const serialized = grid.save(false, true); // returns array of nodes
+      document.getElementById('savedJson').value = JSON.stringify(serialized, null, 2);
+    });
+
+    // Load layout JSON
+    document.getElementById('loadBtn').addEventListener('click', () => {
+      try {
+        const json = JSON.parse(document.getElementById('savedJson').value);
+        grid.removeAll();
+        grid.load(json);
+      } catch (e) {
+        alert('Invalid JSON');
+      }
+    });
+
+    // Export HTML of the canvas (simple)
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      // Build a minimal HTML snapshot of the canvas
+      const nodes = grid.engine.nodes; // current nodes
+      // Sort by y,x for stable output
+      nodes.sort((a,b) => a.y - b.y || a.x - b.x);
+      const container = document.createElement('div');
+      container.style.boxSizing = 'border-box';
+      container.style.width = '100%';
+      container.style.display = 'grid';
+      container.style.gridTemplateColumns = 'repeat(12, 1fr)';
+      container.style.gap = '8px';
+
+      nodes.forEach(n => {
+        const nodeEl = document.createElement('div');
+        nodeEl.style.gridColumn = `span ${n.w}`;
+        nodeEl.style.minHeight = (n.h * 80) + 'px';
+        // clone content from DOM
+        const dom = document.querySelector(`.grid-stack-item[data-gs-id="${n.id}"] .grid-stack-item-content`);
+        if (dom) nodeEl.innerHTML = dom.innerHTML;
+        container.appendChild(nodeEl);
+      });
+
+      const exportedHtml = container.outerHTML;
+      document.getElementById('exported').textContent = exportedHtml;
+    });
+
+    // Allow image replacement by clicking an image inside a widget
+    document.addEventListener('click', (e) => {
+      if (e.target.tagName === 'IMG' && e.target.closest('.grid-stack-item')) {
+        const url = prompt('Enter image URL', e.target.src);
+        if (url) e.target.src = url;
+      }
+    });
+
+    // Make contenteditable double-click friendly: focus on double click
+    document.addEventListener('dblclick', (e) => {
+      const el = e.target;
+      if (el.isContentEditable) {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.focus();
+      }
+    });
+
+    // Optional: persist layout to localStorage automatically
+    window.addEventListener('beforeunload', () => {
+      try {
+        const serialized = grid.save(false, true);
+        localStorage.setItem('pageBuilderLayout', JSON.stringify(serialized));
+      } catch(e){}
+    });
+    // Load persisted layout if present
+    (function loadPersisted(){
+      const raw = localStorage.getItem('pageBuilderLayout');
+      if (!raw) return;
+      try {
+        const json = JSON.parse(raw);
+        grid.removeAll();
+        grid.load(json);
+      } catch(e){}
+    })();
+
+  </script>
+</body>
 </html>
