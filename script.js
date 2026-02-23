@@ -1,4 +1,4 @@
-// Simple prefab site builder with drag, resize, and property editing
+// Prefab site builder with full adjustable elements and exact visual export
 const canvas = document.getElementById("canvas");
 const prefabs = document.querySelectorAll(".prefab");
 const templates = {
@@ -23,6 +23,8 @@ const propHeight = document.getElementById("propHeight");
 const propX = document.getElementById("propX");
 const propY = document.getElementById("propY");
 const propZ = document.getElementById("propZ");
+const propFontSize = document.getElementById("propFontSize");
+const propPadding = document.getElementById("propPadding");
 const bringForward = document.getElementById("bringForward");
 const sendBack = document.getElementById("sendBack");
 const deleteEl = document.getElementById("deleteEl");
@@ -32,17 +34,15 @@ let dragState = null;
 let resizeState = null;
 let idCounter = 0;
 
-// Make prefabs draggable from palette into canvas
+// Make prefabs draggable and clickable to create
 prefabs.forEach(p => {
   p.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/prefab", p.dataset.type);
   });
-  // support pointer drag to create element
   p.addEventListener("pointerdown", (ev) => {
     ev.preventDefault();
     const type = p.dataset.type;
     const el = createCanvasElement(type);
-    // place near top-left of canvas
     const rect = canvas.getBoundingClientRect();
     el.style.left = `${Math.max(12, ev.clientX - rect.left)}px`;
     el.style.top = `${Math.max(12, ev.clientY - rect.top)}px`;
@@ -51,7 +51,7 @@ prefabs.forEach(p => {
   });
 });
 
-// Allow dropping via native drag
+// Drop support
 canvas.addEventListener("dragover", (e) => e.preventDefault());
 canvas.addEventListener("drop", (e) => {
   e.preventDefault();
@@ -65,7 +65,7 @@ canvas.addEventListener("drop", (e) => {
   selectElement(el);
 });
 
-// Create a canvas element wrapper with handles and behaviors
+// Create wrapper with behaviors
 function createCanvasElement(type) {
   idCounter++;
   const wrapper = document.createElement("div");
@@ -77,8 +77,9 @@ function createCanvasElement(type) {
   wrapper.style.width = "320px";
   wrapper.style.height = "auto";
   wrapper.style.zIndex = 1;
+  wrapper.style.padding = "8px";
+  wrapper.style.background = "transparent";
 
-  // clone template content
   const tpl = templates[type];
   if (tpl) {
     const clone = tpl.cloneNode(true);
@@ -87,27 +88,26 @@ function createCanvasElement(type) {
     wrapper.textContent = type;
   }
 
-  // add resize handle
   const handle = document.createElement("div");
   handle.className = "handle";
   wrapper.appendChild(handle);
 
-  // pointer events for moving
+  // move
   wrapper.addEventListener("pointerdown", (e) => {
-    if (e.target === handle) return; // resize handled separately
+    if (e.target === handle) return;
     e.stopPropagation();
     startDrag(e, wrapper);
     selectElement(wrapper);
   });
 
-  // resize pointer
+  // resize
   handle.addEventListener("pointerdown", (e) => {
     e.stopPropagation();
     startResize(e, wrapper);
     selectElement(wrapper);
   });
 
-  // allow inline editing for contenteditable children
+  // inline editing
   wrapper.querySelectorAll("[contenteditable]").forEach(node => {
     node.addEventListener("input", () => {
       if (selected === wrapper) syncPropsToUI(wrapper);
@@ -115,13 +115,11 @@ function createCanvasElement(type) {
     node.addEventListener("pointerdown", (ev) => ev.stopPropagation());
   });
 
-  // click to select
   wrapper.addEventListener("click", (e) => {
     e.stopPropagation();
     selectElement(wrapper);
   });
 
-  // double click to focus first editable
   wrapper.addEventListener("dblclick", (e) => {
     const editable = wrapper.querySelector("[contenteditable]");
     if (editable) {
@@ -133,7 +131,7 @@ function createCanvasElement(type) {
   return wrapper;
 }
 
-// selection handling
+// selection
 function selectElement(el) {
   if (selected) selected.classList.remove("selected");
   selected = el;
@@ -151,27 +149,29 @@ function selectElement(el) {
 // sync element -> UI
 function syncPropsToUI(el) {
   propType.value = el.dataset.type || "";
-  // text: pick first text node or contenteditable
   const editable = el.querySelector("[contenteditable]");
   propText.value = editable ? editable.innerText : "";
-  // computed styles
-  const bg = rgbToHex(getComputedStyle(el).backgroundColor) || "#000000";
-  propBg.value = bg;
-  const color = rgbToHex(getComputedStyle(el).color) || "#ffffff";
-  propColor.value = color;
-  const borderColor = rgbToHex(getComputedStyle(el).borderColor) || "#000000";
-  propBorderColor.value = borderColor;
-  const bw = parseInt(getComputedStyle(el).borderWidth) || 0;
-  propBorderWidth.value = bw;
-  propWidth.value = parseInt(el.style.width) || Math.round(el.getBoundingClientRect().width);
-  propHeight.value = parseInt(el.style.height) || Math.round(el.getBoundingClientRect().height);
-  propX.value = Math.round(parseFloat(el.style.left) || el.getBoundingClientRect().left - canvas.getBoundingClientRect().left);
-  propY.value = Math.round(parseFloat(el.style.top) || el.getBoundingClientRect().top - canvas.getBoundingClientRect().top);
+  const cs = getComputedStyle(el);
+  propBg.value = colorToHex(cs.backgroundColor) || "#000000";
+  propColor.value = colorToHex(cs.color) || "#ffffff";
+  propBorderColor.value = colorToHex(cs.borderColor) || "#000000";
+  propBorderWidth.value = parseInt(cs.borderWidth) || 0;
+  propWidth.value = Math.round(parseFloat(el.style.width) || el.getBoundingClientRect().width);
+  propHeight.value = Math.round(parseFloat(el.style.height) || el.getBoundingClientRect().height);
+  const crect = el.getBoundingClientRect();
+  const crectCanvas = canvas.getBoundingClientRect();
+  propX.value = Math.round(crect.left - crectCanvas.left);
+  propY.value = Math.round(crect.top - crectCanvas.top);
   propZ.value = parseInt(el.style.zIndex) || 1;
+  propFontSize.value = parseInt(cs.fontSize) || 16;
+  propPadding.value = parseInt(cs.padding) || 8;
 }
 
 // UI -> element bindings
-[propText, propBg, propColor, propBorderColor, propBorderWidth, propWidth, propHeight, propX, propY, propZ].forEach(inp => {
+[
+  propText, propBg, propColor, propBorderColor, propBorderWidth,
+  propWidth, propHeight, propX, propY, propZ, propFontSize, propPadding
+].forEach(inp => {
   inp.addEventListener("input", () => {
     if (!selected) return;
     if (inp === propText) {
@@ -181,7 +181,6 @@ function syncPropsToUI(el) {
       selected.style.background = inp.value;
     } else if (inp === propColor) {
       selected.style.color = inp.value;
-      // also try to color inner text nodes
       selected.querySelectorAll("*").forEach(n => {
         if (n.matches && n.matches("a, p, h1, h2, h3, h4, span, div, button")) {
           n.style.color = inp.value;
@@ -192,6 +191,7 @@ function syncPropsToUI(el) {
       selected.style.borderStyle = selected.style.borderStyle || "solid";
     } else if (inp === propBorderWidth) {
       selected.style.borderWidth = inp.value + "px";
+      selected.style.borderStyle = selected.style.borderStyle || "solid";
     } else if (inp === propWidth) {
       selected.style.width = inp.value + "px";
     } else if (inp === propHeight) {
@@ -202,6 +202,15 @@ function syncPropsToUI(el) {
       selected.style.top = inp.value + "px";
     } else if (inp === propZ) {
       selected.style.zIndex = inp.value;
+    } else if (inp === propFontSize) {
+      selected.style.fontSize = inp.value + "px";
+      selected.querySelectorAll("*").forEach(n => {
+        if (n.matches && n.matches("h1,h2,h3,h4,p,span,div,a,button")) {
+          n.style.fontSize = inp.value + "px";
+        }
+      });
+    } else if (inp === propPadding) {
+      selected.style.padding = inp.value + "px";
     }
   });
 });
@@ -275,8 +284,8 @@ function startResize(e, el) {
     const dy = ev.clientY - resizeState.startY;
     const newW = Math.max(40, resizeState.startW + dx);
     const newH = Math.max(20, resizeState.startH + dy);
-    el.style.width = newW + "px";
-    el.style.height = newH + "px";
+    resizeState.el.style.width = newW + "px";
+    resizeState.el.style.height = newH + "px";
     if (selected === el) syncPropsToUI(el);
   }
   function onUp(ev) {
@@ -289,8 +298,8 @@ function startResize(e, el) {
   document.addEventListener("pointerup", onUp);
 }
 
-// helper to convert rgb to hex
-function rgbToHex(rgb) {
+// helpers
+function colorToHex(rgb) {
   if (!rgb) return null;
   const m = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
   if (!m) return null;
@@ -304,27 +313,107 @@ document.getElementById("clearCanvas").addEventListener("click", () => {
   selectElement(null);
 });
 
-// export HTML (simple)
+// EXPORT: produce exact-looking HTML by inlining computed styles and absolute positions
 document.getElementById("exportHtml").addEventListener("click", () => {
-  // build a minimal HTML from canvas children
-  const wrapper = document.createElement("div");
-  wrapper.style.cssText = "padding:24px;background:#fff;color:#000";
+  const canvasRect = canvas.getBoundingClientRect();
+
+  // create a container to hold clones
+  const container = document.createElement("div");
+  container.style.position = "relative";
+  container.style.width = canvasRect.width + "px";
+  container.style.height = canvasRect.height + "px";
+  container.style.background = getComputedStyle(canvas).backgroundImage || getComputedStyle(canvas).backgroundColor || "#ffffff";
+  container.style.padding = "0";
+  container.style.margin = "0";
+
+  // properties to copy from computed style
+  const propsToCopy = [
+    "backgroundColor","backgroundImage","backgroundSize","backgroundRepeat","backgroundPosition",
+    "color","fontSize","fontFamily","fontWeight","lineHeight","textAlign",
+    "borderTopWidth","borderRightWidth","borderBottomWidth","borderLeftWidth",
+    "borderTopStyle","borderRightStyle","borderBottomStyle","borderLeftStyle",
+    "borderTopColor","borderRightColor","borderBottomColor","borderLeftColor",
+    "borderRadius","boxShadow","paddingTop","paddingRight","paddingBottom","paddingLeft",
+    "marginTop","marginRight","marginBottom","marginLeft",
+    "width","height","minWidth","minHeight"
+  ];
+
+  // for each canvas child, clone and inline styles
   canvas.querySelectorAll(".canvas-el").forEach(el => {
+    const rect = el.getBoundingClientRect();
     const clone = el.cloneNode(true);
-    // remove handles and selection classes
+
+    // remove editor-only nodes (handles)
     clone.querySelectorAll(".handle").forEach(h => h.remove());
     clone.classList.remove("selected");
-    // inline styles for position and size
-    clone.style.position = "relative";
-    clone.style.left = "";
-    clone.style.top = "";
-    wrapper.appendChild(clone);
+
+    // set absolute position relative to canvas
+    const left = rect.left - canvasRect.left;
+    const top = rect.top - canvasRect.top;
+    clone.style.position = "absolute";
+    clone.style.left = left + "px";
+    clone.style.top = top + "px";
+
+    // copy computed styles
+    const cs = getComputedStyle(el);
+    propsToCopy.forEach(p => {
+      try {
+        const val = cs[p];
+        if (val && val !== "0px" && val !== "normal" && val !== "none" && val !== "rgba(0, 0, 0, 0)") {
+          // convert camelCase to kebab-case
+          const kebab = p.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
+          clone.style.setProperty(kebab, val);
+        }
+      } catch (err) {
+        // ignore
+      }
+    });
+
+    // ensure width/height are explicit
+    const w = Math.round(rect.width);
+    const h = Math.round(rect.height);
+    clone.style.width = w + "px";
+    clone.style.height = h + "px";
+
+    // ensure z-index
+    clone.style.zIndex = el.style.zIndex || getComputedStyle(el).zIndex || 1;
+
+    // for images, keep src attribute (already cloned)
+    clone.querySelectorAll("img").forEach(img => {
+      // keep src as-is; alt preserved
+      img.style.maxWidth = "100%";
+      img.style.height = "auto";
+    });
+
+    // remove contenteditable attributes (exported site shouldn't be editable)
+    clone.querySelectorAll("[contenteditable]").forEach(n => n.removeAttribute("contenteditable"));
+
+    container.appendChild(clone);
   });
-  const html = `<!doctype html>\n<html>\n<head>\n<meta charset="utf-8">\n<title>Export</title>\n</head>\n<body>\n${wrapper.innerHTML}\n</body>\n</html>`;
-  // show in new window
+
+  // build final HTML
+  const exportedHtml = `<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exported Page</title>
+<style>
+  /* Minimal reset for exported page */
+  html,body{margin:0;padding:0}
+  body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: ${getComputedStyle(canvas).backgroundColor || "#fff"}}
+  a{color:inherit;text-decoration:none}
+</style>
+</head>
+<body>
+${container.outerHTML}
+</body>
+</html>`;
+
+  // open in new tab
   const w = window.open();
   w.document.open();
-  w.document.write(html);
+  w.document.write(exportedHtml);
   w.document.close();
 });
 
