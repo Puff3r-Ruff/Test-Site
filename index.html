@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Prefab Site Builder</title>
+  <title>Prefab Site Builder — Exact Export</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -18,17 +18,17 @@
   <main class="workspace">
     <aside class="palette">
       <h3>Prefabs</h3>
-      <div class="prefab" data-type="hero">Hero Block</div>
-      <div class="prefab" data-type="nav">Navigation</div>
-      <div class="prefab" data-type="card">Card</div>
-      <div class="prefab" data-type="button">Button</div>
-      <div class="prefab" data-type="image">Image</div>
+      <div class="prefab" data-type="hero" draggable="true">Hero Block</div>
+      <div class="prefab" data-type="nav" draggable="true">Navigation</div>
+      <div class="prefab" data-type="card" draggable="true">Card</div>
+      <div class="prefab" data-type="button" draggable="true">Button</div>
+      <div class="prefab" data-type="image" draggable="true">Image</div>
       <hr />
       <h4>Instructions</h4>
       <ul>
-        <li>Drag a prefab into the canvas</li>
+        <li>Click or drag a prefab into the canvas</li>
         <li>Click an element to select it</li>
-        <li>Drag to move; drag handles to resize</li>
+        <li>Drag to move; drag handle to resize</li>
         <li>Edit text inline; use the property panel to style</li>
       </ul>
     </aside>
@@ -97,6 +97,16 @@
           <input id="propZ" type="number" />
         </label>
 
+        <label class="prop-row">
+          <span class="label">Font Size</span>
+          <input id="propFontSize" type="range" min="8" max="72" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Padding</span>
+          <input id="propPadding" type="range" min="0" max="60" />
+        </label>
+
         <div class="prop-actions">
           <button id="bringForward">Bring Forward</button>
           <button id="sendBack">Send Back</button>
@@ -106,6 +116,7 @@
     </aside>
   </main>
 
+  <!-- Templates -->
   <template id="tpl-hero">
     <section class="prefab-hero">
       <h1 contenteditable="true">Your headline here</h1>
@@ -138,7 +149,7 @@
 
   <template id="tpl-image">
     <div class="prefab-image">
-      <img src="https://picsum.photos/400/240" alt="placeholder" />
+      <img src="https://picsum.photos/600/360" alt="placeholder" />
     </div>
   </template>
 
