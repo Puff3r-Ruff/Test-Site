@@ -1,48 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Mini Site Builder</title>
+  <meta charset="utf-8" />
+  <title>Prefab Site Builder</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="topbar">
-    <h1>Mini Site Builder</h1>
-    <div class="template-select">
-      <label for="template">Prefab site:</label>
-      <select id="template">
-        <option value="landing">Landing Page</option>
-        <option value="portfolio">Portfolio</option>
-        <option value="blog">Blog</option>
-      </select>
-      <button id="resetTemplate">Reset to template</button>
+    <h1>Prefab Site Builder</h1>
+    <div class="controls">
+      <button id="clearCanvas">Clear Canvas</button>
+      <button id="exportHtml">Export HTML</button>
     </div>
   </header>
 
-  <main class="layout">
-    <section class="editors">
-      <div class="editor-block">
-        <div class="editor-header">HTML</div>
-        <textarea id="htmlEditor"></textarea>
-      </div>
-      <div class="editor-block">
-        <div class="editor-header">CSS</div>
-        <textarea id="cssEditor"></textarea>
-      </div>
-      <div class="editor-block">
-        <div class="editor-header">JS</div>
-        <textarea id="jsEditor"></textarea>
-      </div>
+  <main class="workspace">
+    <aside class="palette">
+      <h3>Prefabs</h3>
+      <div class="prefab" data-type="hero">Hero Block</div>
+      <div class="prefab" data-type="nav">Navigation</div>
+      <div class="prefab" data-type="card">Card</div>
+      <div class="prefab" data-type="button">Button</div>
+      <div class="prefab" data-type="image">Image</div>
+      <hr />
+      <h4>Instructions</h4>
+      <ul>
+        <li>Drag a prefab into the canvas</li>
+        <li>Click an element to select it</li>
+        <li>Drag to move; drag handles to resize</li>
+        <li>Edit text inline; use the property panel to style</li>
+      </ul>
+    </aside>
+
+    <section class="canvas-wrap">
+      <div id="canvas" class="canvas" tabindex="0"></div>
     </section>
 
-    <section class="preview">
-      <div class="preview-header">
-        <span>Live Preview</span>
-        <button id="runBtn">Update preview</button>
+    <aside class="properties">
+      <h3>Properties</h3>
+      <div id="noSelection" class="prop-note">Select an element to edit its properties</div>
+
+      <div id="props" class="prop-panel hidden">
+        <label class="prop-row">
+          <span class="label">Element Type</span>
+          <input id="propType" readonly />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Text</span>
+          <input id="propText" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Background</span>
+          <input id="propBg" type="color" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Text Color</span>
+          <input id="propColor" type="color" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Border Color</span>
+          <input id="propBorderColor" type="color" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Border Width</span>
+          <input id="propBorderWidth" type="range" min="0" max="20" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Width</span>
+          <input id="propWidth" type="range" min="50" max="1200" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Height</span>
+          <input id="propHeight" type="range" min="20" max="1200" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">X</span>
+          <input id="propX" type="number" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Y</span>
+          <input id="propY" type="number" />
+        </label>
+
+        <label class="prop-row">
+          <span class="label">Z Index</span>
+          <input id="propZ" type="number" />
+        </label>
+
+        <div class="prop-actions">
+          <button id="bringForward">Bring Forward</button>
+          <button id="sendBack">Send Back</button>
+          <button id="deleteEl" class="danger">Delete</button>
+        </div>
       </div>
-      <iframe id="previewFrame"></iframe>
-    </section>
+    </aside>
   </main>
+
+  <template id="tpl-hero">
+    <section class="prefab-hero">
+      <h1 contenteditable="true">Your headline here</h1>
+      <p contenteditable="true">A short supporting sentence that sells the idea.</p>
+      <button class="btn" contenteditable="false">Get started</button>
+    </section>
+  </template>
+
+  <template id="tpl-nav">
+    <nav class="prefab-nav">
+      <div class="logo" contenteditable="true">Brand</div>
+      <div class="links">
+        <a href="#" contenteditable="true">Home</a>
+        <a href="#" contenteditable="true">Work</a>
+        <a href="#" contenteditable="true">Contact</a>
+      </div>
+    </nav>
+  </template>
+
+  <template id="tpl-card">
+    <article class="prefab-card">
+      <h3 contenteditable="true">Card Title</h3>
+      <p contenteditable="true">Short description goes here.</p>
+    </article>
+  </template>
+
+  <template id="tpl-button">
+    <button class="prefab-button" contenteditable="false">Click me</button>
+  </template>
+
+  <template id="tpl-image">
+    <div class="prefab-image">
+      <img src="https://picsum.photos/400/240" alt="placeholder" />
+    </div>
+  </template>
 
   <script src="script.js"></script>
 </body>
