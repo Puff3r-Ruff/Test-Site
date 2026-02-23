@@ -1,0 +1,146 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: #020617;
+  border-bottom: 1px solid #1f2937;
+}
+
+.topbar h1 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.template-select {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.template-select select,
+.template-select button {
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+}
+
+.template-select button {
+  cursor: pointer;
+}
+
+.template-select button:hover {
+  background: #1f2937;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  height: calc(100vh - 52px);
+}
+
+.editors {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #1f2937;
+  background: #020617;
+}
+
+.editor-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #1f2937;
+}
+
+.editor-header {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: #030712;
+  border-bottom: 1px solid #1f2937;
+  color: #9ca3af;
+}
+
+textarea {
+  flex: 1;
+  width: 100%;
+  border: none;
+  resize: none;
+  padding: 0.5rem 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.85rem;
+  color: #e5e7eb;
+  background: #020617;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  background: #020617;
+}
+
+.preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  border-bottom: 1px solid #1f2937;
+  background: #030712;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+#runBtn {
+  background: #22c55e;
+  color: #022c22;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#runBtn:hover {
+  background: #16a34a;
+}
+
+#previewFrame {
+  flex: 1;
+  border: none;
+  background: white;
+}
+
+/* Small screens */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.2fr 1fr;
+  }
+
+  .editors {
+    border-right: none;
+    border-bottom: 1px solid #1f2937;
+  }
+}
