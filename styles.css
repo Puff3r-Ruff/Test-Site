@@ -1,146 +1,78 @@
-* {
-  box-sizing: border-box;
+:root{
+  --bg:#0b1220;
+  --panel:#07101a;
+  --muted:#9aa4b2;
+  --accent:#22c55e;
 }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial}
+.topbar{
+  height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;
+  background:linear-gradient(180deg,#07101a,#041018);color:#e6eef6;border-bottom:1px solid rgba(255,255,255,0.03)
+}
+.topbar h1{font-size:16px;margin:0}
+.topbar .controls button{margin-left:8px;padding:6px 10px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:#0f1724;color:#e6eef6;cursor:pointer}
+
+.workspace{
+  display:grid;grid-template-columns:220px 1fr 320px;gap:12px;height:calc(100vh - 56px);padding:12px;background:linear-gradient(180deg,#07101a,#041018)
 }
 
-.topbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  background: #020617;
-  border-bottom: 1px solid #1f2937;
+.palette, .properties{
+  background:var(--panel);padding:12px;border-radius:8px;color:#e6eef6;border:1px solid rgba(255,255,255,0.03);overflow:auto
 }
 
-.topbar h1 {
-  font-size: 1.1rem;
-  margin: 0;
+.palette h3,.properties h3{margin:0 0 8px 0}
+.prefab{
+  background:rgba(255,255,255,0.03);padding:10px;border-radius:6px;margin-bottom:8px;cursor:grab;border:1px dashed rgba(255,255,255,0.02)
+}
+.prefab:active{cursor:grabbing;opacity:0.9}
+
+.canvas-wrap{display:flex;flex-direction:column}
+.canvas{
+  background:linear-gradient(180deg,#0b1220,#07101a);border-radius:8px;border:1px solid rgba(255,255,255,0.03);
+  height:100%;position:relative;overflow:auto;padding:24px;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.01)
 }
 
-.template-select {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  font-size: 0.9rem;
+/* prefab defaults inside canvas */
+.canvas .canvas-el{
+  position:absolute;left:20px;top:20px;min-width:80px;min-height:24px;
+  border:1px dashed transparent;padding:8px;border-radius:6px;background:transparent;
+  user-select:none;
 }
 
-.template-select select,
-.template-select button {
-  background: #111827;
-  color: #e5e7eb;
-  border: 1px solid #374151;
-  border-radius: 4px;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.85rem;
+/* selection outline and handles */
+.canvas .canvas-el.selected{outline:2px solid rgba(34,197,94,0.9);box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+.handle{
+  width:10px;height:10px;background:#fff;border-radius:2px;position:absolute;right:-6px;bottom:-6px;cursor:se-resize;
+  box-shadow:0 2px 6px rgba(0,0,0,0.4)
 }
 
-.template-select button {
-  cursor: pointer;
-}
+/* prefab internal styles */
+.prefab-hero{padding:20px;border-radius:12px;background:linear-gradient(180deg,#0f1724,#07101a);color:#e6eef6;min-width:320px;max-width:900px}
+.prefab-hero h1{margin:0 0 8px 0;font-size:1.6rem}
+.prefab-hero p{margin:0 0 12px 0;color:var(--muted)}
+.prefab-hero .btn{background:var(--accent);color:#022c22;border:none;padding:8px 14px;border-radius:999px;cursor:pointer}
 
-.template-select button:hover {
-  background: #1f2937;
-}
+.prefab-nav{display:flex;justify-content:space-between;align-items:center;padding:10px;background:rgba(255,255,255,0.02);border-radius:8px}
+.prefab-nav .logo{font-weight:700}
+.prefab-nav .links a{margin-left:12px;color:var(--muted)}
 
-.layout {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  height: calc(100vh - 52px);
-}
+.prefab-card{padding:12px;background:rgba(255,255,255,0.02);border-radius:8px;min-width:200px}
+.prefab-card h3{margin:0 0 6px 0}
+.prefab-button{padding:8px 12px;border-radius:8px;background:var(--accent);border:none;color:#022c22;cursor:pointer}
+.prefab-image img{display:block;max-width:100%;height:auto;border-radius:8px}
 
-.editors {
-  display: flex;
-  flex-direction: column;
-  border-right: 1px solid #1f2937;
-  background: #020617;
-}
+/* properties panel */
+.prop-row{display:flex;align-items:center;gap:8px;margin:8px 0}
+.prop-row .label{width:90px;color:var(--muted);font-size:13px}
+.prop-row input[type="text"],.prop-row input[type="number"]{flex:1;padding:6px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef6}
+.prop-row input[type="range"]{flex:1}
+.prop-actions{display:flex;gap:8px;margin-top:12px}
+.prop-actions button{padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.04);background:#0f1724;color:#e6eef6;cursor:pointer}
+.prop-actions .danger{background:#3b0f0f;color:#ffdede;border-color:#5a1a1a}
 
-.editor-block {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #1f2937;
-}
-
-.editor-header {
-  padding: 0.4rem 0.75rem;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  background: #030712;
-  border-bottom: 1px solid #1f2937;
-  color: #9ca3af;
-}
-
-textarea {
-  flex: 1;
-  width: 100%;
-  border: none;
-  resize: none;
-  padding: 0.5rem 0.75rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.85rem;
-  color: #e5e7eb;
-  background: #020617;
-}
-
-textarea:focus {
-  outline: none;
-}
-
-.preview {
-  display: flex;
-  flex-direction: column;
-  background: #020617;
-}
-
-.preview-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.4rem 0.75rem;
-  border-bottom: 1px solid #1f2937;
-  background: #030712;
-  font-size: 0.8rem;
-  color: #9ca3af;
-}
-
-#runBtn {
-  background: #22c55e;
-  color: #022c22;
-  border: none;
-  border-radius: 4px;
-  padding: 0.25rem 0.6rem;
-  font-size: 0.8rem;
-  cursor: pointer;
-  font-weight: 600;
-}
-
-#runBtn:hover {
-  background: #16a34a;
-}
-
-#previewFrame {
-  flex: 1;
-  border: none;
-  background: white;
-}
-
-/* Small screens */
-@media (max-width: 900px) {
-  .layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1.2fr 1fr;
-  }
-
-  .editors {
-    border-right: none;
-    border-bottom: 1px solid #1f2937;
-  }
-}
+/* small helpers */
+.hidden{display:none}
+.prop-note{color:var(--muted);font-size:13px}
