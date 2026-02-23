@@ -35,7 +35,7 @@ html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helv
   box-shadow:inset 0 0 0 1px rgba(255,255,255,0.01)
 }
 
-/* prefab defaults inside canvas */
+/* canvas element wrapper */
 .canvas .canvas-el{
   position:absolute;left:20px;top:20px;min-width:80px;min-height:24px;
   border:1px dashed transparent;padding:8px;border-radius:6px;background:transparent;
