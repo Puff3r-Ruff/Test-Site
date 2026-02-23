@@ -1,383 +1,338 @@
+// Simple prefab site builder with drag, resize, and property editing
+const canvas = document.getElementById("canvas");
+const prefabs = document.querySelectorAll(".prefab");
 const templates = {
-  landing: {
-    html: `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Landing Page</title>
-</head>
-<body>
-  <header class="hero">
-    <h1>Grow your ideas online</h1>
-    <p>Simple, beautiful landing pages in minutes.</p>
-    <button class="cta">Get Started</button>
-  </header>
-
-  <section class="features">
-    <div class="feature">
-      <h2>Fast</h2>
-      <p>Launch your page in under 5 minutes.</p>
-    </div>
-    <div class="feature">
-      <h2>Responsive</h2>
-      <p>Looks great on any device.</p>
-    </div>
-    <div class="feature">
-      <h2>Customizable</h2>
-      <p>Change colors, fonts, and layout easily.</p>
-    </div>
-  </section>
-</body>
-</html>`,
-    css: `:root {
-  --bg: #020617;
-  --accent: #22c55e;
-  --accent-soft: rgba(34, 197, 94, 0.12);
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #0f172a, #020617 55%);
-  color: var(--text-main);
-}
-
-.hero {
-  text-align: center;
-  padding: 4rem 1.5rem 3rem;
-}
-
-.hero h1 {
-  font-size: clamp(2.2rem, 4vw, 3rem);
-  margin-bottom: 0.75rem;
-}
-
-.hero p {
-  margin: 0 auto 1.5rem;
-  max-width: 28rem;
-  color: var(--text-muted);
-}
-
-.cta {
-  background: var(--accent);
-  color: #022c22;
-  border: none;
-  border-radius: 999px;
-  padding: 0.75rem 1.6rem;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
-}
-
-.cta:hover {
-  filter: brightness(1.05);
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
-  padding: 0 1.5rem 3rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.feature {
-  background: #020617;
-  border-radius: 1rem;
-  padding: 1.5rem;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
-}
-
-.feature h2 {
-  margin-top: 0;
-  margin-bottom: 0.4rem;
-}
-
-.feature p {
-  margin: 0;
-  color: var(--text-muted);
-}`,
-    js: `document.addEventListener("click", (e) => {
-  if (e.target.matches(".cta")) {
-    alert("Imagine this opens your signup flow ✨");
-  }
-});`
-  },
-
-  portfolio: {
-    html: `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Portfolio</title>
-</head>
-<body>
-  <nav class="nav">
-    <span class="logo">E. Doe</span>
-    <div class="nav-links">
-      <a href="#work">Work</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </nav>
-
-  <main>
-    <section class="intro">
-      <h1>Designer & Frontend Developer</h1>
-      <p>I design interfaces that feel calm, clear, and a little bit playful.</p>
-    </section>
-
-    <section id="work" class="grid">
-      <article class="card">
-        <h2>Product Dashboard</h2>
-        <p>Analytics dashboard for a SaaS product.</p>
-      </article>
-      <article class="card">
-        <h2>Marketing Site</h2>
-        <p>Landing page for a new mobile app.</p>
-      </article>
-      <article class="card">
-        <h2>Brand System</h2>
-        <p>Visual identity for a small studio.</p>
-      </article>
-    </section>
-  </main>
-</body>
-</html>`,
-    css: `body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #020617;
-  color: #e5e7eb;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.9rem 1.5rem;
-  border-bottom: 1px solid #1f2937;
-  background: rgba(2, 6, 23, 0.9);
-  position: sticky;
-  top: 0;
-  backdrop-filter: blur(12px);
-}
-
-.logo {
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-
-.nav-links {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.85rem;
-  color: #9ca3af;
-}
-
-.nav-links a:hover {
-  color: #e5e7eb;
-}
-
-.intro {
-  padding: 3rem 1.5rem 2rem;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.intro h1 {
-  font-size: clamp(2rem, 3vw, 2.6rem);
-  margin-bottom: 0.75rem;
-}
-
-.intro p {
-  margin: 0;
-  color: #9ca3af;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.5rem;
-  padding: 0 1.5rem 3rem;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.card {
-  background: #020617;
-  border-radius: 1rem;
-  padding: 1.4rem;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
-}
-
-.card h2 {
-  margin-top: 0;
-  margin-bottom: 0.4rem;
-}
-
-.card p {
-  margin: 0;
-  color: #9ca3af;
-}`,
-    js: `document.addEventListener("click", (e) => {
-  if (e.target.closest(".card")) {
-    const title = e.target.closest(".card").querySelector("h2").textContent;
-    alert("Open case study: " + title);
-  }
-});`
-  },
-
-  blog: {
-    html: `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Simple Blog</title>
-</head>
-<body>
-  <header class="blog-header">
-    <h1>Notes on Building Things</h1>
-    <p>Short posts about design, code, and the messy middle.</p>
-  </header>
-
-  <main class="posts">
-    <article class="post">
-      <h2>Designing with constraints</h2>
-      <p>Constraints are not the enemy; they’re the shape of the problem.</p>
-    </article>
-    <article class="post">
-      <h2>Shipping tiny versions</h2>
-      <p>Small, shippable slices beat giant, perfect plans every time.</p>
-    </article>
-    <article class="post">
-      <h2>Interfaces that breathe</h2>
-      <p>Whitespace is not empty; it’s where the reading happens.</p>
-    </article>
-  </main>
-</body>
-</html>`,
-    css: `body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #020617;
-  color: #e5e7eb;
-}
-
-.blog-header {
-  padding: 3rem 1.5rem 2rem;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.blog-header h1 {
-  font-size: clamp(2rem, 3vw, 2.6rem);
-  margin-bottom: 0.75rem;
-}
-
-.blog-header p {
-  margin: 0;
-  color: #9ca3af;
-}
-
-.posts {
-  max-width: 720px;
-  margin: 0 auto 3rem;
-  padding: 0 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.post {
-  background: #020617;
-  border-radius: 1rem;
-  padding: 1.4rem 1.5rem;
-  border: 1px solid rgba(148, 163, 184, 0.25);
-  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.7);
-}
-
-.post h2 {
-  margin-top: 0;
-  margin-bottom: 0.4rem;
-}
-
-.post p {
-  margin: 0;
-  color: #9ca3af;
-}`,
-    js: `document.addEventListener("click", (e) => {
-  if (e.target.matches(".post h2")) {
-    alert("Imagine this opens the full post: " + e.target.textContent);
-  }
-});`
-  }
+  hero: document.getElementById("tpl-hero").content,
+  nav: document.getElementById("tpl-nav").content,
+  card: document.getElementById("tpl-card").content,
+  button: document.getElementById("tpl-button").content,
+  image: document.getElementById("tpl-image").content
 };
 
-const htmlEditor = document.getElementById("htmlEditor");
-const cssEditor = document.getElementById("cssEditor");
-const jsEditor = document.getElementById("jsEditor");
-const templateSelect = document.getElementById("template");
-const resetBtn = document.getElementById("resetTemplate");
-const runBtn = document.getElementById("runBtn");
-const previewFrame = document.getElementById("previewFrame");
+// Properties UI
+const propsPanel = document.getElementById("props");
+const noSelection = document.getElementById("noSelection");
+const propType = document.getElementById("propType");
+const propText = document.getElementById("propText");
+const propBg = document.getElementById("propBg");
+const propColor = document.getElementById("propColor");
+const propBorderColor = document.getElementById("propBorderColor");
+const propBorderWidth = document.getElementById("propBorderWidth");
+const propWidth = document.getElementById("propWidth");
+const propHeight = document.getElementById("propHeight");
+const propX = document.getElementById("propX");
+const propY = document.getElementById("propY");
+const propZ = document.getElementById("propZ");
+const bringForward = document.getElementById("bringForward");
+const sendBack = document.getElementById("sendBack");
+const deleteEl = document.getElementById("deleteEl");
 
-function loadTemplate(name) {
-  const tpl = templates[name];
-  if (!tpl) return;
-  htmlEditor.value = tpl.html;
-  cssEditor.value = tpl.css;
-  jsEditor.value = tpl.js;
-  updatePreview();
-}
+let selected = null;
+let dragState = null;
+let resizeState = null;
+let idCounter = 0;
 
-function updatePreview() {
-  const html = htmlEditor.value;
-  const css = `<style>${cssEditor.value}</style>`;
-  const js = `<script>${jsEditor.value}<\/script>`;
-
-  const doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-  doc.open();
-  doc.write(html.replace("</head>", `${css}</head>`).replace("</body>", `${js}</body>`));
-  doc.close();
-}
-
-templateSelect.addEventListener("change", () => {
-  loadTemplate(templateSelect.value);
-});
-
-resetBtn.addEventListener("click", () => {
-  loadTemplate(templateSelect.value);
-});
-
-runBtn.addEventListener("click", () => {
-  updatePreview();
-});
-
-// Live-ish feel: update on typing with debounce
-let typingTimer;
-[htmlEditor, cssEditor, jsEditor].forEach((el) => {
-  el.addEventListener("input", () => {
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(updatePreview, 400);
+// Make prefabs draggable from palette into canvas
+prefabs.forEach(p => {
+  p.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/prefab", p.dataset.type);
+  });
+  // support pointer drag to create element
+  p.addEventListener("pointerdown", (ev) => {
+    ev.preventDefault();
+    const type = p.dataset.type;
+    const el = createCanvasElement(type);
+    // place near top-left of canvas
+    const rect = canvas.getBoundingClientRect();
+    el.style.left = `${Math.max(12, ev.clientX - rect.left)}px`;
+    el.style.top = `${Math.max(12, ev.clientY - rect.top)}px`;
+    canvas.appendChild(el);
+    selectElement(el);
   });
 });
 
-// Initial load
-loadTemplate("landing");
+// Allow dropping via native drag
+canvas.addEventListener("dragover", (e) => e.preventDefault());
+canvas.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const type = e.dataTransfer.getData("text/prefab");
+  if (!type) return;
+  const el = createCanvasElement(type);
+  const rect = canvas.getBoundingClientRect();
+  el.style.left = `${Math.max(12, e.clientX - rect.left)}px`;
+  el.style.top = `${Math.max(12, e.clientY - rect.top)}px`;
+  canvas.appendChild(el);
+  selectElement(el);
+});
+
+// Create a canvas element wrapper with handles and behaviors
+function createCanvasElement(type) {
+  idCounter++;
+  const wrapper = document.createElement("div");
+  wrapper.className = "canvas-el";
+  wrapper.dataset.type = type;
+  wrapper.dataset.id = `el-${idCounter}`;
+  wrapper.style.left = "20px";
+  wrapper.style.top = "20px";
+  wrapper.style.width = "320px";
+  wrapper.style.height = "auto";
+  wrapper.style.zIndex = 1;
+
+  // clone template content
+  const tpl = templates[type];
+  if (tpl) {
+    const clone = tpl.cloneNode(true);
+    wrapper.appendChild(clone);
+  } else {
+    wrapper.textContent = type;
+  }
+
+  // add resize handle
+  const handle = document.createElement("div");
+  handle.className = "handle";
+  wrapper.appendChild(handle);
+
+  // pointer events for moving
+  wrapper.addEventListener("pointerdown", (e) => {
+    if (e.target === handle) return; // resize handled separately
+    e.stopPropagation();
+    startDrag(e, wrapper);
+    selectElement(wrapper);
+  });
+
+  // resize pointer
+  handle.addEventListener("pointerdown", (e) => {
+    e.stopPropagation();
+    startResize(e, wrapper);
+    selectElement(wrapper);
+  });
+
+  // allow inline editing for contenteditable children
+  wrapper.querySelectorAll("[contenteditable]").forEach(node => {
+    node.addEventListener("input", () => {
+      if (selected === wrapper) syncPropsToUI(wrapper);
+    });
+    node.addEventListener("pointerdown", (ev) => ev.stopPropagation());
+  });
+
+  // click to select
+  wrapper.addEventListener("click", (e) => {
+    e.stopPropagation();
+    selectElement(wrapper);
+  });
+
+  // double click to focus first editable
+  wrapper.addEventListener("dblclick", (e) => {
+    const editable = wrapper.querySelector("[contenteditable]");
+    if (editable) {
+      editable.focus();
+      document.execCommand("selectAll", false, null);
+    }
+  });
+
+  return wrapper;
+}
+
+// selection handling
+function selectElement(el) {
+  if (selected) selected.classList.remove("selected");
+  selected = el;
+  if (!el) {
+    propsPanel.classList.add("hidden");
+    noSelection.classList.remove("hidden");
+    return;
+  }
+  el.classList.add("selected");
+  propsPanel.classList.remove("hidden");
+  noSelection.classList.add("hidden");
+  syncPropsToUI(el);
+}
+
+// sync element -> UI
+function syncPropsToUI(el) {
+  propType.value = el.dataset.type || "";
+  // text: pick first text node or contenteditable
+  const editable = el.querySelector("[contenteditable]");
+  propText.value = editable ? editable.innerText : "";
+  // computed styles
+  const bg = rgbToHex(getComputedStyle(el).backgroundColor) || "#000000";
+  propBg.value = bg;
+  const color = rgbToHex(getComputedStyle(el).color) || "#ffffff";
+  propColor.value = color;
+  const borderColor = rgbToHex(getComputedStyle(el).borderColor) || "#000000";
+  propBorderColor.value = borderColor;
+  const bw = parseInt(getComputedStyle(el).borderWidth) || 0;
+  propBorderWidth.value = bw;
+  propWidth.value = parseInt(el.style.width) || Math.round(el.getBoundingClientRect().width);
+  propHeight.value = parseInt(el.style.height) || Math.round(el.getBoundingClientRect().height);
+  propX.value = Math.round(parseFloat(el.style.left) || el.getBoundingClientRect().left - canvas.getBoundingClientRect().left);
+  propY.value = Math.round(parseFloat(el.style.top) || el.getBoundingClientRect().top - canvas.getBoundingClientRect().top);
+  propZ.value = parseInt(el.style.zIndex) || 1;
+}
+
+// UI -> element bindings
+[propText, propBg, propColor, propBorderColor, propBorderWidth, propWidth, propHeight, propX, propY, propZ].forEach(inp => {
+  inp.addEventListener("input", () => {
+    if (!selected) return;
+    if (inp === propText) {
+      const editable = selected.querySelector("[contenteditable]");
+      if (editable) editable.innerText = inp.value;
+    } else if (inp === propBg) {
+      selected.style.background = inp.value;
+    } else if (inp === propColor) {
+      selected.style.color = inp.value;
+      // also try to color inner text nodes
+      selected.querySelectorAll("*").forEach(n => {
+        if (n.matches && n.matches("a, p, h1, h2, h3, h4, span, div, button")) {
+          n.style.color = inp.value;
+        }
+      });
+    } else if (inp === propBorderColor) {
+      selected.style.borderColor = inp.value;
+      selected.style.borderStyle = selected.style.borderStyle || "solid";
+    } else if (inp === propBorderWidth) {
+      selected.style.borderWidth = inp.value + "px";
+    } else if (inp === propWidth) {
+      selected.style.width = inp.value + "px";
+    } else if (inp === propHeight) {
+      selected.style.height = inp.value + "px";
+    } else if (inp === propX) {
+      selected.style.left = inp.value + "px";
+    } else if (inp === propY) {
+      selected.style.top = inp.value + "px";
+    } else if (inp === propZ) {
+      selected.style.zIndex = inp.value;
+    }
+  });
+});
+
+// bring forward / send back / delete
+bringForward.addEventListener("click", () => {
+  if (!selected) return;
+  selected.style.zIndex = (parseInt(selected.style.zIndex || 1) + 1);
+  syncPropsToUI(selected);
+});
+sendBack.addEventListener("click", () => {
+  if (!selected) return;
+  selected.style.zIndex = Math.max(0, (parseInt(selected.style.zIndex || 1) - 1));
+  syncPropsToUI(selected);
+});
+deleteEl.addEventListener("click", () => {
+  if (!selected) return;
+  selected.remove();
+  selected = null;
+  selectElement(null);
+});
+
+// canvas deselect
+canvas.addEventListener("pointerdown", (e) => {
+  if (e.target === canvas) {
+    if (selected) selected.classList.remove("selected");
+    selected = null;
+    selectElement(null);
+  }
+});
+
+// dragging logic
+function startDrag(e, el) {
+  const rect = canvas.getBoundingClientRect();
+  const startX = e.clientX;
+  const startY = e.clientY;
+  const origLeft = parseFloat(el.style.left) || el.getBoundingClientRect().left - rect.left;
+  const origTop = parseFloat(el.style.top) || el.getBoundingClientRect().top - rect.top;
+  dragState = { el, startX, startY, origLeft, origTop };
+
+  el.setPointerCapture(e.pointerId);
+  function onMove(ev) {
+    const dx = ev.clientX - dragState.startX;
+    const dy = ev.clientY - dragState.startY;
+    el.style.left = Math.max(0, dragState.origLeft + dx) + "px";
+    el.style.top = Math.max(0, dragState.origTop + dy) + "px";
+    if (selected === el) syncPropsToUI(el);
+  }
+  function onUp(ev) {
+    el.releasePointerCapture(ev.pointerId);
+    document.removeEventListener("pointermove", onMove);
+    document.removeEventListener("pointerup", onUp);
+    dragState = null;
+  }
+  document.addEventListener("pointermove", onMove);
+  document.addEventListener("pointerup", onUp);
+}
+
+// resizing logic
+function startResize(e, el) {
+  const rect = el.getBoundingClientRect();
+  const startX = e.clientX;
+  const startY = e.clientY;
+  const startW = rect.width;
+  const startH = rect.height;
+  resizeState = { el, startX, startY, startW, startH };
+
+  el.setPointerCapture(e.pointerId);
+  function onMove(ev) {
+    const dx = ev.clientX - resizeState.startX;
+    const dy = ev.clientY - resizeState.startY;
+    const newW = Math.max(40, resizeState.startW + dx);
+    const newH = Math.max(20, resizeState.startH + dy);
+    el.style.width = newW + "px";
+    el.style.height = newH + "px";
+    if (selected === el) syncPropsToUI(el);
+  }
+  function onUp(ev) {
+    el.releasePointerCapture(ev.pointerId);
+    document.removeEventListener("pointermove", onMove);
+    document.removeEventListener("pointerup", onUp);
+    resizeState = null;
+  }
+  document.addEventListener("pointermove", onMove);
+  document.addEventListener("pointerup", onUp);
+}
+
+// helper to convert rgb to hex
+function rgbToHex(rgb) {
+  if (!rgb) return null;
+  const m = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+  if (!m) return null;
+  return "#" + [1,2,3].map(i => parseInt(m[i]).toString(16).padStart(2,"0")).join("");
+}
+
+// clear canvas
+document.getElementById("clearCanvas").addEventListener("click", () => {
+  canvas.querySelectorAll(".canvas-el").forEach(n => n.remove());
+  selected = null;
+  selectElement(null);
+});
+
+// export HTML (simple)
+document.getElementById("exportHtml").addEventListener("click", () => {
+  // build a minimal HTML from canvas children
+  const wrapper = document.createElement("div");
+  wrapper.style.cssText = "padding:24px;background:#fff;color:#000";
+  canvas.querySelectorAll(".canvas-el").forEach(el => {
+    const clone = el.cloneNode(true);
+    // remove handles and selection classes
+    clone.querySelectorAll(".handle").forEach(h => h.remove());
+    clone.classList.remove("selected");
+    // inline styles for position and size
+    clone.style.position = "relative";
+    clone.style.left = "";
+    clone.style.top = "";
+    wrapper.appendChild(clone);
+  });
+  const html = `<!doctype html>\n<html>\n<head>\n<meta charset="utf-8">\n<title>Export</title>\n</head>\n<body>\n${wrapper.innerHTML}\n</body>\n</html>`;
+  // show in new window
+  const w = window.open();
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+});
+
+// keyboard delete
+document.addEventListener("keydown", (e) => {
+  if ((e.key === "Delete" || e.key === "Backspace") && selected) {
+    selected.remove();
+    selected = null;
+    selectElement(null);
+  }
+});
