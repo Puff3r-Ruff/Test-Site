@@ -1,427 +1,280 @@
-// Prefab site builder with full adjustable elements and exact visual export
-const canvas = document.getElementById("canvas");
-const prefabs = document.querySelectorAll(".prefab");
-const templates = {
-  hero: document.getElementById("tpl-hero").content,
-  nav: document.getElementById("tpl-nav").content,
-  card: document.getElementById("tpl-card").content,
-  button: document.getElementById("tpl-button").content,
-  image: document.getElementById("tpl-image").content
+// script.js
+// Attach to index.html. Generates preview HTML and can randomize a full site.
+
+const defaultData = {
+  headings: [
+    "Build something beautiful",
+    "Design faster with a generator",
+    "Launch your next idea",
+    "Crafted for creators",
+    "Simple, fast, delightful"
+  ],
+  subheads: [
+    "A tiny generator that produces a full page using your palette and layout.",
+    "Auto-generated landing pages for prototypes and demos.",
+    "Clean components, responsive layout, and accessible defaults.",
+    "Mix and match palettes, spacing, and typography.",
+    "Instant preview and copy-ready HTML."
+  ],
+  navItems: [
+    ["Home","Products","Pricing","Contact"],
+    ["Overview","Features","Docs","Sign In"],
+    ["Work","Services","About","Get Started"]
+  ],
+  features: [
+    {title:"Fast setup", text:"Get a working page in seconds."},
+    {title:"Responsive", text:"Looks great on phones and desktops."},
+    {title:"Customizable", text:"Change colors, spacing, and fonts."},
+    {title:"Copy-ready", text:"Copy the generated HTML and use it."}
+  ],
+  ctas: ["Get Started","Try Demo","Join Now","Learn More"]
 };
 
-// Properties UI
-const propsPanel = document.getElementById("props");
-const noSelection = document.getElementById("noSelection");
-const propType = document.getElementById("propType");
-const propText = document.getElementById("propText");
-const propBg = document.getElementById("propBg");
-const propColor = document.getElementById("propColor");
-const propBorderColor = document.getElementById("propBorderColor");
-const propBorderWidth = document.getElementById("propBorderWidth");
-const propWidth = document.getElementById("propWidth");
-const propHeight = document.getElementById("propHeight");
-const propX = document.getElementById("propX");
-const propY = document.getElementById("propY");
-const propZ = document.getElementById("propZ");
-const propFontSize = document.getElementById("propFontSize");
-const propPadding = document.getElementById("propPadding");
-const bringForward = document.getElementById("bringForward");
-const sendBack = document.getElementById("sendBack");
-const deleteEl = document.getElementById("deleteEl");
+// Utility: pick random item
+function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 
-let selected = null;
-let dragState = null;
-let resizeState = null;
-let idCounter = 0;
-
-// Make prefabs draggable and clickable to create
-prefabs.forEach(p => {
-  p.addEventListener("dragstart", (e) => {
-    e.dataTransfer.setData("text/prefab", p.dataset.type);
-  });
-  p.addEventListener("pointerdown", (ev) => {
-    ev.preventDefault();
-    const type = p.dataset.type;
-    const el = createCanvasElement(type);
-    const rect = canvas.getBoundingClientRect();
-    el.style.left = `${Math.max(12, ev.clientX - rect.left)}px`;
-    el.style.top = `${Math.max(12, ev.clientY - rect.top)}px`;
-    canvas.appendChild(el);
-    selectElement(el);
-  });
-});
-
-// Drop support
-canvas.addEventListener("dragover", (e) => e.preventDefault());
-canvas.addEventListener("drop", (e) => {
-  e.preventDefault();
-  const type = e.dataTransfer.getData("text/prefab");
-  if (!type) return;
-  const el = createCanvasElement(type);
-  const rect = canvas.getBoundingClientRect();
-  el.style.left = `${Math.max(12, e.clientX - rect.left)}px`;
-  el.style.top = `${Math.max(12, e.clientY - rect.top)}px`;
-  canvas.appendChild(el);
-  selectElement(el);
-});
-
-// Create wrapper with behaviors
-function createCanvasElement(type) {
-  idCounter++;
-  const wrapper = document.createElement("div");
-  wrapper.className = "canvas-el";
-  wrapper.dataset.type = type;
-  wrapper.dataset.id = `el-${idCounter}`;
-  wrapper.style.left = "20px";
-  wrapper.style.top = "20px";
-  wrapper.style.width = "320px";
-  wrapper.style.height = "auto";
-  wrapper.style.zIndex = 1;
-  wrapper.style.padding = "8px";
-  wrapper.style.background = "transparent";
-
-  const tpl = templates[type];
-  if (tpl) {
-    const clone = tpl.cloneNode(true);
-    wrapper.appendChild(clone);
-  } else {
-    wrapper.textContent = type;
-  }
-
-  const handle = document.createElement("div");
-  handle.className = "handle";
-  wrapper.appendChild(handle);
-
-  // move
-  wrapper.addEventListener("pointerdown", (e) => {
-    if (e.target === handle) return;
-    e.stopPropagation();
-    startDrag(e, wrapper);
-    selectElement(wrapper);
-  });
-
-  // resize
-  handle.addEventListener("pointerdown", (e) => {
-    e.stopPropagation();
-    startResize(e, wrapper);
-    selectElement(wrapper);
-  });
-
-  // inline editing
-  wrapper.querySelectorAll("[contenteditable]").forEach(node => {
-    node.addEventListener("input", () => {
-      if (selected === wrapper) syncPropsToUI(wrapper);
-    });
-    node.addEventListener("pointerdown", (ev) => ev.stopPropagation());
-  });
-
-  wrapper.addEventListener("click", (e) => {
-    e.stopPropagation();
-    selectElement(wrapper);
-  });
-
-  wrapper.addEventListener("dblclick", (e) => {
-    const editable = wrapper.querySelector("[contenteditable]");
-    if (editable) {
-      editable.focus();
-      document.execCommand("selectAll", false, null);
-    }
-  });
-
-  return wrapper;
+// Read controls
+function getSettings(){
+  const primary = document.getElementById('primary').value;
+  const secondary = document.getElementById('secondary').value;
+  const accent = document.getElementById('accent').value;
+  const bg = document.getElementById('bg').value;
+  const text = document.getElementById('text').value;
+  const font = document.getElementById('font').value;
+  const fontSize = parseInt(document.getElementById('fontSize').value,10) || 16;
+  const btnRadius = parseInt(document.getElementById('btnRadius')?.value || 8,10) || 8;
+  const spacing = parseInt(document.getElementById('spacing')?.value || 16,10) || 16;
+  const layout = document.querySelector('input[name="layout"]:checked').value;
+  return { primary, secondary, accent, bg, text, font, fontSize, btnRadius, spacing, layout };
 }
 
-// selection
-function selectElement(el) {
-  if (selected) selected.classList.remove("selected");
-  selected = el;
-  if (!el) {
-    propsPanel.classList.add("hidden");
-    noSelection.classList.remove("hidden");
-    return;
-  }
-  el.classList.add("selected");
-  propsPanel.classList.remove("hidden");
-  noSelection.classList.add("hidden");
-  syncPropsToUI(el);
+// Build CSS for generated page
+function buildCSS(s){
+  return `
+:root{
+  --primary:${s.primary};
+  --secondary:${s.secondary};
+  --accent:${s.accent};
+  --bg:${s.bg};
+  --text:${s.text};
+  --radius:${s.btnRadius}px;
+  --space:${s.spacing}px;
+  --font:${s.font};
+  --base-size:${s.fontSize}px;
+}
+html,body{height:100%;margin:0;background:var(--bg);font-family:var(--font);font-size:var(--base-size);color:var(--text);-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:0 auto;padding:calc(var(--space) * 1.5)}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:calc(var(--space)/2) 0}
+.logo{font-weight:700;color:var(--primary);font-size:1.05rem}
+.cta{background:var(--primary);color:#fff;padding:10px 14px;border-radius:var(--radius);text-decoration:none}
+.hero{display:flex;gap:var(--space);align-items:center;padding:calc(var(--space) * 2) 0}
+.hero .left{flex:1}
+.hero h1{font-size:2.2rem;margin:0 0 calc(var(--space)/2) 0;color:var(--text)}
+.hero p{margin:0 0 var(--space) 0;color:rgba(0,0,0,0.65)}
+.card{background:#fff;padding:var(--space);border-radius:10px;box-shadow:0 6px 18px rgba(12,20,30,0.06)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:var(--space);align-items:start;padding:calc(var(--space) * 1.5) 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space);padding:calc(var(--space) * 1.5) 0}
+.feature{background:#fff;padding:var(--space);border-radius:10px;box-shadow:0 6px 18px rgba(12,20,30,0.04)}
+.btn{display:inline-block;padding:10px 14px;border-radius:var(--radius);background:var(--accent);color:#fff;text-decoration:none}
+footer{padding:calc(var(--space) * 1.5) 0;color:rgba(0,0,0,0.6);font-size:0.95rem}
+@media (max-width:800px){ .two{grid-template-columns:1fr} .hero{flex-direction:column;align-items:flex-start} }
+`;
 }
 
-// sync element -> UI
-function syncPropsToUI(el) {
-  propType.value = el.dataset.type || "";
-  const editable = el.querySelector("[contenteditable]");
-  propText.value = editable ? editable.innerText : "";
-  const cs = getComputedStyle(el);
-  propBg.value = colorToHex(cs.backgroundColor) || "#000000";
-  propColor.value = colorToHex(cs.color) || "#ffffff";
-  propBorderColor.value = colorToHex(cs.borderColor) || "#000000";
-  propBorderWidth.value = parseInt(cs.borderWidth) || 0;
-  propWidth.value = Math.round(parseFloat(el.style.width) || el.getBoundingClientRect().width);
-  propHeight.value = Math.round(parseFloat(el.style.height) || el.getBoundingClientRect().height);
-  const crect = el.getBoundingClientRect();
-  const crectCanvas = canvas.getBoundingClientRect();
-  propX.value = Math.round(crect.left - crectCanvas.left);
-  propY.value = Math.round(crect.top - crectCanvas.top);
-  propZ.value = parseInt(el.style.zIndex) || 1;
-  propFontSize.value = parseInt(cs.fontSize) || 16;
-  propPadding.value = parseInt(cs.padding) || 8;
+// Build HTML body for chosen layout and content
+function buildBody(s, content){
+  const navLinks = content.nav.map(n => `<a href="#" style="margin-left:14px;color:var(--text);text-decoration:none">${n}</a>`).join('');
+  const cta = rand(content.ctas);
+  if(s.layout === 'hero'){
+    return `
+<div class="container">
+  <div class="nav"><div class="logo">Brand</div><div>${navLinks}<a class="cta" href="#" style="margin-left:14px">${cta}</a></div></div>
+  <div class="hero">
+    <div class="left">
+      <h1>${content.heading}</h1>
+      <p>${content.subhead}</p>
+      <a class="btn" href="#">${rand(content.ctas)}</a>
+    </div>
+    <div class="card" style="min-width:260px;">
+      <svg width="100%" height="160" viewBox="0 0 600 320" preserveAspectRatio="none" style="border-radius:8px;display:block;margin-bottom:12px">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1">
+            <stop offset="0" stop-color="${s.primary}"/>
+            <stop offset="1" stop-color="${s.accent}"/>
+          </linearGradient>
+        </defs>
+        <rect width="600" height="320" fill="url(#g)"></rect>
+      </svg>
+      <h3 style="margin-top:0">${content.cardTitle}</h3>
+      <p style="margin:0;color:rgba(0,0,0,0.6)">${content.cardText}</p>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:var(--space)">
+    ${content.features.map(f => `<div class="feature"><h4 style="margin:0 0 8px 0">${f.title}</h4><p style="margin:0;color:rgba(0,0,0,0.65)">${f.text}</p></div>`).join('')}
+  </div>
+  <footer>© ${new Date().getFullYear()} Generated site • Hero layout</footer>
+</div>
+`;
+  } else if(s.layout === 'two'){
+    return `
+<div class="container">
+  <div class="nav"><div class="logo">Brand</div><div>${navLinks}<a class="cta" href="#" style="margin-left:14px">${cta}</a></div></div>
+  <div class="two">
+    <div>
+      <h2>${content.heading}</h2>
+      <p>${content.subhead}</p>
+      <div class="card" style="margin-top:var(--space)"><h3 style="margin-top:0">${content.cardTitle}</h3><p style="margin:0;color:rgba(0,0,0,0.65)">${content.cardText}</p></div>
+    </div>
+    <div>
+      <h2>Highlights</h2>
+      <p>Quick actions and signup.</p>
+      <div class="card" style="margin-top:var(--space)"><h3 style="margin-top:0">Signup</h3><p style="margin:0;color:rgba(0,0,0,0.65)">Join our newsletter.</p></div>
+    </div>
+  </div>
+  <div class="grid" style="margin-top:var(--space)">
+    ${content.features.map(f => `<div class="feature"><h4 style="margin:0 0 8px 0">${f.title}</h4><p style="margin:0;color:rgba(0,0,0,0.65)">${f.text}</p></div>`).join('')}
+  </div>
+  <footer>© ${new Date().getFullYear()} Generated site • Two column layout</footer>
+</div>
+`;
+  } else { // grid
+    return `
+<div class="container">
+  <div class="nav"><div class="logo">Brand</div><div>${navLinks}<a class="cta" href="#" style="margin-left:14px">${cta}</a></div></div>
+  <div style="padding:calc(var(--space) * 1.5) 0">
+    <h1 style="margin:0 0 var(--space) 0">${content.heading}</h1>
+    <p style="margin:0 0 var(--space) 0;color:rgba(0,0,0,0.65)">${content.subhead}</p>
+  </div>
+  <div class="grid">
+    ${content.features.map(f => `<div class="feature"><h4 style="margin:0 0 8px 0">${f.title}</h4><p style="margin:0;color:rgba(0,0,0,0.65)">${f.text}</p></div>`).join('')}
+  </div>
+  <footer>© ${new Date().getFullYear()} Generated site • Grid layout</footer>
+</div>
+`;
+  }
 }
 
-// UI -> element bindings
-[
-  propText, propBg, propColor, propBorderColor, propBorderWidth,
-  propWidth, propHeight, propX, propY, propZ, propFontSize, propPadding
-].forEach(inp => {
-  inp.addEventListener("input", () => {
-    if (!selected) return;
-    if (inp === propText) {
-      const editable = selected.querySelector("[contenteditable]");
-      if (editable) editable.innerText = inp.value;
-    } else if (inp === propBg) {
-      selected.style.background = inp.value;
-    } else if (inp === propColor) {
-      selected.style.color = inp.value;
-      selected.querySelectorAll("*").forEach(n => {
-        if (n.matches && n.matches("a, p, h1, h2, h3, h4, span, div, button")) {
-          n.style.color = inp.value;
-        }
-      });
-    } else if (inp === propBorderColor) {
-      selected.style.borderColor = inp.value;
-      selected.style.borderStyle = selected.style.borderStyle || "solid";
-    } else if (inp === propBorderWidth) {
-      selected.style.borderWidth = inp.value + "px";
-      selected.style.borderStyle = selected.style.borderStyle || "solid";
-    } else if (inp === propWidth) {
-      selected.style.width = inp.value + "px";
-    } else if (inp === propHeight) {
-      selected.style.height = inp.value + "px";
-    } else if (inp === propX) {
-      selected.style.left = inp.value + "px";
-    } else if (inp === propY) {
-      selected.style.top = inp.value + "px";
-    } else if (inp === propZ) {
-      selected.style.zIndex = inp.value;
-    } else if (inp === propFontSize) {
-      selected.style.fontSize = inp.value + "px";
-      selected.querySelectorAll("*").forEach(n => {
-        if (n.matches && n.matches("h1,h2,h3,h4,p,span,div,a,button")) {
-          n.style.fontSize = inp.value + "px";
-        }
-      });
-    } else if (inp === propPadding) {
-      selected.style.padding = inp.value + "px";
-    }
-  });
-});
-
-// bring forward / send back / delete
-bringForward.addEventListener("click", () => {
-  if (!selected) return;
-  selected.style.zIndex = (parseInt(selected.style.zIndex || 1) + 1);
-  syncPropsToUI(selected);
-});
-sendBack.addEventListener("click", () => {
-  if (!selected) return;
-  selected.style.zIndex = Math.max(0, (parseInt(selected.style.zIndex || 1) - 1));
-  syncPropsToUI(selected);
-});
-deleteEl.addEventListener("click", () => {
-  if (!selected) return;
-  selected.remove();
-  selected = null;
-  selectElement(null);
-});
-
-// canvas deselect
-canvas.addEventListener("pointerdown", (e) => {
-  if (e.target === canvas) {
-    if (selected) selected.classList.remove("selected");
-    selected = null;
-    selectElement(null);
-  }
-});
-
-// dragging logic
-function startDrag(e, el) {
-  const rect = canvas.getBoundingClientRect();
-  const startX = e.clientX;
-  const startY = e.clientY;
-  const origLeft = parseFloat(el.style.left) || el.getBoundingClientRect().left - rect.left;
-  const origTop = parseFloat(el.style.top) || el.getBoundingClientRect().top - rect.top;
-  dragState = { el, startX, startY, origLeft, origTop };
-
-  el.setPointerCapture(e.pointerId);
-  function onMove(ev) {
-    const dx = ev.clientX - dragState.startX;
-    const dy = ev.clientY - dragState.startY;
-    el.style.left = Math.max(0, dragState.origLeft + dx) + "px";
-    el.style.top = Math.max(0, dragState.origTop + dy) + "px";
-    if (selected === el) syncPropsToUI(el);
-  }
-  function onUp(ev) {
-    el.releasePointerCapture(ev.pointerId);
-    document.removeEventListener("pointermove", onMove);
-    document.removeEventListener("pointerup", onUp);
-    dragState = null;
-  }
-  document.addEventListener("pointermove", onMove);
-  document.addEventListener("pointerup", onUp);
-}
-
-// resizing logic
-function startResize(e, el) {
-  const rect = el.getBoundingClientRect();
-  const startX = e.clientX;
-  const startY = e.clientY;
-  const startW = rect.width;
-  const startH = rect.height;
-  resizeState = { el, startX, startY, startW, startH };
-
-  el.setPointerCapture(e.pointerId);
-  function onMove(ev) {
-    const dx = ev.clientX - resizeState.startX;
-    const dy = ev.clientY - resizeState.startY;
-    const newW = Math.max(40, resizeState.startW + dx);
-    const newH = Math.max(20, resizeState.startH + dy);
-    resizeState.el.style.width = newW + "px";
-    resizeState.el.style.height = newH + "px";
-    if (selected === el) syncPropsToUI(el);
-  }
-  function onUp(ev) {
-    el.releasePointerCapture(ev.pointerId);
-    document.removeEventListener("pointermove", onMove);
-    document.removeEventListener("pointerup", onUp);
-    resizeState = null;
-  }
-  document.addEventListener("pointermove", onMove);
-  document.addEventListener("pointerup", onUp);
-}
-
-// helpers
-function colorToHex(rgb) {
-  if (!rgb) return null;
-  const m = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
-  if (!m) return null;
-  return "#" + [1,2,3].map(i => parseInt(m[i]).toString(16).padStart(2,"0")).join("");
-}
-
-// clear canvas
-document.getElementById("clearCanvas").addEventListener("click", () => {
-  canvas.querySelectorAll(".canvas-el").forEach(n => n.remove());
-  selected = null;
-  selectElement(null);
-});
-
-// EXPORT: produce exact-looking HTML by inlining computed styles and absolute positions
-document.getElementById("exportHtml").addEventListener("click", () => {
-  const canvasRect = canvas.getBoundingClientRect();
-
-  // create a container to hold clones
-  const container = document.createElement("div");
-  container.style.position = "relative";
-  container.style.width = canvasRect.width + "px";
-  container.style.height = canvasRect.height + "px";
-  container.style.background = getComputedStyle(canvas).backgroundImage || getComputedStyle(canvas).backgroundColor || "#ffffff";
-  container.style.padding = "0";
-  container.style.margin = "0";
-
-  // properties to copy from computed style
-  const propsToCopy = [
-    "backgroundColor","backgroundImage","backgroundSize","backgroundRepeat","backgroundPosition",
-    "color","fontSize","fontFamily","fontWeight","lineHeight","textAlign",
-    "borderTopWidth","borderRightWidth","borderBottomWidth","borderLeftWidth",
-    "borderTopStyle","borderRightStyle","borderBottomStyle","borderLeftStyle",
-    "borderTopColor","borderRightColor","borderBottomColor","borderLeftColor",
-    "borderRadius","boxShadow","paddingTop","paddingRight","paddingBottom","paddingLeft",
-    "marginTop","marginRight","marginBottom","marginLeft",
-    "width","height","minWidth","minHeight"
-  ];
-
-  // for each canvas child, clone and inline styles
-  canvas.querySelectorAll(".canvas-el").forEach(el => {
-    const rect = el.getBoundingClientRect();
-    const clone = el.cloneNode(true);
-
-    // remove editor-only nodes (handles)
-    clone.querySelectorAll(".handle").forEach(h => h.remove());
-    clone.classList.remove("selected");
-
-    // set absolute position relative to canvas
-    const left = rect.left - canvasRect.left;
-    const top = rect.top - canvasRect.top;
-    clone.style.position = "absolute";
-    clone.style.left = left + "px";
-    clone.style.top = top + "px";
-
-    // copy computed styles
-    const cs = getComputedStyle(el);
-    propsToCopy.forEach(p => {
-      try {
-        const val = cs[p];
-        if (val && val !== "0px" && val !== "normal" && val !== "none" && val !== "rgba(0, 0, 0, 0)") {
-          // convert camelCase to kebab-case
-          const kebab = p.replace(/[A-Z]/g, m => "-" + m.toLowerCase());
-          clone.style.setProperty(kebab, val);
-        }
-      } catch (err) {
-        // ignore
-      }
-    });
-
-    // ensure width/height are explicit
-    const w = Math.round(rect.width);
-    const h = Math.round(rect.height);
-    clone.style.width = w + "px";
-    clone.style.height = h + "px";
-
-    // ensure z-index
-    clone.style.zIndex = el.style.zIndex || getComputedStyle(el).zIndex || 1;
-
-    // for images, keep src attribute (already cloned)
-    clone.querySelectorAll("img").forEach(img => {
-      // keep src as-is; alt preserved
-      img.style.maxWidth = "100%";
-      img.style.height = "auto";
-    });
-
-    // remove contenteditable attributes (exported site shouldn't be editable)
-    clone.querySelectorAll("[contenteditable]").forEach(n => n.removeAttribute("contenteditable"));
-
-    container.appendChild(clone);
-  });
-
-  // build final HTML
-  const exportedHtml = `<!doctype html>
-<html>
+// Build full HTML document string
+function buildHTML(settings, content){
+  const css = buildCSS(settings);
+  const body = buildBody(settings, content);
+  return `<!doctype html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Exported Page</title>
-<style>
-  /* Minimal reset for exported page */
-  html,body{margin:0;padding:0}
-  body{font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: ${getComputedStyle(canvas).backgroundColor || "#fff"}}
-  a{color:inherit;text-decoration:none}
-</style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>${escapeHtml(content.heading)}</title>
+<style>${css}</style>
 </head>
 <body>
-${container.outerHTML}
+${body}
 </body>
 </html>`;
+}
 
-  // open in new tab
-  const w = window.open();
-  w.document.open();
-  w.document.write(exportedHtml);
-  w.document.close();
-});
+// Escape helper
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]; });
+}
 
-// keyboard delete
-document.addEventListener("keydown", (e) => {
-  if ((e.key === "Delete" || e.key === "Backspace") && selected) {
-    selected.remove();
-    selected = null;
-    selectElement(null);
+// Update preview iframe
+function updatePreview(){
+  const settings = getSettings();
+  const content = window._lastContent || generateRandomContent();
+  const html = buildHTML(settings, content);
+  const iframe = document.getElementById('preview');
+  iframe.srcdoc = html;
+  iframe.dataset.generated = html;
+}
+
+// Copy generated HTML to clipboard
+async function copyHTML(){
+  const iframe = document.getElementById('preview');
+  const html = iframe.dataset.generated || buildHTML(getSettings(), generateRandomContent());
+  try{
+    await navigator.clipboard.writeText(html);
+    const btn = document.getElementById('copyBtn');
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=> btn.textContent = old, 1400);
+  }catch(e){
+    alert('Copy failed. Select the preview and copy manually.');
   }
-});
+}
+
+// Generate a full random site content object
+function generateRandomContent(){
+  const heading = rand(defaultData.headings);
+  const subhead = rand(defaultData.subheads);
+  const nav = rand(defaultData.navItems);
+  // shuffle features and pick 3-6
+  const shuffled = defaultData.features.slice().sort(()=>0.5-Math.random());
+  const features = shuffled.slice(0, randInt(3,6)).map(f => ({title:f.title, text:f.text}));
+  const cardTitle = ["Quick Info","About","Why it works","Overview"][randInt(0,3)];
+  const cardText = ["Use the controls to tweak colors, spacing and typography.","A small generator for prototypes.","Designed to be copied and extended."][randInt(0,2)];
+  const content = {
+    heading,
+    subhead,
+    nav,
+    features,
+    cardTitle,
+    cardText,
+    ctas: defaultData.ctas
+  };
+  window._lastContent = content;
+  return content;
+}
+
+// Randomize full site: random palette, layout, font, spacing, and content
+function randomizeFullSite(){
+  // random palette generator (pleasant palettes)
+  const palettes = [
+    {primary:"#0ea5a4", secondary:"#7c3aed", accent:"#ef4444", bg:"#ffffff", text:"#0f172a"},
+    {primary:"#ef4444", secondary:"#f97316", accent:"#06b6d4", bg:"#fffaf0", text:"#0b1220"},
+    {primary:"#0ea5a4", secondary:"#06b6d4", accent:"#7c3aed", bg:"#f8fafc", text:"#0b1220"},
+    {primary:"#111827", secondary:"#6b7280", accent:"#f59e0b", bg:"#ffffff", text:"#0b1220"},
+    {primary:"#2563eb", secondary:"#10b981", accent:"#f43f5e", bg:"#ffffff", text:"#0b1220"}
+  ];
+  const p = rand(palettes);
+  document.getElementById('primary').value = p.primary;
+  document.getElementById('secondary').value = p.secondary;
+  document.getElementById('accent').value = p.accent;
+  document.getElementById('bg').value = p.bg;
+  document.getElementById('text').value = p.text;
+
+  // random font
+  const fonts = [
+    "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+    "'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto",
+    "'Merriweather', serif",
+    "'Courier New', monospace"
+  ];
+  document.getElementById('font').value = rand(fonts);
+
+  // random sizes
+  document.getElementById('fontSize').value = randInt(14,20);
+  document.getElementById('btnRadius').value = randInt(0,20);
+  document.getElementById('spacing').value = randInt(10,28);
+
+  // random layout
+  const layouts = ["hero","two","grid"];
+  const chosen = rand(layouts);
+  document.querySelectorAll('input[name="layout"]').forEach(r => r.checked = (r.value === chosen));
+
+  // generate content and update preview
+  generateRandomContent();
+  updatePreview();
+}
+
+// Wire up events
+document.getElementById('updateBtn').addEventListener('click', updatePreview);
+document.getElementById('randomBtn').addEventListener('click', randomizeFullSite);
+document.getElementById('copyBtn').addEventListener('click', copyHTML);
+
+// Live update on control changes
+document.querySelectorAll('#controls input, #controls select').forEach(i => i.addEventListener('input', updatePreview));
+
+// Initial render
+generateRandomContent();
+updatePreview();
