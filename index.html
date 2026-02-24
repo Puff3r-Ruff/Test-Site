@@ -2,157 +2,262 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Prefab Site Builder — Exact Export</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
+  <title>Website Generator</title>
+  <style>
+    :root {
+      --ui-bg: #f4f6f8;
+      --panel-bg: #fff;
+      --accent: #0078d4;
+      --text: #111;
+      --muted: #666;
+    }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--ui-bg);
+      color: var(--text);
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 18px;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+    .panel {
+      background: var(--panel-bg);
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(12,20,30,0.06);
+      overflow: auto;
+    }
+    h2 { margin: 0 0 12px 0; font-size: 18px; }
+    label { display:block; font-size:13px; margin:10px 0 6px; color:var(--muted); }
+    .row { display:flex; gap:8px; align-items:center; }
+    input[type="color"] { width:44px; height:34px; border:0; padding:0; background:transparent; }
+    input[type="range"] { width:100%; }
+    select, input[type="text"], input[type="number"] { width:100%; padding:8px; border-radius:6px; border:1px solid #e6e9ee; }
+    .controls { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    .btn { display:inline-block; padding:8px 12px; border-radius:8px; border:0; cursor:pointer; background:var(--accent); color:#fff; }
+    .small { font-size:13px; padding:6px 8px; }
+    .footer { margin-top:12px; display:flex; gap:8px; }
+    iframe.preview { width:100%; height:100%; border:0; border-radius:10px; background:#fff; }
+    .control-block { margin-bottom:12px; }
+    .muted { color:var(--muted); font-size:13px; }
+  </style>
 </head>
 <body>
-  <header class="topbar">
-    <h1>Prefab Site Builder</h1>
-    <div class="controls">
-      <button id="clearCanvas">Clear Canvas</button>
-      <button id="exportHtml">Export HTML</button>
+  <div class="panel" id="controls">
+    <h2>Website Generator</h2>
+
+    <div class="control-block">
+      <label>Primary Color</label>
+      <input type="color" id="primary" value="#0078d4">
+      <label>Secondary Color</label>
+      <input type="color" id="secondary" value="#ff6b6b">
+      <label>Accent Color</label>
+      <input type="color" id="accent" value="#00b894">
+      <label>Background Color</label>
+      <input type="color" id="bg" value="#ffffff">
+      <label>Text Color</label>
+      <input type="color" id="text" value="#111111">
     </div>
-  </header>
 
-  <main class="workspace">
-    <aside class="palette">
-      <h3>Prefabs</h3>
-      <div class="prefab" data-type="hero" draggable="true">Hero Block</div>
-      <div class="prefab" data-type="nav" draggable="true">Navigation</div>
-      <div class="prefab" data-type="card" draggable="true">Card</div>
-      <div class="prefab" data-type="button" draggable="true">Button</div>
-      <div class="prefab" data-type="image" draggable="true">Image</div>
-      <hr />
-      <h4>Instructions</h4>
-      <ul>
-        <li>Click or drag a prefab into the canvas</li>
-        <li>Click an element to select it</li>
-        <li>Drag to move; drag handle to resize</li>
-        <li>Edit text inline; use the property panel to style</li>
-      </ul>
-    </aside>
+    <div class="control-block">
+      <label>Font Family</label>
+      <select id="font">
+        <option value="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial">Inter / System</option>
+        <option value="'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto">Poppins</option>
+        <option value="'Merriweather', serif">Merriweather (serif)</option>
+        <option value="'Courier New', monospace">Monospace</option>
+      </select>
 
-    <section class="canvas-wrap">
-      <div id="canvas" class="canvas" tabindex="0"></div>
-    </section>
-
-    <aside class="properties">
-      <h3>Properties</h3>
-      <div id="noSelection" class="prop-note">Select an element to edit its properties</div>
-
-      <div id="props" class="prop-panel hidden">
-        <label class="prop-row">
-          <span class="label">Element Type</span>
-          <input id="propType" readonly />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Text</span>
-          <input id="propText" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Background</span>
-          <input id="propBg" type="color" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Text Color</span>
-          <input id="propColor" type="color" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Border Color</span>
-          <input id="propBorderColor" type="color" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Border Width</span>
-          <input id="propBorderWidth" type="range" min="0" max="20" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Width</span>
-          <input id="propWidth" type="range" min="50" max="1200" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Height</span>
-          <input id="propHeight" type="range" min="20" max="1200" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">X</span>
-          <input id="propX" type="number" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Y</span>
-          <input id="propY" type="number" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Z Index</span>
-          <input id="propZ" type="number" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Font Size</span>
-          <input id="propFontSize" type="range" min="8" max="72" />
-        </label>
-
-        <label class="prop-row">
-          <span class="label">Padding</span>
-          <input id="propPadding" type="range" min="0" max="60" />
-        </label>
-
-        <div class="prop-actions">
-          <button id="bringForward">Bring Forward</button>
-          <button id="sendBack">Send Back</button>
-          <button id="deleteEl" class="danger">Delete</button>
-        </div>
-      </div>
-    </aside>
-  </main>
-
-  <!-- Templates -->
-  <template id="tpl-hero">
-    <section class="prefab-hero">
-      <h1 contenteditable="true">Your headline here</h1>
-      <p contenteditable="true">A short supporting sentence that sells the idea.</p>
-      <button class="btn" contenteditable="false">Get started</button>
-    </section>
-  </template>
-
-  <template id="tpl-nav">
-    <nav class="prefab-nav">
-      <div class="logo" contenteditable="true">Brand</div>
-      <div class="links">
-        <a href="#" contenteditable="true">Home</a>
-        <a href="#" contenteditable="true">Work</a>
-        <a href="#" contenteditable="true">Contact</a>
-      </div>
-    </nav>
-  </template>
-
-  <template id="tpl-card">
-    <article class="prefab-card">
-      <h3 contenteditable="true">Card Title</h3>
-      <p contenteditable="true">Short description goes here.</p>
-    </article>
-  </template>
-
-  <template id="tpl-button">
-    <button class="prefab-button" contenteditable="false">Click me</button>
-  </template>
-
-  <template id="tpl-image">
-    <div class="prefab-image">
-      <img src="https://picsum.photos/600/360" alt="placeholder" />
+      <label>Base Font Size (px)</label>
+      <input type="number" id="fontSize" value="16" min="12" max="24">
     </div>
-  </template>
 
-  <script src="script.js"></script>
+    <div class="control-block">
+      <label>Layout</label>
+      <div class="controls">
+        <label><input type="radio" name="layout" value="hero" checked> Hero</label>
+        <label><input type="radio" name="layout" value="two"> Two Column</label>
+        <label><input type="radio" name="layout" value="grid"> Grid</label>
+      </div>
+    </div>
+
+    <div class="control-block">
+      <label>Button Radius (px)</label>
+      <input type="range" id="btnRadius" min="0" max="32" value="8">
+      <label>Spacing Scale</label>
+      <input type="range" id="spacing" min="6" max="36" value="16">
+    </div>
+
+    <div class="footer">
+      <button class="btn" id="updateBtn">Update Preview</button>
+      <button class="btn small" id="copyBtn">Copy HTML</button>
+      <div style="flex:1"></div>
+      <div class="muted">Preview updates instantly; copy to paste into your editor.</div>
+    </div>
+  </div>
+
+  <div class="panel" style="padding:12px;">
+    <h2>Live Preview</h2>
+    <iframe id="preview" class="preview"></iframe>
+  </div>
+
+  <script>
+    // Utility to read controls
+    function getSettings() {
+      const primary = document.getElementById('primary').value;
+      const secondary = document.getElementById('secondary').value;
+      const accent = document.getElementById('accent').value;
+      const bg = document.getElementById('bg').value;
+      const text = document.getElementById('text').value;
+      const font = document.getElementById('font').value;
+      const fontSize = parseInt(document.getElementById('fontSize').value, 10) || 16;
+      const btnRadius = parseInt(document.getElementById('btnRadius').value, 10) || 8;
+      const spacing = parseInt(document.getElementById('spacing').value, 10) || 16;
+      const layout = document.querySelector('input[name="layout"]:checked').value;
+      return { primary, secondary, accent, bg, text, font, fontSize, btnRadius, spacing, layout };
+    }
+
+    // Build the generated HTML string
+    function buildHTML(settings) {
+      const css = `
+        :root{
+          --primary:${settings.primary};
+          --secondary:${settings.secondary};
+          --accent:${settings.accent};
+          --bg:${settings.bg};
+          --text:${settings.text};
+          --radius:${settings.btnRadius}px;
+          --space:${settings.spacing}px;
+          --font:${settings.font};
+          --base-size:${settings.fontSize}px;
+        }
+        html,body{height:100%;margin:0;background:var(--bg);font-family:var(--font);font-size:var(--base-size);color:var(--text);}
+        .site{max-width:1100px;margin:0 auto;padding:calc(var(--space) * 1.5);}
+        .nav{display:flex;justify-content:space-between;align-items:center;padding:calc(var(--space)/2) 0;}
+        .logo{font-weight:700;color:var(--primary);font-size:1.1rem;}
+        .cta{background:var(--primary);color:#fff;padding:10px 14px;border-radius:var(--radius);text-decoration:none;}
+        .hero{display:flex;gap:var(--space);align-items:center;padding:calc(var(--space) * 2) 0;}
+        .hero .left{flex:1}
+        .hero h1{font-size:2.2rem;margin:0 0 calc(var(--space)/2) 0;color:var(--text)}
+        .hero p{margin:0 0 var(--space) 0;color:rgba(0,0,0,0.65)}
+        .two{display:grid;grid-template-columns:1fr 1fr;gap:var(--space);align-items:start;padding:calc(var(--space) * 1.5) 0;}
+        .card{background:#fff;padding:var(--space);border-radius:10px;box-shadow:0 6px 18px rgba(12,20,30,0.06)}
+        .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:var(--space);padding:calc(var(--space) * 1.5) 0;}
+        .btn{display:inline-block;padding:10px 14px;border-radius:var(--radius);background:var(--accent);color:#fff;text-decoration:none}
+        footer{padding:calc(var(--space) * 1.5) 0;color:rgba(0,0,0,0.6);font-size:0.95rem}
+        @media (max-width:800px){ .two{grid-template-columns:1fr} .hero{flex-direction:column;align-items:flex-start} }
+      `;
+
+      // Layout HTML variations
+      let bodyInner = '';
+      if (settings.layout === 'hero') {
+        bodyInner = `
+          <div class="site">
+            <div class="nav"><div class="logo">Brand</div><a class="cta" href="#">Get Started</a></div>
+            <div class="hero">
+              <div class="left">
+                <h1>Beautifully generated site</h1>
+                <p>Create a clean landing page using your palette and styles. This hero layout is great for product intros.</p>
+                <a class="btn" href="#">Primary Action</a>
+              </div>
+              <div class="right card" style="min-width:260px;">
+                <h3 style="margin-top:0;">Quick Info</h3>
+                <p style="margin:0;color:rgba(0,0,0,0.6)">Use the controls to tweak colors, spacing and typography.</p>
+              </div>
+            </div>
+            <footer>© Generated site • Example footer text</footer>
+          </div>
+        `;
+      } else if (settings.layout === 'two') {
+        bodyInner = `
+          <div class="site">
+            <div class="nav"><div class="logo">Brand</div><a class="cta" href="#">Contact</a></div>
+            <div class="two">
+              <div>
+                <h2>Left Column</h2>
+                <p>Use this column for long-form content, features, or blog posts. The two-column layout balances text and visuals.</p>
+                <div class="card" style="margin-top:var(--space)"><h3>Feature</h3><p>Short feature description.</p></div>
+              </div>
+              <div>
+                <h2>Right Column</h2>
+                <p>Use the right column for images, CTAs, or a signup form.</p>
+                <div class="card" style="margin-top:var(--space)"><h3>Signup</h3><p>Join our newsletter.</p></div>
+              </div>
+            </div>
+            <footer>© Generated site • Two column layout</footer>
+          </div>
+        `;
+      } else { // grid
+        bodyInner = `
+          <div class="site">
+            <div class="nav"><div class="logo">Brand</div><a class="cta" href="#">Explore</a></div>
+            <div class="grid">
+              <div class="card"><h3>Item 1</h3><p>Short description.</p></div>
+              <div class="card"><h3>Item 2</h3><p>Short description.</p></div>
+              <div class="card"><h3>Item 3</h3><p>Short description.</p></div>
+              <div class="card"><h3>Item 4</h3><p>Short description.</p></div>
+            </div>
+            <footer>© Generated site • Grid layout</footer>
+          </div>
+        `;
+      }
+
+      // Full HTML
+      const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Generated Site</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>${css}</style>
+</head>
+<body>
+${bodyInner}
+</body>
+</html>`;
+      return html;
+    }
+
+    // Update preview
+    function updatePreview() {
+      const settings = getSettings();
+      const html = buildHTML(settings);
+      const iframe = document.getElementById('preview');
+      iframe.srcdoc = html;
+      // store last generated for copy
+      iframe.dataset.generated = html;
+    }
+
+    // Copy to clipboard
+    async function copyHTML() {
+      const iframe = document.getElementById('preview');
+      const html = iframe.dataset.generated || buildHTML(getSettings());
+      try {
+        await navigator.clipboard.writeText(html);
+        const btn = document.getElementById('copyBtn');
+        const old = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(()=> btn.textContent = old, 1500);
+      } catch (e) {
+        alert('Copy failed. You can select the preview and copy manually.');
+      }
+    }
+
+    // Wire events
+    document.getElementById('updateBtn').addEventListener('click', updatePreview);
+    document.getElementById('copyBtn').addEventListener('click', copyHTML);
+
+    // Live update on change for instant feedback
+    const inputs = document.querySelectorAll('#controls input, #controls select');
+    inputs.forEach(i => i.addEventListener('input', updatePreview));
+
+    // Initial render
+    updatePreview();
+  </script>
 </body>
 </html>
