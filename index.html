@@ -3,66 +3,82 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Website Generator — Random Site</title>
+  <title>Website Generator with Manual Editing</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <aside class="panel" id="controls">
-    <h2>Website Generator</h2>
+    <h3>Website Generator</h3>
 
     <div class="control-block">
-      <label>Primary</label>
-      <input type="color" id="primary" value="#0078d4">
-      <label>Secondary</label>
-      <input type="color" id="secondary" value="#ff6b6b">
-      <label>Accent</label>
-      <input type="color" id="accent" value="#00b894">
-      <label>Background</label>
-      <input type="color" id="bg" value="#ffffff">
-      <label>Text</label>
-      <input type="color" id="text" value="#111111">
-    </div>
-
-    <div class="control-block">
-      <label>Font Family</label>
-      <select id="font">
-        <option value="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial">Inter / System</option>
-        <option value="'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto">Poppins</option>
-        <option value="'Merriweather', serif">Merriweather (serif)</option>
-        <option value="'Courier New', monospace">Monospace</option>
+      <label class="label">Site Type</label>
+      <select id="siteType">
+        <option value="business">Business Website</option>
+        <option value="ecommerce">E-commerce Website</option>
+        <option value="portfolio">Portfolio Website</option>
+        <option value="blog">Blog Website</option>
+        <option value="informational">Informational Website</option>
+        <option value="community">Community or Membership Website</option>
+        <option value="landing">Landing Page</option>
+        <option value="nonprofit">Nonprofit or Charity Website</option>
+        <option value="educational">Educational Website</option>
+        <option value="entertainment">Entertainment Website</option>
       </select>
 
-      <label>Base Font Size (px)</label>
-      <input type="number" id="fontSize" value="16" min="12" max="24">
+      <label class="label">Primary Color</label>
+      <input type="color" id="primary" value="#2563eb">
+
+      <label class="label">Background Color</label>
+      <input type="color" id="bg" value="#ffffff">
+
+      <label class="label">Text Color</label>
+      <input type="color" id="text" value="#0b1220">
+
+      <label class="label">Font Family</label>
+      <select id="font">
+        <option value="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial">Inter / System</option>
+        <option value="'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto">Poppins</option>
+        <option value="'Merriweather', serif">Merriweather</option>
+      </select>
+
+      <label class="label">Base Font Size (px)</label>
+      <input type="number" id="fontSize" value="16" min="12" max="22">
     </div>
 
     <div class="control-block">
-      <label>Layout</label>
-      <div class="controls">
-        <label><input type="radio" name="layout" value="hero" checked> Hero</label>
-        <label><input type="radio" name="layout" value="two"> Two Column</label>
-        <label><input type="radio" name="layout" value="grid"> Grid</label>
-      </div>
-    </div>
+      <h4>Editable Content</h4>
 
-    <div class="control-block">
-      <label>Button Radius (px)</label>
-      <input type="range" id="btnRadius" min="0" max="32" value="8">
-      <label>Spacing (px)</label>
-      <input type="range" id="spacing" min="6" max="36" value="16">
+      <label class="label">Site Title</label>
+      <input type="text" id="title" placeholder="Your site title">
+
+      <label class="label">Subtitle</label>
+      <input type="text" id="subtitle" placeholder="Short description or tagline">
+
+      <label class="label">Navigation Items (comma separated)</label>
+      <input type="text" id="navItems" placeholder="Home,Products,About,Contact">
+
+      <label class="label">Primary CTA Text</label>
+      <input type="text" id="ctaText" placeholder="Get Started">
+
+      <label class="label">Features (one per line)</label>
+      <textarea id="features" rows="5" placeholder="Feature 1 - short description
+Feature 2 - short description"></textarea>
+
+      <label class="label">Raw HTML Body (optional) — overrides generated body when non-empty</label>
+      <textarea id="rawBody" rows="6" placeholder="Paste custom HTML body here to override generated layout"></textarea>
     </div>
 
     <div class="footer">
       <button class="btn" id="updateBtn">Update Preview</button>
-      <button class="btn" id="randomBtn">Randomize Full Site</button>
-      <button class="btn small" id="copyBtn">Copy HTML</button>
+      <button class="btn" id="randomBtn">Randomize Content</button>
+      <button class="btn" id="copyBtn">Copy HTML</button>
       <div style="flex:1"></div>
-      <div class="muted">Click Randomize to generate a complete page automatically.</div>
+      <div class="muted">Select a type, edit text, then update or randomize.</div>
     </div>
   </aside>
 
   <main class="panel preview-panel">
-    <h2>Live Preview</h2>
+    <h3>Live Preview</h3>
     <iframe id="preview" class="preview" sandbox="allow-same-origin"></iframe>
   </main>
 
