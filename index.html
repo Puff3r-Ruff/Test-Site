@@ -59,7 +59,11 @@
 
   <main class="panel preview-panel">
     <h3>Live Preview</h3>
-    <iframe id="preview" class="preview" sandbox="allow-same-origin"></iframe>
+
+    <!-- FIXED IFRAME SANDBOX -->
+    <iframe id="preview" class="preview"
+            sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+
   </main>
 
   <script src="script.js"></script>
