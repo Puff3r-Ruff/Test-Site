@@ -1,6 +1,7 @@
 // script.js
 // Website generator with ZIP export, hero image upload, multi-page generation,
-// theme presets, drag-and-drop ordering, and custom CSS. AI features removed.
+// theme presets, drag-and-drop ordering, and custom CSS.
+// Business template integrated (uses uploaded simple business HTML as layout).
 
 const siteTypeDescriptions = {
   business: "Serve as a digital storefront to showcase products, services, and company information.",
@@ -16,7 +17,7 @@ const siteTypeDescriptions = {
 };
 
 const templates = {
-  business: { headings:["Trusted Business Solutions","Grow your business with confidence","Professional services that deliver"], subheads:["Showcase services, case studies, and contact info to convert visitors into customers."], nav:["Home","Services","Case Studies","Contact"], features:[{title:"Expert Team",text:"Experienced professionals delivering results."},{title:"Trusted Partners",text:"We work with leading brands."},{title:"Consultation",text:"Free initial consultation to scope your needs."}], cta:["Get a Quote","Contact Sales"] },
+  business: { headings:["Trusted Business Solutions","Grow your business with confidence","Professional services that deliver"], subheads:["Showcase services, case studies, and contact info to convert visitors into customers."], nav:["About","Services","Contact"], features:[{title:"Expert Team",text:"Experienced professionals delivering results."},{title:"Trusted Partners",text:"We work with leading brands."},{title:"Consultation",text:"Free initial consultation to scope your needs."}], cta:["Get a Quote","Contact Sales"] },
   ecommerce: { headings:["Shop the Latest","Quality products, fast shipping","Your online store"], subheads:["Product pages, carts, and secure checkout to sell online."], nav:["Home","Shop","Collections","Cart"], features:[{title:"Secure Checkout",text:"Payments protected with industry standards."},{title:"Fast Shipping",text:"Reliable delivery across regions."},{title:"Easy Returns",text:"Hassle-free returns and exchanges."}], cta:["Shop Now","View Collection"] },
   portfolio: { headings:["Showcase Your Work","Designs that tell a story","Portfolio of creative projects"], subheads:["Highlight projects, case studies, and client testimonials."], nav:["Home","Work","About","Contact"], features:[{title:"Selected Projects",text:"Curated work that demonstrates skill."},{title:"Client Testimonials",text:"What clients say about collaborating."},{title:"Contact",text:"Hire me for your next project."}], cta:["View Portfolio","Hire Me"] },
   blog: { headings:["Insights and Stories","Thoughtful articles and guides","Read our latest posts"], subheads:["Regularly updated content to build an audience and authority."], nav:["Home","Articles","Topics","Subscribe"], features:[{title:"Latest Posts",text:"Fresh content published weekly."},{title:"Categories",text:"Organized topics for easy browsing."},{title:"Subscribe",text:"Get new posts delivered to your inbox."}], cta:["Read More","Subscribe"] },
@@ -34,11 +35,18 @@ function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 function randInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
 function escapeHtml(str){ return String(str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m]); }
 
-// ---------- State for pages, features, hero image ----------
+// ---------- State for pages, features, hero image, logo, and business fields ----------
 let state = {
   pages: [{slug:'index', title:'Home', type: 'home'}],
   features: [], // array of {title,text}
-  heroImageDataUrl: '', // base64
+  heroImageDataUrl: '', // base64 for hero background or hero <img>
+  logoDataUrl: '', // optional base64 logo
+  // business-specific content fields (optional; generator will use defaults if empty)
+  heroText: 'Your Business Starts Here',
+  aboutText: 'Write a short introduction about your business. Who you are, what you do, and why customers should choose you.',
+  servicesList: ['Service One','Service Two','Service Three'],
+  contactEmail: 'info@yourbusiness.com',
+  contactPhone: '000-000-0000'
 };
 
 // ---------- UI helpers for dynamic lists (pages & features) ----------
@@ -135,6 +143,7 @@ function renderFeatures(){
 
 // ---------- Read UI settings ----------
 function readSettings(){
+  // read basic controls; business-specific fields are read from state (which can be set by UI extensions)
   return {
     siteType: $('siteType').value,
     primary: $('primary').value,
@@ -149,7 +158,14 @@ function readSettings(){
     rawBody: $('rawBody').value.trim(),
     customCss: $('customCss').value || '',
     pages: state.pages.slice(),
-    heroImageDataUrl: state.heroImageDataUrl || ''
+    heroImageDataUrl: state.heroImageDataUrl || '',
+    logoDataUrl: state.logoDataUrl || '',
+    // business-specific content (fallback to state values)
+    heroText: state.heroText,
+    aboutText: state.aboutText,
+    servicesList: state.servicesList,
+    contactEmail: state.contactEmail,
+    contactPhone: state.contactPhone
   };
 }
 
@@ -184,10 +200,73 @@ ${s.customCss || ''}
 `;
 }
 
-// ---------- Build body for a single page ----------
+// ---------- Business template builder (based on uploaded index (1).html) ----------
+function buildBusinessBody(settings, page){
+  // Use business-specific fields from settings (which fall back to state defaults)
+  const siteTitle = escapeHtml(page.title || settings.title || 'Your Business Name');
+  const tagline = escapeHtml(settings.subtitle || settings.heroText || 'Your tagline goes here');
+  const logoSrc = settings.logoDataUrl || ''; // if empty, template will reference no logo (or could use placeholder)
+  const heroBgStyle = settings.heroImageDataUrl ? `background-image: url('${settings.heroImageDataUrl}'); background-size: cover; background-position: center;` : "background: #333;";
+  const heroText = escapeHtml(settings.heroText || 'Your Business Starts Here');
+  const aboutHtml = escapeHtml(settings.aboutText || 'Write a short introduction about your business. Who you are, what you do, and why customers should choose you.');
+  const services = (settings.servicesList && settings.servicesList.length) ? settings.servicesList : ['Service One','Service Two','Service Three'];
+  const servicesHtml = services.map(s => `<li>${escapeHtml(s)}</li>`).join('');
+  const navItems = (settings.navItems && settings.navItems.length) ? settings.navItems : templates.business.nav;
+  const navHtml = navItems.map(n => `<a href="#${escapeHtml(n.toLowerCase())}">${escapeHtml(n)}</a>`).join(' ');
+  const contactEmail = escapeHtml(settings.contactEmail || 'info@yourbusiness.com');
+  const contactPhone = escapeHtml(settings.contactPhone || '000-000-0000');
+
+  // Inline styles mirror the uploaded template for portability
+  return `
+<header style="background:#222;color:white;padding:20px 40px;text-align:center;">
+  ${logoSrc ? `<img src="${logoSrc}" alt="Business Logo" style="max-width:150px;margin-bottom:10px" />` : ''}
+  <h1 style="margin:8px 0 4px 0">${siteTitle}</h1>
+  <p style="margin:0">${tagline}</p>
+</header>
+
+<nav style="background:#444;padding:10px 0;text-align:center;">
+  ${navHtml}
+</nav>
+
+<div class="hero" style="${heroBgStyle} height:350px; display:flex; align-items:center; justify-content:center; color:white; text-shadow:0 0 10px rgba(0,0,0,0.7); font-size:2.5rem; font-weight:bold;">
+  ${heroText}
+</div>
+
+<div id="about" class="section" style="padding:40px;max-width:1000px;margin:auto;background:white;margin-top:20px;border-radius:8px;">
+  <h2>About Us</h2>
+  <p>${aboutHtml}</p>
+</div>
+
+<div id="services" class="section" style="padding:40px;max-width:1000px;margin:auto;background:white;margin-top:20px;border-radius:8px;">
+  <h2>Our Services</h2>
+  <ul>
+    ${servicesHtml}
+  </ul>
+</div>
+
+<div id="contact" class="section" style="padding:40px;max-width:1000px;margin:auto;background:white;margin-top:20px;border-radius:8px;">
+  <h2>Contact Us</h2>
+  <p>Email: ${contactEmail}</p>
+  <p>Phone: ${contactPhone}</p>
+  <p>Address: ${escapeHtml(settings.address || 'Your Business Address')}</p>
+</div>
+
+<div class="footer" style="text-align:center;padding:20px;background:#222;color:white;margin-top:40px;">
+  © ${new Date().getFullYear()} ${siteTitle} — All Rights Reserved
+</div>
+`;
+}
+
+// ---------- Build body for a single page (routes to business template when selected) ----------
 function buildBodyForPage(settings, page){
   if(settings.rawBody) return settings.rawBody;
 
+  // If the selected site type is business, use the uploaded business template
+  if(settings.siteType === 'business'){
+    return buildBusinessBody(settings, page);
+  }
+
+  // Fallback generic builder for other types (keeps previous generator layout)
   const type = settings.siteType;
   const tpl = templates[type] || templates.business;
 
@@ -268,6 +347,7 @@ ${body}
 // ---------- Preview update ----------
 function updatePreview(){
   const s = readSettings();
+  // preview only first page
   const html = buildHTMLForPage(s, s.pages[0] || {slug:'index', title:'Home', type:'home'});
   const iframe = $('preview');
   iframe.srcdoc = html;
@@ -293,15 +373,18 @@ async function copyHTML(){
 async function exportZip(){
   const s = readSettings();
   const zip = new JSZip();
+  // add CSS as separate file (extracted from buildCSS)
   const cssContent = buildCSS(s);
   zip.file('styles.css', cssContent);
 
+  // add each page
   s.pages.forEach(page=>{
     const html = buildHTMLForPage(s, page);
     const filename = (page.slug || page.title || 'page').toString().toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'') || 'page';
     zip.file(`${filename}.html`, html);
   });
 
+  // create blob and trigger download
   const blob = await zip.generateAsync({type:'blob'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -347,22 +430,38 @@ function randomizeContent(){
   $('font').value = rand(fonts);
   $('fontSize').value = randInt(14,18);
 
+  // pages
   state.pages = [{slug:'index', title: $('title').value || 'Home', type:'home'}];
   renderPages();
 
+  // clear hero image and raw body
   state.heroImageDataUrl = '';
+  state.logoDataUrl = '';
   $('rawBody').value = '';
   $('customCss').value = '';
+
+  // reset business-specific fields to defaults
+  state.heroText = 'Your Business Starts Here';
+  state.aboutText = 'Write a short introduction about your business. Who you are, what you do, and why customers should choose you.';
+  state.servicesList = ['Service One','Service Two','Service Three'];
+  state.contactEmail = 'info@yourbusiness.com';
+  state.contactPhone = '000-000-0000';
 
   updatePreview();
 }
 
-// ---------- Hero image handling ----------
+// ---------- Hero image & logo handling ----------
 function handleHeroImageFile(file){
   if(!file) return;
   const reader = new FileReader();
   reader.onload = e=>{
-    state.heroImageDataUrl = e.target.result;
+    // If filename contains "logo" treat as logo; otherwise hero image
+    const name = (file.name || '').toLowerCase();
+    if(name.includes('logo')){
+      state.logoDataUrl = e.target.result;
+    } else {
+      state.heroImageDataUrl = e.target.result;
+    }
     schedulePreviewUpdate();
   };
   reader.readAsDataURL(file);
@@ -424,6 +523,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     schedulePreviewUpdate();
   });
 
+  // Single file input used for hero or logo; filename containing "logo" will be treated as logo
   $('heroImage').addEventListener('change', e=>{
     const f = e.target.files && e.target.files[0];
     handleHeroImageFile(f);
@@ -437,6 +537,13 @@ document.addEventListener('DOMContentLoaded', ()=>{
   document.querySelectorAll('#controls input[type="text"], #controls input[type="color"], #controls input[type="number"], #controls textarea, #controls select').forEach(el=>{
     el.addEventListener('input', schedulePreviewUpdate);
   });
+
+  // Optional: allow editing business-specific fields via console or future UI extensions
+  // e.g. window.setBusinessAbout("..."), window.setBusinessServices([...])
+  window.setBusinessAbout = (text) => { state.aboutText = String(text || ''); schedulePreviewUpdate(); };
+  window.setBusinessServices = (arr) => { if(Array.isArray(arr)) state.servicesList = arr.slice(); schedulePreviewUpdate(); };
+  window.setBusinessHeroText = (text) => { state.heroText = String(text || ''); schedulePreviewUpdate(); };
+  window.setBusinessContact = (email, phone) => { state.contactEmail = email || state.contactEmail; state.contactPhone = phone || state.contactPhone; schedulePreviewUpdate(); };
 
   // initialize
   randomizeContent();
