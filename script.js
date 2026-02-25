@@ -1,4 +1,4 @@
-const PREFAB_BASE = '/prefabs';
+const PREFAB_BASE = './prefabs';
 const $ = id => document.getElementById(id);
 
 async function loadPrefabsForType(type){
