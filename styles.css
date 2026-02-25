@@ -1,43 +1,83 @@
 :root{
-  --ui-bg:#f4f6f8;
-  --panel-bg:#fff;
-  --accent:#2563eb;
-  --text:#0b1220;
-  --muted:#6b7280;
+  --bg:#f6f7fb;
+  --card:#fff;
+  --text:#222;
+  --accent:#2b6ef6;
+  --muted:#666;
 }
 
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;background:var(--ui-bg);color:var(--text)}
-body{display:grid;grid-template-columns:420px 1fr;gap:18px;padding:18px}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
 
-.panel{background:var(--panel-bg);border-radius:10px;padding:16px;box-shadow:0 6px 18px rgba(12,20,30,0.06);overflow:auto}
-.preview-panel{padding:12px}
-h3{margin:0 0 12px 0;font-size:18px}
-h4{margin:12px 0 8px 0;font-size:14px}
-.label{display:block;font-size:13px;margin:10px 0 6px;color:var(--muted)}
-.control-block{margin-bottom:12px}
-input[type="text"], input[type="number"], select, textarea{width:100%;padding:8px;border-radius:6px;border:1px solid #e6e9ee;font-size:14px}
-input[type="color"]{width:44px;height:34px;border:0;padding:0;background:transparent}
-textarea{resize:vertical}
-.controls{display:flex;gap:8px;flex-wrap:wrap}
-.btn{display:inline-block;padding:8px 12px;border-radius:8px;border:0;cursor:pointer;background:var(--accent);color:#fff}
-.btn.small{padding:6px 8px;font-size:13px}
-.btn.muted{background:#e6e9ee;color:var(--text)}
-.footer{margin-top:12px;display:flex;gap:8px;align-items:center}
-.muted{color:var(--muted);font-size:13px}
-.preview{width:100%;height:78vh;border:0;border-radius:10px;background:#fff;padding:0}
+.app-header{
+  padding:18px 24px;
+  background:linear-gradient(90deg, rgba(43,110,246,0.08), transparent);
+  border-bottom:1px solid rgba(0,0,0,0.04);
+}
+.app-header h1{margin:0;font-size:20px}
+.subtitle{margin:6px 0 0;color:var(--muted);font-size:13px}
 
-/* pages & features lists */
-.pages-list .page-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
-.pages-list .page-row input{flex:1}
-.features-list{display:flex;flex-direction:column;gap:8px}
-.feature-row{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;border:1px dashed #e6e9ee;background:#fff}
-.feature-row .drag-handle{cursor:grab;padding:6px 8px;background:#f3f4f6;border-radius:6px}
-.feature-row input{flex:1;padding:6px;border-radius:6px;border:1px solid #e6e9ee}
-.feature-row .remove-feature{background:#ef4444}
+.app-grid{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:18px;
+  padding:18px;
+  align-items:start;
+}
 
-/* small screens */
+.controls{
+  background:var(--card);
+  padding:16px;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(20,30,60,0.06);
+}
+.controls h2{margin-top:0}
+.controls label{display:block;margin:10px 0;font-size:14px}
+.controls input[type="text"], .controls select{
+  width:100%;
+  padding:8px 10px;
+  border-radius:6px;
+  border:1px solid #e3e7ee;
+  margin-top:6px;
+  font-size:14px;
+}
+
+.buttons{display:flex;gap:8px;margin-top:12px}
+.buttons button{
+  padding:8px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer;
+  font-weight:600;
+}
+.buttons button[disabled]{opacity:.5;cursor:default}
+
+.preview{
+  display:flex;flex-direction:column;gap:8px;
+}
+.preview h2{margin:0}
+.frame-wrapper{
+  background: #fff;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);
+  height:640px;
+}
+#previewFrame{width:100%;height:100%;border:0;background:#fff}
+
+.preview-toolbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:6px}
+.preview-toolbar select{padding:6px;border-radius:6px;border:1px solid #e3e7ee}
+
+.app-footer{padding:12px 18px;color:var(--muted);font-size:13px;border-top:1px solid rgba(0,0,0,0.03);margin-top:auto}
+
+/* small responsive */
 @media (max-width:900px){
-  body{grid-template-columns:1fr;grid-auto-rows:auto}
-  .preview{height:60vh}
+  .app-grid{grid-template-columns:1fr; padding:12px}
+  .controls{order:2}
+  .preview{order:1}
+  .frame-wrapper{height:520px}
 }
