@@ -3,78 +3,64 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Website Generator Prototype</title>
-  <link rel="stylesheet" href="styles.css" />
-  <!-- JSZip for packaging downloads -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <title>Prefab Site Generator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="app-header">
-    <h1>Website Generator Prototype</h1>
-    <p class="subtitle">Randomly generate a site, edit it in-place, then download HTML/CSS/JS.</p>
-  </header>
 
-  <main class="app-grid">
-    <section class="controls">
-      <h2>Inputs</h2>
-      <label>Site Type
-        <select id="siteType">
-          <option value="business">Business</option>
-          <option value="portfolio">Portfolio</option>
-          <option value="blog">Blog</option>
-          <option value="landing">Landing</option>
-        </select>
-      </label>
+  <aside class="panel" id="controls">
+    <h3>Site Generator</h3>
 
-      <label>Color Theme
-        <select id="colorTheme">
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
-          <option value="pastel">Pastel</option>
-          <option value="vibrant">Vibrant</option>
-        </select>
-      </label>
+    <label class="label">Site Type</label>
+    <select id="siteType">
+      <option value="business">Business Website</option>
+      <option value="ecommerce">E-commerce Website</option>
+      <option value="portfolio">Portfolio Website</option>
+      <option value="blog">Blog Website</option>
+      <option value="informational">Informational Website</option>
+      <option value="community">Community Website</option>
+      <option value="landing">Landing Page</option>
+      <option value="nonprofit">Nonprofit Website</option>
+      <option value="educational">Educational Website</option>
+      <option value="entertainment">Entertainment Website</option>
+    </select>
 
-      <label>Pages (comma separated)
-        <input id="pagesInput" type="text" placeholder="Home, About, Services, Contact" value="Home,About,Services,Contact" />
-      </label>
+    <label class="label">Prefab Template</label>
+    <div style="display:flex;gap:8px;align-items:center">
+      <select id="prefabSelect" style="flex:1">
+        <option value="">— Use generated layout —</option>
+      </select>
+      <button class="btn small" id="refreshPrefabsBtn">Refresh</button>
+    </div>
 
-      <div class="buttons">
-        <button id="generateBtn">Generate Site</button>
-        <button id="modifyToggleBtn">Enter Modify View</button>
-        <button id="downloadBtn">Download ZIP</button>
-      </div>
+    <h4>Editable Content</h4>
 
-      <details class="help">
-        <summary>Tips</summary>
-        <ul>
-          <li>Click "Generate Site" to create a random layout and content.</li>
-          <li>Use Modify View to click and edit text directly in the preview.</li>
-          <li>After editing, click Download to save your current site files.</li>
-        </ul>
-      </details>
-    </section>
+    <label class="label">Site Title</label>
+    <input id="title" type="text" placeholder="Site title">
 
-    <section class="preview">
-      <h2>Preview</h2>
-      <div class="preview-toolbar">
-        <label>Viewport
-          <select id="viewportSelect">
-            <option value="desktop">Desktop</option>
-            <option value="tablet">Tablet</option>
-            <option value="mobile">Mobile</option>
-          </select>
-        </label>
-      </div>
-      <div id="previewFrameWrapper" class="frame-wrapper">
-        <iframe id="previewFrame" sandbox="allow-scripts allow-forms"></iframe>
-      </div>
-    </section>
+    <label class="label">Subtitle</label>
+    <input id="subtitle" type="text" placeholder="Short description">
+
+    <label class="label">Navigation Items (comma separated)</label>
+    <input id="navItems" type="text" placeholder="Home,About,Contact">
+
+    <label class="label">Features (one per line: Title - text)</label>
+    <textarea id="features" rows="4" placeholder="Feature 1 - text"></textarea>
+
+    <label class="label">Raw HTML Body (optional)</label>
+    <textarea id="rawBody" rows="6" placeholder="Paste custom HTML body here"></textarea>
+
+    <div class="footer">
+      <button class="btn" id="updateBtn">Update Preview</button>
+      <button class="btn" id="randomBtn">Randomize for Type</button>
+      <button class="btn" id="copyBtn">Copy HTML</button>
+    </div>
+  </aside>
+
+  <main class="panel preview-panel">
+    <h3>Live Preview</h3>
+    <iframe id="preview" class="preview" sandbox="allow-same-origin"></iframe>
   </main>
-
-  <footer class="app-footer">
-    <small>Prototype — not production-ready. Use as a starting point.</small>
-  </footer>
 
   <script src="script.js"></script>
 </body>
