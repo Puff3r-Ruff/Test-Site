@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Website Generator with Manual Editing</title>
   <link rel="stylesheet" href="styles.css">
+  <!-- JSZip for ZIP export -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 </head>
 <body>
   <aside class="panel" id="controls">
@@ -23,6 +25,16 @@
         <option value="nonprofit">Nonprofit or Charity Website</option>
         <option value="educational">Educational Website</option>
         <option value="entertainment">Entertainment Website</option>
+      </select>
+
+      <label class="label">Theme Presets</label>
+      <select id="themePreset">
+        <option value="">— Select preset —</option>
+        <option value='{"primary":"#2563eb","bg":"#ffffff","text":"#0b1220"}'>Blue / White</option>
+        <option value='{"primary":"#0ea5a4","bg":"#ffffff","text":"#0b1220"}'>Teal / White</option>
+        <option value='{"primary":"#ef4444","bg":"#fffaf0","text":"#0b1220"}'>Warm / Soft</option>
+        <option value='{"primary":"#7c3aed","bg":"#ffffff","text":"#0b1220"}'>Purple / White</option>
+        <option value='{"primary":"#0f172a","bg":"#f8fafc","text":"#0b1220"}'>Dark Accent</option>
       </select>
 
       <label class="label">Primary Color</label>
@@ -60,18 +72,37 @@
       <label class="label">Primary CTA Text</label>
       <input type="text" id="ctaText" placeholder="Get Started">
 
-      <label class="label">Features (one per line)</label>
-      <textarea id="features" rows="5" placeholder="Feature 1 - short description
-Feature 2 - short description"></textarea>
+      <label class="label">Features (drag to reorder; one per line as Title - text)</label>
+      <div id="featuresList" class="features-list" tabindex="0"></div>
+      <div class="controls" style="margin-top:8px">
+        <button class="btn" id="addFeatureBtn">Add Feature</button>
+        <button class="btn muted" id="clearFeaturesBtn">Clear</button>
+      </div>
+
+      <label class="label">Hero Image (optional)</label>
+      <input type="file" id="heroImage" accept="image/*">
+
+      <label class="label">Custom CSS (appended to generated page)</label>
+      <textarea id="customCss" rows="6" placeholder="Add custom CSS that will be included in generated pages"></textarea>
 
       <label class="label">Raw HTML Body (optional) — overrides generated body when non-empty</label>
       <textarea id="rawBody" rows="6" placeholder="Paste custom HTML body here to override generated layout"></textarea>
+    </div>
+
+    <div class="control-block">
+      <h4>Pages</h4>
+      <div id="pagesList" class="pages-list"></div>
+      <div class="controls" style="margin-top:8px">
+        <button class="btn" id="addPageBtn">Add Page</button>
+        <button class="btn muted" id="removePageBtn">Remove Last</button>
+      </div>
     </div>
 
     <div class="footer">
       <button class="btn" id="updateBtn">Update Preview</button>
       <button class="btn" id="randomBtn">Randomize Content</button>
       <button class="btn" id="copyBtn">Copy HTML</button>
+      <button class="btn" id="exportZipBtn">Export ZIP</button>
       <div style="flex:1"></div>
       <div class="muted">Select a type, edit text, then update or randomize.</div>
     </div>
