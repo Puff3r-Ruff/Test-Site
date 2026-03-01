@@ -183,24 +183,6 @@
     <option value="wedding">Wedding/Events</option>
     <option value="plumber">Plumber Services</option>
   </select>
-
-  <p>Business Name:</p>
-  <input type="text" 
-         id="businessNameInput" 
-         placeholder="e.g. Eternal Moments" 
-         oninput="updateBusinessName(this.value)">
-
-  <p>Tagline / Slogan:</p>
-  <input type="text" 
-         id="taglineInput" 
-         placeholder="e.g. Creating Timeless Love Stories" 
-         oninput="updateTagline(this.value)">
-
-  <p>About Us:</p>
-  <textarea id="aboutusInput" 
-            placeholder="Tell your story here...&#10;&#10;Write as many paragraphs as you like.&#10;Press Enter twice for a new paragraph." 
-            oninput="updateAboutUs(this.value)"
-            rows="7"></textarea>
 </aside>
 
 <main class="content" id="contentArea">
@@ -247,10 +229,6 @@
   const area = document.getElementById("contentArea");
   area.innerHTML = "";
 
-  const currentName    = document.getElementById("businessNameInput").value.trim();
-  const currentTagline = document.getElementById("taglineInput").value.trim();
-  const currentAbout   = document.getElementById("aboutusInput").value.trim();
-
   if (theme === "default") {
     area.innerHTML = `
       <h1>IdeaGo.ie Website Generator</h1>
@@ -281,11 +259,11 @@
           border-radius: 10px;
         ">
           <h1 class="business_name" style="font-size: 42px; margin: 0 0 10px 0;">
-            ${currentName || 'Eternal Moments'}
+            'Eternal Moments'
           </h1>
 
           <p class="tagline" style="font-size: 20px; margin: 0;">
-            ${currentTagline || 'Creating Timeless Love Stories Since 2009'}
+            'Creating Timeless Love Stories Since 2009'
           </p>
         </div>
 
@@ -307,9 +285,7 @@
       <div class="about-section">
         <h2>About Us</h2>
         <div class="about_us">
-          ${currentAbout 
-            ? currentAbout.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('') 
-            : '<p>We are a passionate team dedicated to crafting unforgettable wedding experiences. With attention to every detail and years of expertise, we transform your vision into a beautiful, stress-free celebration that reflects your unique love story.</p>'}
+          '<p>We are a passionate team dedicated to crafting unforgettable wedding experiences. With attention to every detail and years of expertise, we transform your vision into a beautiful, stress-free celebration that reflects your unique love story.</p>'
         </div>
 
         <div class="services-grid">
@@ -339,13 +315,9 @@
       </section>
 
       <footer style="background:#1a102e; color:#c9b8c9; text-align:center; padding:2.5rem;">
-        <p>© 2026 <span class="business_name">${currentName || 'Eternal Moments'}</span> Wedding Events • All Rights Reserved • Designed with Love</p>
+        <p>© 2026 <span class="business_name">'Eternal Moments'</span> Wedding Events • All Rights Reserved • Designed with Love</p>
       </footer>
     `;
-
-    if (currentName)   updateBusinessName(currentName);
-    if (currentTagline) updateTagline(currentTagline);
-    if (currentAbout)  updateAboutUs(currentAbout);
 
     enableImageReplacement();
     enableHeroImageReplacement();
