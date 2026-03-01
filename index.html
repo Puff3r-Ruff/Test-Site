@@ -84,7 +84,6 @@
       text-align: center;
     }
 
-    /* ── Improved About Us styling ── */
     .about-section {
       max-width: 1100px;
       margin: 0 auto 3rem auto;
@@ -111,73 +110,55 @@
       z-index: 10;
     }
 
-
-    /* =========================
-   MOBILE RESPONSIVE STYLES
-   ========================= */
-
-@media (max-width: 768px) {
-
-  body {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    box-shadow: none;
-  }
-
-  .content {
-    margin-left: 0;
-    padding: 1.5rem;
-  }
-
-  .hero {
-    padding: 3rem 1rem;
-    border-radius: 0;
-  }
-
-  .hero h1 {
-    font-size: 26px !important;
-  }
-
-  .hero p {
-    font-size: 16px !important;
-  }
-
-  .cta {
-    font-size: 16px !important;
-    padding: 10px 18px !important;
-  }
-
-  .services-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .about_us p {
-    font-size: 1.1rem;
-  }
-
-  section {
-    padding: 3rem 1rem !important;
-  }
-
-  footer {
-    padding: 1.5rem !important;
-  }
-
-}
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+      }
+      .content {
+        margin-left: 0;
+        padding: 1.5rem;
+      }
+      .hero {
+        padding: 3rem 1rem;
+        border-radius: 0;
+      }
+      .hero h1 {
+        font-size: 26px !important;
+      }
+      .hero p {
+        font-size: 16px !important;
+      }
+      .cta {
+        font-size: 16px !important;
+        padding: 10px 18px !important;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .about_us p {
+        font-size: 1.1rem;
+      }
+      section {
+        padding: 3rem 1rem !important;
+      }
+      footer {
+        padding: 1.5rem !important;
+      }
+    }
   </style>
 </head>
 <body>
 
 <aside class="sidebar">
-  <h3>Site Customizer</h3>
-  
-  <p>Choose a Website style:</p>
+  <h3>Choose Template</h3>
+  <p>Select website style:</p>
   <select id="themeSelect" onchange="loadSite(this.value)">
     <option value="default">Select Website</option>
     <option value="wedding">Wedding/Events</option>
@@ -211,7 +192,6 @@
     const content = text.trim();
     document.querySelectorAll('.about_us').forEach(el => {
       if (content) {
-        // Split by double newlines → real paragraphs
         const paragraphs = content
           .split(/\n\s*\n/)
           .map(para => para.trim())
@@ -226,218 +206,155 @@
   }
 
   function loadSite(theme) {
-  const area = document.getElementById("contentArea");
-  area.innerHTML = "";
+    const area = document.getElementById("contentArea");
+    area.innerHTML = "";
 
-  if (theme === "default") {
-    area.innerHTML = `
-      <h1>IdeaGo.ie Website Generator</h1>
-      <hr/>
-      <h2>Step 1. Choose Website</h2>
-      <h2>Step 2. Submit Images</h2>
-      <h2>Step 3. Subscribe</h2>
-      <h2>Step 4. Our Developers Launch Your Website</h2>
-    `;
-    return;
-  }
+    // We no longer have input fields → use fallback defaults only
+    const currentName    = '';  // or you can hardcode defaults if preferred
+    const currentTagline = '';
+    const currentAbout   = '';
 
-  if (theme === "wedding") {
-    area.innerHTML = `
-      <div class="hero" style="
-        background-image: url('https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG');
-        background-size: cover;
-        background-position: center;
-        padding: 80px 20px;
-        text-align: center;
-        color: white;
-        position: relative;
-      ">
-        <div style="
-          display: inline-block;
-          background: rgba(0, 0, 0, 0.55);
-          padding: 20px 30px;
-          border-radius: 10px;
-        ">
-          <h1 class="business_name" style="font-size: 42px; margin: 0 0 10px 0;">
-            'Eternal Moments'
-          </h1>
+    if (theme === "default") {
+      area.innerHTML = `
+        <h1>IdeaGo.ie Website Generator</h1>
+        <hr/>
+        <h2>Step 1. Choose Website</h2>
+        <h2>Step 2. Submit Images</h2>
+        <h2>Step 3. Subscribe</h2>
+        <h2>Step 4. Our Developers Launch Your Website</h2>
+      `;
+      return;
+    }
 
-          <p class="tagline" style="font-size: 20px; margin: 0;">
-            'Creating Timeless Love Stories Since 2009'
-          </p>
-        </div>
-
-        <br><br>
-
-        <a href="tel:+1234567890" class="cta" style="
-          display: inline-block;
-          background: #d6336c;
+    if (theme === "wedding") {
+      area.innerHTML = `
+        <div class="hero" style="
+          background-image: url('https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG');
+          background-size: cover;
+          background-position: center;
+          padding: 80px 20px;
+          text-align: center;
           color: white;
-          padding: 12px 24px;
-          border-radius: 6px;
-          text-decoration: none;
-          font-size: 18px;
+          position: relative;
         ">
-          Plan Your Dream Day – Call Now
-        </a>
-      </div>
+          <div style="
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.55);
+            padding: 20px 30px;
+            border-radius: 10px;
+          ">
+            <h1 class="business_name" style="font-size: 42px; margin: 0 0 10px 0;">
+              ${currentName || 'Eternal Moments'}
+            </h1>
+            <p class="tagline" style="font-size: 20px; margin: 0;">
+              ${currentTagline || 'Creating Timeless Love Stories Since 2009'}
+            </p>
+          </div>
 
-      <div class="about-section">
-        <h2>About Us</h2>
-        <div class="about_us">
-          '<p>We are a passionate team dedicated to crafting unforgettable wedding experiences. With attention to every detail and years of expertise, we transform your vision into a beautiful, stress-free celebration that reflects your unique love story.</p>'
+          <br><br>
+
+          <a href="tel:+1234567890" class="cta" style="
+            display: inline-block;
+            background: #d6336c;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 18px;
+          ">
+            Plan Your Dream Day – Call Now
+          </a>
         </div>
 
-        <div class="services-grid">
-          <div class="service-card">
-            <img src="https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG">
+        <div class="about-section">
+          <h2>About Us</h2>
+          <div class="about_us">
+            ${currentAbout 
+              ? currentAbout.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('') 
+              : '<p>We are a passionate team dedicated to crafting unforgettable wedding experiences. With attention to every detail and years of expertise, we transform your vision into a beautiful, stress-free celebration that reflects your unique love story.</p>'}
           </div>
 
-          <div class="service-card">
-            <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg">
-          </div>
-
-          <div class="service-card">
-            <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg">
-          </div>
-
-          <div class="service-card">
-            <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg">
+          <div class="services-grid">
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG">
+            </div>
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg">
+            </div>
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg">
+            </div>
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg">
+            </div>
           </div>
         </div>
-      </div>
 
-      <section style="background:#2c1a47; color:#f8f1f1; padding:6rem 2rem; text-align:center;">
-        <h2>Ready to Say "I Do"?</h2>
-        <p style="font-size:1.5rem; margin:2rem 0;">Contact us today for a complimentary consultation.</p>
-        <p style="font-size:2rem; font-weight:bold;">+1 (234) 567-8900</p>
-        <p>hello@eternalmoments.com • Serving couples worldwide</p>
-      </section>
+        <section style="background:#2c1a47; color:#f8f1f1; padding:6rem 2rem; text-align:center;">
+          <h2>Ready to Say "I Do"?</h2>
+          <p style="font-size:1.5rem; margin:2rem 0;">Contact us today for a complimentary consultation.</p>
+          <p style="font-size:2rem; font-weight:bold;">+1 (234) 567-8900</p>
+          <p>hello@eternalmoments.com • Serving couples worldwide</p>
+        </section>
 
-      <footer style="background:#1a102e; color:#c9b8c9; text-align:center; padding:2.5rem;">
-        <p>© 2026 <span class="business_name">'Eternal Moments'</span> Wedding Events • All Rights Reserved • Designed with Love</p>
-      </footer>
-    `;
+        <footer style="background:#1a102e; color:#c9b8c9; text-align:center; padding:2.5rem;">
+          <p>© 2026 <span class="business_name">${currentName || 'Eternal Moments'}</span> Wedding Events • All Rights Reserved • Designed with Love</p>
+        </footer>
+      `;
 
-    enableImageReplacement();
-    enableHeroImageReplacement();
-    enableTextEditing();
-    return;
+      enableImageReplacement();
+      enableHeroImageReplacement();
+      enableTextEditing();
+      return;
+    }
+
+    if (theme === "plumber") {
+      area.innerHTML = `
+        <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1581092160607-36e2e7fdd65e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover;">
+          <h1 class="business_name">${currentName || 'Pro Plumbing Services'}</h1>
+          <p class="tagline">${currentTagline || '24/7 Emergency • Reliable • Affordable'}</p>
+          <a href="tel:+1234567890" class="cta">Call Now for Fast Service</a>
+        </div>
+
+        <div class="about-section">
+          <h2>About Us</h2>
+          <div class="about_us">
+            ${currentAbout 
+              ? currentAbout.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('') 
+              : '<p>We provide fast, reliable and professional plumbing services across the area. Family owned, fully insured, and committed to quality workmanship every time.</p>'}
+          </div>
+
+          <h2>Our Services</h2>
+          <p>Emergency repairs • Drain cleaning • Pipe installation • Water heater services • And more...</p>
+        </div>
+
+        <section style="background:#1e3a5f; color:white; padding:5rem 2rem; text-align:center;">
+          <h2>Need a Plumber Right Now?</h2>
+          <p style="font-size:2rem; font-weight:bold;">+1 (555) 123-4567</p>
+          <p>Fast response • Honest pricing • Licensed & Insured</p>
+        </section>
+      `;
+
+      enableImageReplacement();
+      enableHeroImageReplacement();
+      enableTextEditing();
+    }
   }
 
-  if (theme === "plumber") {
-    area.innerHTML = `
-      <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1581092160607-36e2e7fdd65e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover;">
-        <h1 class="business_name">${currentName || 'Pro Plumbing Services'}</h1>
-        <p class="tagline">${currentTagline || '24/7 Emergency • Reliable • Affordable'}</p>
-        <a href="tel:+1234567890" class="cta">Call Now for Fast Service</a>
-      </div>
+  function enableHeroImageReplacement() {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
 
-      <div class="about-section">
-        <h2>About Us</h2>
-        <div class="about_us">
-          ${currentAbout 
-            ? currentAbout.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('') 
-            : '<p>We provide fast, reliable and professional plumbing services across the area. Family owned, fully insured, and committed to quality workmanship every time.</p>'}
-        </div>
-
-        <h2>Our Services</h2>
-        <p>Emergency repairs • Drain cleaning • Pipe installation • Water heater services • And more...</p>
-      </div>
-
-      <section style="background:#1e3a5f; color:white; padding:5rem 2rem; text-align:center;">
-        <h2>Need a Plumber Right Now?</h2>
-        <p style="font-size:2rem; font-weight:bold;">+1 (555) 123-4567</p>
-        <p>Fast response • Honest pricing • Licensed & Insured</p>
-      </section>
-    `;
-
-    if (currentName)   updateBusinessName(currentName);
-    if (currentTagline) updateTagline(currentTagline);
-    if (currentAbout)  updateAboutUs(currentAbout);
-
-    enableImageReplacement();
-    enableHeroImageReplacement();
-    enableTextEditing();
-  }
-}
-function enableHeroImageReplacement() {
-  const hero = document.querySelector(".hero");
-  if (!hero) return;
-
-  hero.style.cursor = "pointer";
-
-  const picker = document.createElement("input");
-  picker.type = "file";
-  picker.accept = "image/*";
-  picker.style.display = "none";
-
-  document.body.appendChild(picker);
-
-  hero.addEventListener("click", () => picker.click());
-
-  picker.addEventListener("change", () => {
-    const file = picker.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = e => {
-      const uploadedImg = new Image();
-      uploadedImg.onload = () => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        // Target hero ratio (16:9)
-        const targetRatio = 16 / 9;
-
-        let cropWidth = uploadedImg.width;
-        let cropHeight = cropWidth / targetRatio;
-
-        if (cropHeight > uploadedImg.height) {
-          cropHeight = uploadedImg.height;
-          cropWidth = cropHeight * targetRatio;
-        }
-
-        const startX = (uploadedImg.width - cropWidth) / 2;
-        const startY = (uploadedImg.height - cropHeight) / 2;
-
-        // Resize output to 1920×1080
-        canvas.width = 1920;
-        canvas.height = 1080;
-
-        ctx.drawImage(
-          uploadedImg,
-          startX, startY, cropWidth, cropHeight,
-          0, 0, canvas.width, canvas.height
-        );
-
-        const finalImage = canvas.toDataURL("image/jpeg", 0.9);
-
-        hero.style.backgroundImage = `url('${finalImage}')`;
-      };
-
-      uploadedImg.src = e.target.result;
-    };
-
-    reader.readAsDataURL(file);
-  });
-}
-  // Enable click‑to‑replace on all images inside the content area
-function enableImageReplacement() {
-  const images = document.querySelectorAll("#contentArea img");
-
-  images.forEach((img, index) => {
-    img.style.cursor = "pointer";
+    hero.style.cursor = "pointer";
 
     const picker = document.createElement("input");
     picker.type = "file";
     picker.accept = "image/*";
     picker.style.display = "none";
-    picker.id = "imgPicker_" + index;
 
     document.body.appendChild(picker);
 
-    img.addEventListener("click", () => picker.click());
+    hero.addEventListener("click", () => picker.click());
 
     picker.addEventListener("change", () => {
       const file = picker.files[0];
@@ -450,26 +367,29 @@ function enableImageReplacement() {
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
 
-          // ---- AUTO CROP TO SQUARE ----
-          const size = Math.min(uploadedImg.width, uploadedImg.height);
-          const startX = (uploadedImg.width - size) / 2;
-          const startY = (uploadedImg.height - size) / 2;
+          const targetRatio = 16 / 9;
+          let cropWidth = uploadedImg.width;
+          let cropHeight = cropWidth / targetRatio;
 
-          // ---- RESIZE OUTPUT ----
-          const outputSize = 600; // change to any size you want
-          canvas.width = outputSize;
-          canvas.height = outputSize;
+          if (cropHeight > uploadedImg.height) {
+            cropHeight = uploadedImg.height;
+            cropWidth = cropHeight * targetRatio;
+          }
+
+          const startX = (uploadedImg.width - cropWidth) / 2;
+          const startY = (uploadedImg.height - cropHeight) / 2;
+
+          canvas.width = 1920;
+          canvas.height = 1080;
 
           ctx.drawImage(
             uploadedImg,
-            startX, startY, size, size, // crop area
-            0, 0, outputSize, outputSize // output area
+            startX, startY, cropWidth, cropHeight,
+            0, 0, canvas.width, canvas.height
           );
 
-          // Convert canvas → image URL
           const finalImage = canvas.toDataURL("image/jpeg", 0.9);
-
-          img.src = finalImage;
+          hero.style.backgroundImage = `url('${finalImage}')`;
         };
 
         uploadedImg.src = e.target.result;
@@ -477,43 +397,95 @@ function enableImageReplacement() {
 
       reader.readAsDataURL(file);
     });
-  });
-}
-function enableTextEditing() {
-  const editableSelectors = [
-    ".business_name",
-    ".tagline",
-    ".about_us p",
-    ".service-card p",
-    "h1", "h2", "h3", "p", "span"
-  ];
+  }
 
-  const elements = document.querySelectorAll(editableSelectors.join(", "));
+  function enableImageReplacement() {
+    const images = document.querySelectorAll("#contentArea img");
 
-  elements.forEach(el => {
-    if (el.closest(".sidebar")) return;
+    images.forEach((img, index) => {
+      img.style.cursor = "pointer";
 
-    el.classList.add("editable-text");
-    el.style.cursor = "text";
+      const picker = document.createElement("input");
+      picker.type = "file";
+      picker.accept = "image/*";
+      picker.style.display = "none";
+      picker.id = "imgPicker_" + index;
 
-    // Prevent clicks from reaching images behind text
-    el.addEventListener("click", (e) => {
-      e.stopPropagation();
+      document.body.appendChild(picker);
+
+      img.addEventListener("click", () => picker.click());
+
+      picker.addEventListener("change", () => {
+        const file = picker.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = e => {
+          const uploadedImg = new Image();
+          uploadedImg.onload = () => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            const size = Math.min(uploadedImg.width, uploadedImg.height);
+            const startX = (uploadedImg.width - size) / 2;
+            const startY = (uploadedImg.height - size) / 2;
+
+            const outputSize = 600;
+            canvas.width = outputSize;
+            canvas.height = outputSize;
+
+            ctx.drawImage(
+              uploadedImg,
+              startX, startY, size, size,
+              0, 0, outputSize, outputSize
+            );
+
+            const finalImage = canvas.toDataURL("image/jpeg", 0.9);
+            img.src = finalImage;
+          };
+
+          uploadedImg.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      });
     });
+  }
 
-    el.addEventListener("click", () => {
-      if (el.isContentEditable) return;
+  function enableTextEditing() {
+    const editableSelectors = [
+      ".business_name",
+      ".tagline",
+      ".about_us p",
+      ".service-card p",
+      "h1", "h2", "h3", "p", "span"
+    ];
 
-      el.contentEditable = "true";
-      el.focus();
-      document.execCommand("selectAll", false, null);
+    const elements = document.querySelectorAll(editableSelectors.join(", "));
 
-      el.addEventListener("blur", () => {
-        el.contentEditable = "false";
-      }, { once: true });
+    elements.forEach(el => {
+      if (el.closest(".sidebar")) return;
+
+      el.classList.add("editable-text");
+      el.style.cursor = "text";
+
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+
+      el.addEventListener("click", () => {
+        if (el.isContentEditable) return;
+
+        el.contentEditable = "true";
+        el.focus();
+        document.execCommand("selectAll", false, null);
+
+        el.addEventListener("blur", () => {
+          el.contentEditable = "false";
+        }, { once: true });
+      });
     });
-  });
-}
+  }
 </script>
 
 </body>
