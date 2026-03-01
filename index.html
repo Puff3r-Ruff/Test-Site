@@ -201,11 +201,53 @@
 
     if (theme === "wedding") {
       area.innerHTML = `
-        <div class="hero" style="background-image: url('https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG');">
-          <h1 class="business_name">${currentName || 'Eternal Moments'}</h1>
-          <p class="tagline">${currentTagline || 'Creating Timeless Love Stories Since 2009'}</p>
-          <a href="tel:+1234567890" class="cta">Plan Your Dream Day – Call Now</a>
-        </div>
+        <div class="hero" style="
+  background-image: url('https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG');
+  background-size: cover;
+  background-position: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+">
+
+  <div style="
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 20px 30px;
+    border-radius: 10px;
+  ">
+    <h1 class="business_name" style="
+      font-size: 42px;
+      margin: 0 0 10px 0;
+    ">
+      ${currentName || 'Eternal Moments'}
+    </h1>
+
+    <p class="tagline" style="
+      font-size: 20px;
+      margin: 0;
+    ">
+      ${currentTagline || 'Creating Timeless Love Stories Since 2009'}
+    </p>
+  </div>
+
+  <br><br>
+
+  <a href="tel:+1234567890" class="cta" style="
+    display: inline-block;
+    background: #d6336c;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 18px;
+  ">
+    Plan Your Dream Day – Call Now
+  </a>
+
+</div>
+
 
         <div class="about-section">
           <h2>About Us</h2>
