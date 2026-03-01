@@ -1,71 +1,290 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Prefab Site Generator</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trades Person Site Switcher with Images</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      background: #f9f9f9;
+    }
+    #contentArea{
+      width: 100%;
+    }
+
+    .sidebar {
+      background: #2c3e50;
+      color: white;
+      padding: 2rem 1.5rem;
+      box-shadow: 3px 0 15px rgba(0,0,0,0.2);
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      width: 260px;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+      color: #ecf0f1;
+    }
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    input[type="text"], textarea {
+      background: #34495e;
+      color: white;
+    }
+    input[type="text"]::placeholder, textarea::placeholder {
+      color: #bdc3c7;
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .content {
+      margin-left: 280px;
+      flex-grow: 1;
+      padding: 2.5rem;
+      background: white;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin: 1.5rem auto;
+    }
+    .hero {
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 6rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    /* ── Improved About Us styling ── */
+    .about-section {
+      max-width: 1100px;
+      margin: 0 auto 3rem auto;
+      padding: 0 1rem;
+    }
+    .about_us {
+      max-width: 820px;
+      margin: 0 auto 2.5rem auto;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: #333;
+      text-align: left;
+    }
+    .about_us p {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    .about_us p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
 </head>
 <body>
 
-  <aside class="panel" id="controls">
-    <h3>Site Generator</h3>
+<aside class="sidebar">
+  <h3>Site Customizer</h3>
+  
+  <p>Choose a Website style:</p>
+  <select id="themeSelect" onchange="loadSite(this.value)">
+    <option value="default">Select Website</option>
+    <option value="wedding">Wedding/Events</option>
+    <option value="plumber">Plumber Services</option>
+  </select>
 
-    <label class="label">Site Type</label>
-    <select id="siteType">
-      <option value="business">Business Website</option>
-      <option value="ecommerce">E-commerce Website</option>
-      <option value="portfolio">Portfolio Website</option>
-      <option value="blog">Blog Website</option>
-      <option value="informational">Informational Website</option>
-      <option value="community">Community Website</option>
-      <option value="landing">Landing Page</option>
-      <option value="nonprofit">Nonprofit Website</option>
-      <option value="educational">Educational Website</option>
-      <option value="entertainment">Entertainment Website</option>
-    </select>
+  <p>Business Name:</p>
+  <input type="text" 
+         id="businessNameInput" 
+         placeholder="e.g. Eternal Moments" 
+         oninput="updateBusinessName(this.value)">
 
-    <label class="label">Prefab Template</label>
-    <div style="display:flex;gap:8px;align-items:center">
-      <select id="prefabSelect" style="flex:1">
-        <option value="">— Use generated layout —</option>
-      </select>
-      <button class="btn small" id="refreshPrefabsBtn">Refresh</button>
-    </div>
+  <p>Tagline / Slogan:</p>
+  <input type="text" 
+         id="taglineInput" 
+         placeholder="e.g. Creating Timeless Love Stories" 
+         oninput="updateTagline(this.value)">
 
-    <h4>Editable Content</h4>
+  <p>About Us:</p>
+  <textarea id="aboutusInput" 
+            placeholder="Tell your story here...&#10;&#10;Write as many paragraphs as you like.&#10;Press Enter twice for a new paragraph." 
+            oninput="updateAboutUs(this.value)"
+            rows="7"></textarea>
+</aside>
 
-    <label class="label">Site Title</label>
-    <input id="title" type="text" placeholder="Site title">
+<main class="content" id="contentArea">
+  <h1>IdeaGo.ie Website Generator</h1>
+  <hr/>
+  <h2>Step 1. Choose Website</h2>
+  <h2>Step 2. Submit Images</h2>
+  <h2>Step 3. Subscribe</h2>
+  <h2>Step 4. Our Developers Launch Your Website</h2>
+</main>
 
-    <label class="label">Subtitle</label>
-    <input id="subtitle" type="text" placeholder="Short description">
+<script>
+  function updateBusinessName(name) {
+    document.querySelectorAll('.business_name').forEach(el => {
+      el.textContent = name.trim() || 'Your Business Name';
+    });
+  }
 
-    <label class="label">Navigation Items (comma separated)</label>
-    <input id="navItems" type="text" placeholder="Home,About,Contact">
+  function updateTagline(tagline) {
+    document.querySelectorAll('.tagline').forEach(el => {
+      el.textContent = tagline.trim() || 'Your Perfect Tagline Here';
+    });
+  }
 
-    <label class="label">Features (one per line: Title - text)</label>
-    <textarea id="features" rows="4" placeholder="Feature 1 - text"></textarea>
+  function updateAboutUs(text) {
+    const content = text.trim();
+    document.querySelectorAll('.about_us').forEach(el => {
+      if (content) {
+        // Split by double newlines → real paragraphs
+        const paragraphs = content
+          .split(/\n\s*\n/)
+          .map(para => para.trim())
+          .filter(para => para.length > 0)
+          .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+          .join('');
+        el.innerHTML = paragraphs;
+      } else {
+        el.innerHTML = '<p>We are a dedicated team passionate about creating beautiful and memorable events tailored to your vision.</p>';
+      }
+    });
+  }
 
-    <label class="label">Raw HTML Body (optional)</label>
-    <textarea id="rawBody" rows="6" placeholder="Paste custom HTML body here"></textarea>
+  function loadSite(theme) {
+    const area = document.getElementById("contentArea");
+    area.innerHTML = "";
 
-    <div class="footer">
-      <button class="btn" id="updateBtn">Update Preview</button>
-      <button class="btn" id="randomBtn">Randomize for Type</button>
-      <button class="btn" id="copyBtn">Copy HTML</button>
-    </div>
-  </aside>
+    const currentName    = document.getElementById("businessNameInput").value.trim();
+    const currentTagline = document.getElementById("taglineInput").value.trim();
+    const currentAbout   = document.getElementById("aboutusInput").value.trim();
 
-  <main class="panel preview-panel">
-    <h3>Live Preview</h3>
+    if (theme === "default") {
+      area.innerHTML = `
+        <h1>IdeaGo.ie Website Generator</h1>
+        <hr/>
+        <h2>Step 1. Choose Website</h2>
+        <h2>Step 2. Submit Images</h2>
+        <h2>Step 3. Subscribe</h2>
+        <h2>Step 4. Our Developers Launch Your Website</h2>
+      `;
+      return;
+    }
 
-    <!-- sandbox allows scripts and forms inside prefab preview -->
-    <iframe id="preview" class="preview"
-            sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+    if (theme === "wedding") {
+      area.innerHTML = `
+        <div class="hero" style="background-image: url('https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG');">
+          <h1 class="business_name">${currentName || 'Eternal Moments'}</h1>
+          <p class="tagline">${currentTagline || 'Creating Timeless Love Stories Since 2009'}</p>
+          <a href="tel:+1234567890" class="cta">Plan Your Dream Day – Call Now</a>
+        </div>
 
-  </main>
+        <div class="about-section">
+          <h2>About Us</h2>
+          <div class="about_us">
+            ${currentAbout 
+              ? currentAbout.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('') 
+              : '<p>We are a passionate team dedicated to crafting unforgettable wedding experiences. With attention to every detail and years of expertise, we transform your vision into a beautiful, stress-free celebration that reflects your unique love story.</p>'}
+          </div>
 
-  <script src="script.js"></script>
+          <div class="services-grid">
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/1eQmrwT_T9xzC_0OFP0W4sgFwh0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/31-multi-event-indian-wedding-california-altar-decor-logan-cole-0524-209c02e232fb44ab95478de23b695750.JPG" alt="Floral ceremony arch with lush pink and red roses">
+            </div>
+
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg" alt="Elegant reception table with pink roses, baby's breath, and glowing candles">
+            </div>
+
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg" alt="Elegant reception table with pink roses, baby's breath, and glowing candles">
+            </div>
+
+            <div class="service-card">
+              <img src="https://www.brides.com/thmb/EJ-r3Yr3fgafnmDWb5svfQ5P1oc=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/2021_12_10_PA_WEDDING0115-959ce125cf9641cb86b1e21ad7972151.jpg" alt="Elegant reception table with pink roses, baby's breath, and glowing candles">
+            </div>
+          </div>
+        </div>
+
+        <section style="background:#2c1a47; color:#f8f1f1; padding:6rem 2rem; text-align:center;">
+          <h2>Ready to Say "I Do"?</h2>
+          <p style="font-size:1.5rem; margin:2rem 0;">Contact us today for a complimentary consultation.</p>
+          <p style="font-size:2rem; font-weight:bold;">+1 (234) 567-8900</p>
+          <p>hello@eternalmoments.com • Serving couples worldwide</p>
+        </section>
+
+        <footer style="background:#1a102e; color:#c9b8c9; text-align:center; padding:2.5rem;">
+          <p>© 2026 <span class="business_name">${currentName || 'Eternal Moments'}</span> Wedding Events • All Rights Reserved • Designed with Love</p>
+        </footer>
+      `;
+      
+      if (currentName)   updateBusinessName(currentName);
+      if (currentTagline) updateTagline(currentTagline);
+      if (currentAbout)  updateAboutUs(currentAbout);
+      return;
+    }
+
+    if (theme === "plumber") {
+      area.innerHTML = `
+        <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1581092160607-36e2e7fdd65e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover;">
+          <h1 class="business_name">${currentName || 'Pro Plumbing Services'}</h1>
+          <p class="tagline">${currentTagline || '24/7 Emergency • Reliable • Affordable'}</p>
+          <a href="tel:+1234567890" class="cta">Call Now for Fast Service</a>
+        </div>
+
+        <div class="about-section">
+          <h2>About Us</h2>
+          <div class="about_us">
+            ${currentAbout 
+              ? currentAbout.split(/\n\s*\n/).map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`).join('') 
+              : '<p>We provide fast, reliable and professional plumbing services across the area. Family owned, fully insured, and committed to quality workmanship every time.</p>'}
+          </div>
+
+          <h2>Our Services</h2>
+          <p>Emergency repairs • Drain cleaning • Pipe installation • Water heater services • And more...</p>
+        </div>
+
+        <section style="background:#1e3a5f; color:white; padding:5rem 2rem; text-align:center;">
+          <h2>Need a Plumber Right Now?</h2>
+          <p style="font-size:2rem; font-weight:bold;">+1 (555) 123-4567</p>
+          <p>Fast response • Honest pricing • Licensed & Insured</p>
+        </section>
+      `;
+      
+      if (currentName)   updateBusinessName(currentName);
+      if (currentTagline) updateTagline(currentTagline);
+      if (currentAbout)  updateAboutUs(currentAbout);
+    }
+  }
+</script>
+
 </body>
 </html>
