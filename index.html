@@ -306,7 +306,7 @@ async function loadSite(theme) {
 
     const html = await response.text();   // ← IMPORTANT
 
-    area.innerHTML = html `<div id="linkPopup" class="popup-overlay">
+    area.innerHTML = html + `<div id="linkPopup" class="popup-overlay">
   <div class="popup-box">
     <h3>Edit Link</h3>
 
