@@ -16,6 +16,36 @@
       padding: 0.5rem;
     }
 
+    .popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: #fff;
+  padding: 20px;
+  width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.page-options button {
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.popup-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
     .sidebar {
       background: #2c3e50;
       color: white;
@@ -175,6 +205,30 @@
   <h2>Step 3. Subscribe</h2>
   <h2>Step 4. Our Developers Launch Your Website</h2>
 </main>
+
+<div id="linkPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Edit Link</h3>
+
+    <label>Choose a page:</label>
+    <div class="page-options">
+      <button data-page="page1.html">Page 1</button>
+      <button data-page="page2.html">Page 2</button>
+      <button data-page="page3.html">Page 3</button>
+      <button data-page="page4.html">Page 4</button>
+      <button data-page="page5.html">Page 5</button>
+      <button data-page="page6.html">Page 6</button>
+    </div>
+
+    <label>Edit link text:</label>
+    <input type="text" id="linkTextInput">
+
+    <div class="popup-actions">
+      <button id="saveLink">Save</button>
+      <button id="cancelPopup">Cancel</button>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 
@@ -504,6 +558,58 @@ ${html}
   a.download = "Website.zip";
   a.click();
 }
+
+let currentLink = null;
+let selectedPage = null;
+
+function enableLinkPopup() {
+  const popup = document.getElementById("linkPopup");
+  const linkTextInput = document.getElementById("linkTextInput");
+
+  document.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault(); // stop navigation
+      currentLink = e.target;
+
+      // Fill input with current text
+      linkTextInput.value = currentLink.textContent;
+
+      // Reset selected page
+      selectedPage = null;
+
+      popup.style.display = "flex";
+    });
+  });
+
+  // Page option buttons
+  document.querySelectorAll(".page-options button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedPage = btn.dataset.page;
+      document.querySelectorAll(".page-options button").forEach(b => b.style.background = "");
+      btn.style.background = "#ddd";
+    });
+  });
+
+  // Save button
+  document.getElementById("saveLink").addEventListener("click", () => {
+    if (!currentLink) return;
+
+    currentLink.textContent = linkTextInput.value;
+
+    if (selectedPage) {
+      currentLink.href = selectedPage;
+    }
+
+    popup.style.display = "none";
+  });
+
+  // Cancel button
+  document.getElementById("cancelPopup").addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+}
+
+enableLinkPopup();
 
 </script>
 
