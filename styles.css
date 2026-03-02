@@ -132,3 +132,42 @@ body {
       position: relative;
       z-index: 10;
     }
+/* ================================
+   BROWSER-STYLE PREVIEW TABS
+   ================================ */
+
+#previewTabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 15px;
+  background: #f0f0f0; /* matches your existing light UI */
+  border-bottom: 1px solid #ccc;
+}
+
+.preview-tab {
+  padding: 8px 14px;
+  background: #e6e6e6;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.preview-tab:hover {
+  background: #dcdcdc;
+}
+
+.preview-tab.active {
+  background: #ffffff;
+  border-bottom: 1px solid white;
+  font-weight: bold;
+}
+
+/* Preview page container */
+.previewPage {
+  width: 100%;
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #ccc;
+}
