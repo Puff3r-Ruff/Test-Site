@@ -1,66 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trades Person Site Switcher with Images</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      background: #f9f9f9;
+    }
+    #contentArea{
+      padding: 0.5rem;
+    }
+
+    .popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: #fff;
+  padding: 20px;
+  width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.page-options button {
+  margin: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.popup-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+    .sidebar {
+      background: #2c3e50;
+      color: white;
+      box-shadow: 3px 0 15px rgba(0,0,0,0.2);
+      position: fixed;
+      height: 100%;
+      overflow-y: auto;
+      width: 260px;
+    }
+    .sidebar h3 {
+      margin-top: 0;
+      color: #ecf0f1;
+    }
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 1rem 0;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    input[type="text"], textarea {
+      background: #34495e;
+      color: white;
+    }
+    input[type="text"]::placeholder, textarea::placeholder {
+      color: #bdc3c7;
+    }
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+    .content {
+      margin-left: 280px;
+      flex-grow: 1;
+      padding: 2.5rem;
+      background: white;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+      margin: 0.5rem auto;
+    }
+    .hero {
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 6rem 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+      gap: 2rem;
+    }
+    .service-card {
+      background: #f8f9fa;
+      padding: 0.1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    .about-section {
+      max-width: 1100px;
+      margin: 0 auto 3rem auto;
+      padding: 0 1rem;
+    }
+    .about_us {
+      max-width: 820px;
+      margin: 0 auto 2.5rem auto;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: #333;
+      text-align: left;
+    }
+    .about_us p {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    .about_us p:last-child {
+      margin-bottom: 0;
+    }
+    .editable-text {
+      pointer-events: auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+      }
+      .content {
+        margin-left: 0;
+        padding: 1.5rem;
+      }
+      .hero {
+        padding: 3rem 1rem;
+        border-radius: 0;
+      }
+      .hero h1 {
+        font-size: 26px !important;
+      }
+      .hero p {
+        font-size: 16px !important;
+      }
+      .cta {
+        font-size: 16px !important;
+        padding: 10px 18px !important;
+      }
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .about_us p {
+        font-size: 1.1rem;
+      }
+      section {
+        padding: 3rem 1rem !important;
+      }
+      footer {
+        padding: 1.5rem !important;
+      }
+    }
+  </style>
+</head>
 <body>
 
-  <!-- ========================= -->
-  <!-- FULL-WIDTH PREVIEW SYSTEM -->
-  <!-- ========================= -->
-  <div id="previewWrapper" style="width:100%;">
+<aside class="sidebar">
+  <h3>Choose Template</h3>
+  <p>Select website style:</p>
+  <select id="themeSelect" onchange="loadSite(this.value)">
+    <option value="default">Select Website</option>
+    <option value="wedding">Wedding/Events</option>
+    <option value="plumber">Plumber Services</option>
+  </select>
+  <button onclick="exportSite()">Download HTML</button>
+</aside>
 
-    <!-- Browser-style tabs -->
-    <div id="previewTabs" style="display:flex; gap:4px; padding:10px 15px; border-bottom:1px solid #ccc; background:#f5f5f5;">
-      <!-- Tabs will be injected here by JS -->
+<main class="content" id="contentArea">
+  <h1>IdeaGo.ie Website Generator</h1>
+  <hr/>
+  <h2>Step 1. Choose Website</h2>
+  <h2>Step 2. Submit Images</h2>
+  <h2>Step 3. Subscribe</h2>
+  <h2>Step 4. Our Developers Launch Your Website</h2>
+  <div id="linkPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Edit Link</h3>
+
+    <label>Choose a page:</label>
+    <div class="page-options">
+      <button data-page="page1.html">Page 1</button>
+      <button data-page="page2.html">Page 2</button>
+      <button data-page="page3.html">Page 3</button>
+      <button data-page="page4.html">Page 4</button>
+      <button data-page="page5.html">Page 5</button>
+      <button data-page="page6.html">Page 6</button>
     </div>
 
-    <!-- Preview page containers -->
-    <div id="previewPages" style="width:100%; padding:20px 0;">
-      <!-- Each preview page will be injected here -->
-    </div>
+    <label>Edit link text:</label>
+    <input type="text" id="linkTextInput">
 
-  </div>
-
-  <!-- ========================= -->
-  <!-- YOUR EXISTING LAYOUT HERE -->
-  <!-- ========================= -->
-
-  <aside class="sidebar">
-    <!-- your sidebar content stays unchanged -->
-  </aside>
-
-  <main id="contentArea">
-    <!-- your main builder content stays unchanged -->
-  </main>
-
-
-  <!-- ========================= -->
-  <!-- POPUP BOX (UPDATED)      -->
-  <!-- ========================= -->
-  <div id="popup-box" class="popup-box" style="display:none;">
-    <div class="popup-content">
-
-      <h3>Edit Link</h3>
-
-      <label>Link URL:</label>
-      <input type="text" id="popup-link-url">
-
-      <label>Link Text:</label>
-      <input type="text" id="popup-link-text">
-
-      <label>Select Page:</label>
-      <div id="page-options">
-        <button class="page-option" data-page="page1.html">Page 1</button>
-        <button class="page-option" data-page="page2.html">Page 2</button>
-        <button class="page-option" data-page="page3.html">Page 3</button>
-        <button class="page-option" data-page="page4.html">Page 4</button>
-        <button class="page-option" data-page="page5.html">Page 5</button>
-        <button class="page-option" data-page="page6.html">Page 6</button>
-      </div>
-
-      <div class="popup-buttons" style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end;">
-        <button id="popup-save">Save</button>
-        <button id="popup-cancel">Cancel</button>
-        <button id="popup-preview">Preview</button>
-      </div>
-
+    <div class="popup-actions">
+      <button id="saveLink">Save</button>
+      <button id="cancelPopup">Cancel</button>
     </div>
   </div>
+</div>
+</main>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+
+<script>
+  function updateBusinessName(name) {
+    document.querySelectorAll('.business_name').forEach(el => {
+      el.textContent = name.trim() || 'Your Business Name';
+    });
+  }
+
+  function updateTagline(tagline) {
+    document.querySelectorAll('.tagline').forEach(el => {
+      el.textContent = tagline.trim() || 'Your Perfect Tagline Here';
+    });
+  }
+
+  function updateAboutUs(text) {
+    const content = text.trim();
+    document.querySelectorAll('.about_us').forEach(el => {
+      if (content) {
+        const paragraphs = content
+          .split(/\n\s*\n/)
+          .map(para => para.trim())
+          .filter(para => para.length > 0)
+          .map(para => `<p>${para.replace(/\n/g, '<br>')}</p>`)
+          .join('');
+        el.innerHTML = paragraphs;
+      } else {
+        el.innerHTML = '<p>We are a dedicated team passionate about creating beautiful and memorable events tailored to your vision.</p>';
+      }
+    });
+  }
+async function loadSite(theme) {
+  const area = document.getElementById("contentArea");
+
+  if (theme === "default") {
+    area.innerHTML = `
+      <h1>IdeaGo.ie Website Generator</h1>
+      <hr/>
+      <h2>Step 1. Choose Website</h2>
+      <h2>Step 2. Submit Images</h2>
+      <h2>Step 3. Subscribe</h2>
+      <h2>Step 4. Our Developers Launch Your Website</h2>
+      <div id="linkPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Edit Link</h3>
+
+    <label>Choose a page:</label>
+    <div class="page-options">
+      <button data-page="page1.html">Page 1</button>
+      <button data-page="page2.html">Page 2</button>
+      <button data-page="page3.html">Page 3</button>
+      <button data-page="page4.html">Page 4</button>
+      <button data-page="page5.html">Page 5</button>
+      <button data-page="page6.html">Page 6</button>
+    </div>
+
+    <label>Edit link text:</label>
+    <input type="text" id="linkTextInput">
+
+    <div class="popup-actions">
+      <button id="saveLink">Save</button>
+      <button id="cancelPopup">Cancel</button>
+    </div>
+  </div>
+</div>
+    `;
+    return;
+  }
+
+  try {
+    const response = await fetch(`./Prefabs/${theme}.html`);
+    if (!response.ok) throw new Error("Template not found");
+
+    const html = await response.text();   // ← IMPORTANT
+
+    area.innerHTML = html + `<div id="linkPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Edit Link</h3>
+
+    <label>Choose a page:</label>
+    <div class="page-options">
+      <button data-page="page1.html">Page 1</button>
+      <button data-page="page2.html">Page 2</button>
+      <button data-page="page3.html">Page 3</button>
+      <button data-page="page4.html">Page 4</button>
+      <button data-page="page5.html">Page 5</button>
+      <button data-page="page6.html">Page 6</button>
+    </div>
+
+    <label>Edit link text:</label>
+    <input type="text" id="linkTextInput">
+
+    <div class="popup-actions">
+      <button id="saveLink">Save</button>
+      <button id="cancelPopup">Cancel</button>
+    </div>
+  </div>
+</div>`;
+
+    enableImageReplacement();
+    enableHeroImageReplacement();
+    enableTextEditing();
+    enableLinkPopup();
+
+  } catch (err) {
+    area.innerHTML = `<p style="color:red;">Error loading template: ${err.message}</p>`;
+  }
+}
+
+  function enableHeroImageReplacement() {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+
+    hero.style.cursor = "pointer";
+
+    const picker = document.createElement("input");
+    picker.type = "file";
+    picker.accept = "image/*";
+    picker.style.display = "none";
+
+    document.body.appendChild(picker);
+
+    hero.addEventListener("click", () => picker.click());
+
+    picker.addEventListener("change", () => {
+      const file = picker.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        const uploadedImg = new Image();
+        uploadedImg.onload = () => {
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
+          const targetRatio = 16 / 9;
+          let cropWidth = uploadedImg.width;
+          let cropHeight = cropWidth / targetRatio;
+
+          if (cropHeight > uploadedImg.height) {
+            cropHeight = uploadedImg.height;
+            cropWidth = cropHeight * targetRatio;
+          }
+
+          const startX = (uploadedImg.width - cropWidth) / 2;
+          const startY = (uploadedImg.height - cropHeight) / 2;
+
+          canvas.width = 1920;
+          canvas.height = 1080;
+
+          ctx.drawImage(
+            uploadedImg,
+            startX, startY, cropWidth, cropHeight,
+            0, 0, canvas.width, canvas.height
+          );
+
+          const finalImage = canvas.toDataURL("image/jpeg", 0.9);
+          hero.style.backgroundImage = `url('${finalImage}')`;
+        };
+
+        uploadedImg.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function enableImageReplacement() {
+    const images = document.querySelectorAll("#contentArea img");
+
+    images.forEach((img, index) => {
+      img.style.cursor = "pointer";
+
+      const picker = document.createElement("input");
+      picker.type = "file";
+      picker.accept = "image/*";
+      picker.style.display = "none";
+      picker.id = "imgPicker_" + index;
+
+      document.body.appendChild(picker);
+
+      img.addEventListener("click", () => picker.click());
+
+      picker.addEventListener("change", () => {
+        const file = picker.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = e => {
+          const uploadedImg = new Image();
+          uploadedImg.onload = () => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            const size = Math.min(uploadedImg.width, uploadedImg.height);
+            const startX = (uploadedImg.width - size) / 2;
+            const startY = (uploadedImg.height - size) / 2;
+
+            const outputSize = 600;
+            canvas.width = outputSize;
+            canvas.height = outputSize;
+
+            ctx.drawImage(
+              uploadedImg,
+              startX, startY, size, size,
+              0, 0, outputSize, outputSize
+            );
+
+            const finalImage = canvas.toDataURL("image/jpeg", 0.9);
+            img.src = finalImage;
+          };
+
+          uploadedImg.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      });
+    });
+  }
+
+  function enableTextEditing() {
+    const editableSelectors = [
+      ".business_name",
+      ".tagline",
+      ".about_us p",
+      ".service-card p",
+      "h1", "h2", "h3", "p", "span"
+    ];
+
+    const elements = document.querySelectorAll(editableSelectors.join(", "));
+
+    elements.forEach(el => {
+      if (el.closest(".sidebar")) return;
+
+      el.classList.add("editable-text");
+      el.style.cursor = "text";
+
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+      });
+
+      el.addEventListener("click", () => {
+        if (el.isContentEditable) return;
+
+        el.contentEditable = "true";
+        el.focus();
+        document.execCommand("selectAll", false, null);
+
+        el.addEventListener("blur", () => {
+          el.contentEditable = "false";
+        }, { once: true });
+      });
+    });
+  }
+
+  async function exportSite() {
+  const zip = new JSZip();
+  const imagesFolder = zip.folder("Images");
+  const cssFolder = zip.folder("css");
+
+  const area = document.getElementById("contentArea");
+  let html = area.innerHTML;
+
+  // Remove editing attributes
+  html = html.replace(/contenteditable="true"/gi, "");
+  html = html.replace(/contenteditable="false"/gi, "");
+  html = html.replace(/cursor:\s*pointer;?/gi, "");
+  html = html.replace(/style=""/gi, "");
+
+  // Remove onclick or JS handlers if any slipped in
+  html = html.replace(/onclick="[^"]*"/gi, "");
+
+  // Process images
+  const imgElements = area.querySelectorAll("img");
+  let imgIndex = 1;
+
+  for (const img of imgElements) {
+    const src = img.src;
+
+    if (src.startsWith("data:image")) {
+      const response = await fetch(src);
+      const blob = await response.blob();
+
+      const filename = `image_${imgIndex}.jpg`;
+      imgIndex++;
+
+      imagesFolder.file(filename, blob);
+
+      html = html.replace(src, `./Images/${filename}`);
+    }
+  }
+
+  // Add CSS file
+  const cssContent = `
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f9f9f9;
+}
+img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+.hero {
+  background-size: cover;
+  background-position: center;
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  gap: 2rem;
+}
+.service-card {
+  background: #f8f9fa;
+  padding: 0.1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+}
+.about-section {
+  max-width: 1100px;
+  margin: 0 auto 3rem auto;
+  padding: 0 1rem;
+}
+.about_us {
+  max-width: 820px;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: #333;
+}
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: #111;
+  color: #ccc;
+}
+@media (max-width: 768px) {
+  .hero { padding: 3rem 1rem; }
+  .services-grid { grid-template-columns: 1fr; }
+}
+  `;
+
+  cssFolder.file("style.css", cssContent);
+
+  // Build final clean HTML file
+  const cleanHtml = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>Your Website</title>
+</head>
+<body>
+${html}
+</body>
+</html>
+  `;
+
+  zip.file("index.html", cleanHtml);
+
+  // Generate ZIP
+  const blob = await zip.generateAsync({ type: "blob" });
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Website.zip";
+  a.click();
+}
+
+let currentLink = null;
+let selectedPage = null;
+
+function enableLinkPopup() {
+  const popup = document.getElementById("linkPopup");
+  const linkTextInput = document.getElementById("linkTextInput");
+
+  document.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault(); // stop navigation
+      currentLink = e.target;
+
+      // Fill input with current text
+      linkTextInput.value = currentLink.textContent;
+
+      // Reset selected page
+      selectedPage = null;
+
+      popup.style.display = "flex";
+    });
+  });
+
+  // Page option buttons
+  document.querySelectorAll(".page-options button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedPage = btn.dataset.page;
+      document.querySelectorAll(".page-options button").forEach(b => b.style.background = "");
+      btn.style.background = "#ddd";
+    });
+  });
+
+  // Save button
+  document.getElementById("saveLink").addEventListener("click", () => {
+    if (!currentLink) return;
+
+    currentLink.textContent = linkTextInput.value;
+
+    if (selectedPage) {
+      currentLink.href = selectedPage;
+    }
+
+    popup.style.display = "none";
+  });
+
+  // Cancel button
+  document.getElementById("cancelPopup").addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+}
+
+</script>
 
 </body>
+</html>
