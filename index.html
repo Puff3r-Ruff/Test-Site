@@ -223,17 +223,14 @@
     return;
   }
 
-  // Load JSON file from Prefabs folder
   try {
     const response = await fetch(`./Prefabs/${theme}.html`);
     if (!response.ok) throw new Error("Template not found");
 
-    const data = await response.json();
+    const html = await response.text();   // ← IMPORTANT
 
-    // Insert HTML from JSON
-    area.innerHTML = data.html;
+    area.innerHTML = html;
 
-    // Re-enable editing features
     enableImageReplacement();
     enableHeroImageReplacement();
     enableTextEditing();
@@ -242,6 +239,7 @@
     area.innerHTML = `<p style="color:red;">Error loading template: ${err.message}</p>`;
   }
 }
+
 
 
   function enableHeroImageReplacement() {
