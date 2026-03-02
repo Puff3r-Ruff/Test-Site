@@ -333,6 +333,7 @@ async function loadSite(theme) {
     enableImageReplacement();
     enableHeroImageReplacement();
     enableTextEditing();
+    enableLinkPopup();
 
   } catch (err) {
     area.innerHTML = `<p style="color:red;">Error loading template: ${err.message}</p>`;
@@ -654,8 +655,6 @@ function enableLinkPopup() {
     popup.style.display = "none";
   });
 }
-
-enableLinkPopup();
 
 </script>
 
