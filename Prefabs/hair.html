@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kopper Hair Salon — Cork City</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body { margin: 0; font-family: 'Montserrat', sans-serif; color: #222; background: #fafafa; }
+  header { position: relative; height: 80vh; overflow: hidden; }
+  header img { width: 100%; height: 100%; object-fit: cover; filter: brightness(60%); }
+  .hero-content { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white;}
+  .hero-content h1 { font-size: clamp(2.5rem,5vw,4rem); margin:0;}
+  .hero-content p { font-size: 1.2rem; margin-top:1rem;}
+  .hero-content a { margin-top:1.5rem; display:block; background:#c89a6f; padding:1rem 2rem; text-decoration:none; color:white; border-radius:5px;}
+
+  nav { background:#333; text-align:center; padding:1rem; }
+  nav a { color:white; margin:0 1rem; text-decoration:none; font-weight:600;}
+
+  section { padding:3rem 2rem; max-width:1200px; margin:auto; }
+  .services-grid, .gallery, .team-grid { display:grid; gap:2rem; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); }
+  .service-card, .team-card { background:white; padding:1.5rem; border-radius:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align:center;}
+
+  /* ✅ FIXED IMAGE SIZING */
+  .service-card img,
+  .team-card img,
+  .gallery img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+  }
+
+  #about img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 1rem 0;
+    display: block;
+  }
+
+  .testimonials { background:#fff8f3; padding:2rem; border-radius:8px; margin-top:1rem; box-shadow:0 10px 25px rgba(0,0,0,0.05);}
+  .contact { background:#c89a6f; color:white; text-align:center; padding:3rem 2rem; border-radius:8px;}
+  .contact a { display:inline-block; margin-top:1rem; padding:1rem 2rem; background:white; color:#222; text-decoration:none; border-radius:5px;}
+
+  footer { text-align:center; padding:1rem; background:#111; color:white;}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="https://pixabay.com/get/g51edc8f5a2f35e26276ae14d1f2b239e4c7011d56707898e9f964dfb26bc3fdaf91c27642650a051d8a2b72c3f429ccf0a44caf887a052a02aab211467b56e4e_1280.jpg" alt="Salon interior">
+  <div class="hero-content">
+    <h1>Kopper Hair Salon</h1>
+    <p>Expert Hair Styling & Professional Care</p>
+    <a href="#services">View Services</a>
+  </div>
+</header>
+
+<nav>
+  <a href="#gallery">Gallery</a>
+  <a href="#team">Team</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section id="services">
+  <h2 style="text-align:center;">Our Core Services</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="https://pixabay.com/get/gada39a500ad8c7fc62b4b2aa69aeb68f00add490ecd3646ee2f0d43274e1536e97751f337dc5dc3ae34cea952b45cde48058b35ba64c849e9fb2cebfe49c32cb_1280.jpg" alt="Hair colouring">
+      <h3>Colour & Highlights</h3>
+      <p>Custom colour services to refresh and transform your look.</p>
+    </div>
+    <div class="service-card">
+      <img src="https://pixabay.com/get/g96083236e99bc147ca4026f9aab2dbe0bad2f8447d9dbb2b39db4ed89818116596a4f03af4bac8109f7556bacfebf771a976e257fb93af9e5b7c01cb104d2453_1280.jpg" alt="Haircut styling">
+      <h3>Cut & Style</h3>
+      <p>Bespoke cuts and styling for every texture and trend.</p>
+    </div>
+    <div class="service-card">
+      <img src="https://pixabay.com/get/g7239095607555481b337cc51c4e93f73e46d4265f8dbcf54ef65bc6564a98f0bbaf4bb484a7a057034ebe98dd63ef9ae00bab24c4e22f4c144be4fc9677f5d6b_1280.jpg" alt="Hair treatment">
+      <h3>Hair Treatments</h3>
+      <p>Luxurious treatments for strength, shine and health.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About Kopper</h2>
+  <img src="https://pixabay.com/get/g0f50ddb7e8b86678ba5fc99b23b40e9c16ffed53ed6d17a2c5560e4b806513dc3fc25c566478cf37ead4c20f2d09bc5f37451ee933d0fb79de6c8c1255cdb09a_1280.jpg" alt="Hair salon team at work">
+  <p>Professionals you can trust — feel gorgeous every day at Kopper. We offer expert styling, personalised care and premium product lines.</p>
+</section>
+
+<section id="testimonials">
+  <h2>Testimonials</h2>
+  <div class="testimonials">
+    <p><strong>“Amazing experience — best haircut I’ve ever had!”</strong><br>— Sarah from Cork</p>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Our Work — Gallery</h2>
+  <div class="gallery">
+    <img src="https://pixabay.com/get/gd1d1d16d6cb8d1f968e051a1ec2c9d3a7b5b53c7f88d1a79e7d6097330e12ffdba1e86b52ace06955beef6ed3f223c279b51f0e05204bb39001eaccff356dc30_1280.jpg" alt="Salon finished hairstyle">
+    <img src="https://pixabay.com/get/g3e3b739644cfec404b0c0c8e08852489c7450cc662d5173db8867d166e32a0ea172380b38cc6cd8da41c6e7e1fdfff5fe1f3410b29143b811e5271725bf2194b_1280.jpg" alt="Hair styling detail">
+    <img src="https://pixabay.com/get/gfde709940940fa54079e6c3e6a8f22ebd8d75003c9355d3f4edc85153864db8d8e4a3bc44505609b4f84b2570647423b2539d02688a62215af27f0a50af7feb9_1280.jpg" alt="Salon client hair">
+    <img src="https://pixabay.com/get/g94d7de3453a2c66ce0c4243228466bab2fb798e7a7a1f4911dd0eae9ac5166bca4ce0e9b587e4eda4cafe8f70a036bcfcfb3bb5dcd24ece519b8b6f0c037e766_1280.jpg" alt="Hair beauty detail">
+  </div>
+</section>
+
+<section id="team">
+  <h2>Meet Our Stylists</h2>
+  <div class="team-grid">
+    <div class="team-card">
+      <img src="https://pixabay.com/get/g8900f59cf003fff0a2fa7b4035fe47960af5b1e47db6364524b2afbb5f57f0d378f75018ca1c9ae0f54b44020f4df95656124e83e28137ffc7f3485d51800c9a_1280.jpg" alt="Stylist portrait">
+      <h3>Sabrina</h3><p>Owner & Lead Stylist</p>
+    </div>
+    <div class="team-card">
+      <img src="https://pixabay.com/get/g2724e0459cea706fc65f0b7d52b50c1ca5cff1ac852c2503e8819cb3e8560932ac3ec7dbf23af8be2da894cf0583dc4936235e85857970870694e7403a48a2ed_1280.jpg" alt="Salon stylist">
+      <h3>Paula</h3><p>Senior Stylist</p>
+    </div>
+    <div class="team-card">
+      <img src="https://pixabay.com/get/gc227339ef20b6a23d2ddeb14bcc3c3bf008fae3a9234d58516456faff79ada810ef4ffc8ba44881953813c7e355ea14f_1280.jpg" alt="Stylist portrait">
+      <h3>Aoife</h3><p>Colour Specialist</p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact">
+    <h2>Get in Touch</h2>
+    <p>Unit 3, Half Moon Street, Cork City<br>
+    Phone: (021) 482 0692<br>
+    Email: <a href="mailto:info@kopperhairsalon.ie" style="color:white background-color:#000;">info@kopperhairsalon.ie</a></p>
+    <a href="tel:+353214820692">Call Now</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Kopper Hair Salon. All rights reserved.
+</footer>
+
+</body>
+</html>
+
+      
