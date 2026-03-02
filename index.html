@@ -225,7 +225,7 @@
 
   // Load JSON file from Prefabs folder
   try {
-    const response = await fetch(`./Prefabs/${theme}.json`);
+    const response = await fetch(`./Prefabs/${theme}.html`);
     if (!response.ok) throw new Error("Template not found");
 
     const data = await response.json();
