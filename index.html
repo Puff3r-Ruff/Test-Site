@@ -204,9 +204,7 @@
   <h2>Step 2. Submit Images</h2>
   <h2>Step 3. Subscribe</h2>
   <h2>Step 4. Our Developers Launch Your Website</h2>
-</main>
-
-<div id="linkPopup" class="popup-overlay">
+  <div id="linkPopup" class="popup-overlay">
   <div class="popup-box">
     <h3>Edit Link</h3>
 
@@ -229,6 +227,9 @@
     </div>
   </div>
 </div>
+</main>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 
@@ -272,6 +273,29 @@ async function loadSite(theme) {
       <h2>Step 2. Submit Images</h2>
       <h2>Step 3. Subscribe</h2>
       <h2>Step 4. Our Developers Launch Your Website</h2>
+      <div id="linkPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Edit Link</h3>
+
+    <label>Choose a page:</label>
+    <div class="page-options">
+      <button data-page="page1.html">Page 1</button>
+      <button data-page="page2.html">Page 2</button>
+      <button data-page="page3.html">Page 3</button>
+      <button data-page="page4.html">Page 4</button>
+      <button data-page="page5.html">Page 5</button>
+      <button data-page="page6.html">Page 6</button>
+    </div>
+
+    <label>Edit link text:</label>
+    <input type="text" id="linkTextInput">
+
+    <div class="popup-actions">
+      <button id="saveLink">Save</button>
+      <button id="cancelPopup">Cancel</button>
+    </div>
+  </div>
+</div>
     `;
     return;
   }
@@ -282,7 +306,29 @@ async function loadSite(theme) {
 
     const html = await response.text();   // ← IMPORTANT
 
-    area.innerHTML = html;
+    area.innerHTML = html `<div id="linkPopup" class="popup-overlay">
+  <div class="popup-box">
+    <h3>Edit Link</h3>
+
+    <label>Choose a page:</label>
+    <div class="page-options">
+      <button data-page="page1.html">Page 1</button>
+      <button data-page="page2.html">Page 2</button>
+      <button data-page="page3.html">Page 3</button>
+      <button data-page="page4.html">Page 4</button>
+      <button data-page="page5.html">Page 5</button>
+      <button data-page="page6.html">Page 6</button>
+    </div>
+
+    <label>Edit link text:</label>
+    <input type="text" id="linkTextInput">
+
+    <div class="popup-actions">
+      <button id="saveLink">Save</button>
+      <button id="cancelPopup">Cancel</button>
+    </div>
+  </div>
+</div>`;
 
     enableImageReplacement();
     enableHeroImageReplacement();
