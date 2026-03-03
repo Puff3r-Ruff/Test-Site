@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -8,9 +9,11 @@
     body {
         margin: 0;
         font-family: "Poppins", sans-serif;
-        background: #fafafa;
+        background-color: #000;
         color: #333;
     }
+
+    .content{background:#eee;}
 
     /* NAVBAR */
     nav {
@@ -33,7 +36,7 @@
 
     /* HERO */
     .hero {
-        background: url("Prefabs/images/grooming1.jpg") center/cover no-repeat;
+        background: url("images/grooming1.jpg") center/cover no-repeat;
         height: 90vh;
         display: flex;
         align-items: center;
@@ -163,7 +166,58 @@
         color: white;
         margin-top: 40px;
     }
+
+    /* ----------------------------- */
+    /* 📱 MOBILE RESPONSIVE SECTION */
+    /* ----------------------------- */
+
+    @media (max-width: 900px) {
+        .hero {
+            padding-left: 30px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        nav {
+            flex-direction: column;
+            text-align: center;
+            padding: 15px;
+        }
+        nav a {
+            margin: 10px;
+            display: inline-block;
+        }
+
+        .hero {
+            height: 70vh;
+            padding: 20px;
+            text-align: center;
+            justify-content: center;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+        }
+        .hero p {
+            font-size: 1rem;
+            max-width: 100%;
+        }
+
+        section {
+            padding: 50px 20px;
+        }
+        h2 {
+            font-size: 1.8rem;
+        }
+
+        .price-box {
+            width: 100%;
+        }
+    }
 </style>
+
 </head>
 
 <body>
