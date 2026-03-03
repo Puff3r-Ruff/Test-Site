@@ -1,0 +1,254 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Paws & Shine Grooming</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #fafafa;
+        color: #333;
+    }
+
+    /* NAVBAR */
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: white;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    nav a {
+        text-decoration: none;
+        margin-left: 20px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    /* HERO */
+    .hero {
+        background: url("images/grooming1.jpg") center/cover no-repeat;
+        height: 90vh;
+        display: flex;
+        align-items: center;
+        padding-left: 60px;
+        color: white;
+        text-shadow: 0 3px 10px rgba(0,0,0,0.4);
+    }
+    .hero h1 {
+        font-size: 4rem;
+        margin: 0;
+    }
+    .hero p {
+        font-size: 1.3rem;
+        max-width: 450px;
+    }
+    .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 14px 28px;
+        background: #ff7f50;
+        color: white;
+        border-radius: 6px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        background: #ff5722;
+    }
+
+    /* SECTIONS */
+    section {
+        padding: 80px 60px;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.4rem;
+    }
+
+    /* SERVICES */
+    .services {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+    }
+    .service-card {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .service-card img {
+        width: 80px;
+        margin-bottom: 20px;
+    }
+
+    /* PRICING */
+    .pricing {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+    .price-box {
+        background: white;
+        padding: 30px;
+        width: 280px;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .price-box h3 {
+        margin-bottom: 10px;
+    }
+    .price-box span {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #ff7f50;
+    }
+
+    /* TESTIMONIALS */
+    .testimonial {
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        font-style: italic;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    /* CONTACT */
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    input, textarea {
+        padding: 14px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+    }
+    button {
+        padding: 14px;
+        background: #ff7f50;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1.1rem;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #ff5722;
+    }
+
+    /* FOOTER */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background: #333;
+        color: white;
+        margin-top: 40px;
+    }
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h2>Paws & Shine</h2>
+    <div>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <div>
+        <h1>Professional Dog Grooming</h1>
+        <p>Keeping your furry friends clean, healthy, and looking their absolute best. Gentle care, expert grooming, and a whole lot of love.</p>
+        <a class="btn" href="#contact">Book an Appointment</a>
+    </div>
+</div>
+
+<section id="services">
+    <h2>Our Services</h2>
+    <div class="services">
+        <div class="service-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" />
+            <h3>Full Groom</h3>
+            <p>Bath, haircut, nail trim, ear cleaning — the full pampering package.</p>
+        </div>
+        <div class="service-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/194/194279.png" />
+            <h3>Wash & Dry</h3>
+            <p>Perfect for a quick refresh to keep coats shiny and clean.</p>
+        </div>
+        <div class="service-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/616/616430.png" />
+            <h3>Nail Trimming</h3>
+            <p>Gentle nail care to keep paws healthy and comfortable.</p>
+        </div>
+    </div>
+</section>
+
+<section id="pricing">
+    <h2>Pricing</h2>
+    <div class="pricing">
+        <div class="price-box">
+            <h3>Small Dogs</h3>
+            <span>€35</span>
+            <p>Full grooming package</p>
+        </div>
+        <div class="price-box">
+            <h3>Medium Dogs</h3>
+            <span>€45</span>
+            <p>Full grooming package</p>
+        </div>
+        <div class="price-box">
+            <h3>Large Dogs</h3>
+            <span>€55</span>
+            <p>Full grooming package</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Happy Clients</h2>
+    <div class="testimonial">
+        “Paws & Shine always does an amazing job with our golden retriever. She comes home smelling great and looking adorable!”
+        <br><br>— Sarah & Bella
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Book an Appointment</h2>
+    <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Email Address" required />
+        <input type="text" placeholder="Dog Breed" required />
+        <textarea rows="5" placeholder="Message"></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
+
+<footer>
+    © 2026 Paws & Shine Grooming — All Rights Reserved
+</footer>
+
+</body>
+</html>
