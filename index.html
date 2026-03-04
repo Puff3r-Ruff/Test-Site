@@ -103,37 +103,633 @@ section {
 </main>
 
 <script>
-  async function loadSite(theme) {
-  const area = document.getElementById("contentArea");
 
-  if (theme === "default") {
-    area.innerHTML = `
-      <h1>IdeaGo.ie Website Generator</h1>
-      <hr/>
-      <h2>Step 1. Choose Website</h2>
-      <h2>Step 2. Submit Images</h2>
-      <h2>Step 3. Subscribe</h2>
-      <h2>Step 4. Our Developers Launch Your Website</h2>
-    `;
-    return;
-  }
+  function loadSite(theme) {
+    const area = document.getElementById("contentArea");
+    area.innerHTML = "";
 
-  try {
-    const response = await fetch(`./Prefabs/${theme}.html`);
-    if (!response.ok) throw new Error("Template not found");
+    // We no longer have input fields → use fallback defaults only
+    const currentName    = '';  // or you can hardcode defaults if preferred
+    const currentTagline = '';
+    const currentAbout   = '';
 
-    const html = await response.text();   // ← IMPORTANT
+    if (theme === "EssentialTheme") {
+      area.innerHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Your Business Name</title>
 
-    area.innerHTML = html;
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    enableImageReplacement();
-    enableHeroImageReplacement();
-    enableTextEditing();
+<style>
 
-  } catch (err) {
-    area.innerHTML = `<p style="color:red;">Error loading template: ${err.message}</p>`;
-  }
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family:'Inter', sans-serif;
+  background:#f7f9fc;
+  color:#1a2a3a;
+  line-height:1.6;
 }
+
+section { padding:120px 8%; }
+
+/* NAVBAR */
+.navbar {
+  width:100%;
+  padding:25px 8%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:white;
+  box-shadow:0 4px 20px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-weight:800;
+  font-size:22px;
+}
+
+.nav-links a {
+  margin-left:30px;
+  text-decoration:none;
+  color:#1a2a3a;
+  font-weight:600;
+  transition:0.2s;
+}
+
+.nav-links a:hover { color:#2ecc71; }
+
+/* HERO */
+.hero_section {
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.hero-text h1 {
+  font-size:56px;
+  font-weight:800;
+  line-height:1.1;
+  margin-bottom:25px;
+}
+
+.hero-text p {
+  font-size:20px;
+  color:#555;
+  margin-bottom:35px;
+}
+
+.cta-btn {
+  padding:16px 42px;
+  background:linear-gradient(135deg,#2ecc71,#27ae60);
+  border-radius:50px;
+  color:white;
+  font-weight:600;
+  text-decoration:none;
+  box-shadow:0 15px 35px rgba(46,204,113,0.35);
+  transition:0.3s;
+  display:inline-block;
+  border:none;
+  cursor:pointer;
+}
+
+.cta-btn:hover { transform:translateY(-4px); }
+
+.hero-image img {
+  width:100%;
+  border-radius:28px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.15);
+}
+
+/* TRUST STRIP */
+.trust-strip {
+  background:white;
+  padding:40px 8%;
+  text-align:center;
+  font-weight:600;
+  color:#666;
+  border-top:1px solid rgba(0,0,0,0.05);
+  border-bottom:1px solid rgba(0,0,0,0.05);
+}
+
+/* SERVICES */
+.services h2 {
+  font-size:42px;
+  margin-bottom:70px;
+  text-align:center;
+}
+
+.service-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:40px;
+}
+
+.service-card {
+  padding:50px 40px;
+  border-radius:24px;
+  background:#f9fbff;
+  transition:0.3s;
+}
+
+.service-card:hover {
+  transform:translateY(-10px);
+  box-shadow:0 25px 50px rgba(0,0,0,0.08);
+}
+
+/* ABOUT */
+.about {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.about img {
+  width:100%;
+  border-radius:28px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.15);
+}
+
+.about-text h2 {
+  font-size:42px;
+  margin-bottom:25px;
+}
+
+.about-text p {
+  font-size:18px;
+  color:#555;
+}
+
+/* TESTIMONIALS */
+.testimonials {
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color:white;
+  text-align:center;
+}
+
+.testimonials h2 {
+  font-size:42px;
+  margin-bottom:70px;
+}
+
+.testimonial-card {
+  max-width:700px;
+  margin:30px auto;
+  background:white;
+  color:#1a2a3a;
+  padding:50px;
+  border-radius:28px;
+  box-shadow:0 25px 60px rgba(0,0,0,0.3);
+}
+
+/* CONTACT */
+.contact {
+  text-align:center;
+}
+
+.contact h2 {
+  font-size:42px;
+  margin-bottom:40px;
+}
+
+.contact-form {
+  max-width:500px;
+  margin:auto;
+  display:grid;
+  gap:20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding:16px;
+  border-radius:14px;
+  border:1px solid #ddd;
+  font-size:16px;
+}
+
+footer {
+  text-align:center;
+  padding:40px;
+  background:#111;
+  color:#aaa;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero, .about { grid-template-columns:1fr; }
+  .hero { text-align:center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="logo" id="bizNameNav"><h2>Your Business Name</h2></div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero_section">
+  <div class="hero-text">
+    <h1 id="bizHeadline">Premium Professional Services</h1>
+    <p id="bizTagline">Delivering exceptional quality with a trusted modern approach.</p>
+    <a href="#contact" class="cta-btn" id="heroButtonText">Get Started</a>
+  </div>
+  <div class="hero-image">
+    <img id="heroImage" src="images/background1.jpg" alt="">
+  </div>
+</section>
+
+<!-- TRUST STRIP (NOW EDITABLE) -->
+<div class="trust-strip" id="trustText">
+  <h4>Trusted by 500+ Clients • 5-Star Rated • Fully Certified</h4>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <h2 id="servicesTitle">Our Services</h2>
+  <div class="service-grid">
+    <div class="service-card">
+      <h3 id="service1Title">Service One</h3>
+      <p id="service1Desc">High quality professional service delivered with care.</p>
+    </div>
+    <div class="service-card">
+      <h3 id="service2Title">Service Two</h3>
+      <p id="service2Desc">Reliable solutions tailored to your specific needs.</p>
+    </div>
+    <div class="service-card">
+      <h3 id="service3Title">Service Three</h3>
+      <p id="service3Desc">Expert workmanship and premium customer support.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <img id="aboutImage" src="images/photo.jpg" alt="">
+  <div class="about-text">
+    <h2 id="aboutTitle">About Our Company</h2>
+    <p id="aboutText">
+      We are committed to delivering outstanding service with professionalism and reliability.
+    </p>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <h2 id="testimonialTitle">What Clients Say</h2>
+  <div class="testimonial-card">
+    <p id="testimonial1Text">"Absolutely outstanding service from start to finish."</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2 id="contactTitle">Contact Us</h2>
+
+  <form class="contact-form">
+    <input type="text" placeholder="Your Name" required>
+    <input type="tel" placeholder="Phone Number" required>
+    <textarea placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit" class="cta-btn" id="contactButtonText">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  © 2026 <span id="footerBizName">Your Business Name</span>. All rights reserved.
+</footer>
+
+</body>
+</html>
+`;
+      enableImageReplacement();
+      enableHeroImageReplacement();
+      enableTextEditing();
+      return;
+    }
+
+    if (theme === "GalleryTheme") {
+      area.innerHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tabbed Business Gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
+}
+
+/* HERO BANNER */
+/* HERO BANNER WITH BACKGROUND IMAGE */
+.hero-banner {
+  position: relative;
+  padding: 140px 20px;
+  text-align: center;
+  color: #fff;
+  background: url('https://picsum.photos/1200/800?25') center/cover no-repeat; /* <-- your image */
+  overflow: hidden;
+}
+
+/* Dark overlay so text stays readable */
+.hero-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.8); /* adjustable darkness */
+  backdrop-filter: blur(1px);
+}
+
+/* Keep text above overlay */
+.hero-inner {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 14px;
+}
+
+.hero-title span {
+  color: #e5e5e5; /* soft silver */
+}
+
+
+.hero-tagline {
+  font-size: 20px;
+  color: #e2e8f0;
+  max-width: 640px;
+  margin: 0 auto 26px;
+}
+
+.cta-btn {
+  padding: 14px 34px;
+  background:#fff;
+  border-radius: 999px;
+  color: #000;
+  font-weight: 600;
+  text-decoration: none;
+  
+  transition: 0.3s;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cta-btn:hover {
+  transform: translateY(-3px);
+}
+
+
+/* Header below hero (for gallery title) */
+.section-header {
+  padding: 30px 20px 10px;
+  text-align: center;
+}
+.section-header h2 {
+  margin: 0;
+  font-size: 26px;
+}
+.section-header p {
+  margin-top: 8px;
+  color: #666;
+}
+
+/* Tabs */
+.filters {
+  text-align: center;
+  padding: 15px 10px;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.filters button {
+  padding: 8px 16px;
+  margin: 4px;
+  border: none;
+  background: #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.filters button p {
+  margin: 0;
+}
+.filters button.active,
+.filters button:hover {
+  background: #333;
+  color: #fff;
+}
+
+/* Gallery layout */
+.gallery {
+  columns: 3;
+  column-gap: 12px;
+  padding: 20px;
+}
+.gallery-item {
+  margin-bottom: 12px;
+  break-inside: avoid;
+  cursor: pointer;
+}
+
+/* Fixed image size */
+.gallery-item img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.gallery-item:hover img {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+}
+.lightbox .close-area {
+  position: absolute;
+  inset: 0;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .gallery { columns: 2; }
+  .hero-title { font-size: 34px; }
+}
+@media (max-width: 600px) {
+  .gallery { columns: 1; }
+  .hero-banner { padding: 90px 16px; }
+  .hero-title { font-size: 28px; }
+  .hero-tagline { font-size: 16px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO BANNER -->
+<section class="hero-banner">
+  <div class="hero-inner">
+    <h1 class="hero-title" id="bizHeadline">
+      Premium <span>Professional Services</span>
+    </h1>
+    <p class="hero-tagline" id="bizTagline">
+      Delivering exceptional quality with a trusted modern approach.
+    </p>
+  </div>
+</section>
+
+
+<!-- GALLERY SECTION HEADER -->
+<div class="section-header" id="gallery">
+  <h2>Business Gallery</h2>
+  <p>Tabbed galleries with fixed image sizes and lightbox.</p>
+</div>
+
+<!-- TABS -->
+<div class="filters">
+  <button class="active" data-gallery="gallery1"><p>Gallery 1</p></button>
+  <button data-gallery="gallery2"><p>Gallery 2</p></button>
+  <button data-gallery="gallery3"><p>Gallery 3</p></button>
+  <button data-gallery="gallery4"><p>Gallery 4</p></button>
+</div>
+
+<!-- GALLERY 1 -->
+<div class="gallery-group" id="gallery1">
+  <div class="gallery">
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?1" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?2" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?3" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?4" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?5" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?6" alt=""></div>
+  </div>
+</div>
+
+<!-- GALLERY 2 -->
+<div class="gallery-group" id="gallery2" style="display:none;">
+  <div class="gallery">
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?7" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?8" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?9" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?10" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?11" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?12" alt=""></div>
+  </div>
+</div>
+
+<!-- GALLERY 3 -->
+<div class="gallery-group" id="gallery3" style="display:none;">
+  <div class="gallery">
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?13" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?14" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?15" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?16" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?17" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?18" alt=""></div>
+  </div>
+</div>
+
+<!-- GALLERY 4 -->
+<div class="gallery-group" id="gallery4" style="display:none;">
+  <div class="gallery">
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?19" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?20" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?21" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?22" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?23" alt=""></div>
+    <div class="gallery-item"><img src="https://picsum.photos/1200/800?24" alt=""></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="close-area"></div>
+  <img id="lightbox-img" alt="">
+</div>
+
+</body>
+</html>
+`;
+
+      enableImageReplacement();
+      enableHeroImageReplacement();
+      enableTextEditing();
+      
+// Tabs
+const tabButtons = document.querySelectorAll(".filters button");
+const galleryGroups = document.querySelectorAll(".gallery-group");
+
+tabButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    tabButtons.forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+
+    const targetId = button.getAttribute("data-gallery");
+
+    galleryGroups.forEach(group => {
+      group.style.display = (group.id === targetId) ? "block" : "none";
+    });
+  });
+});
+
+// Lightbox
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightbox-img");
+
+document.querySelectorAll(".gallery-item img").forEach(img => {
+  img.addEventListener("click", () => {
+    lightboxImg.src = img.src;
+    lightbox.style.display = "flex";
+  });
+});
+
+document.querySelector(".lightbox .close-area").addEventListener("click", () => {
+  lightbox.style.display = "none";
+});
+
+      return;
+    }
+  }
 
   function enableHeroImageReplacement() {
     const hero = document.querySelector(".hero");
