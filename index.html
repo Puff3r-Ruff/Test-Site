@@ -103,335 +103,38 @@ section {
 </main>
 
 <script>
-  function loadSite(theme) {
-    const area = document.getElementById("contentArea");
-    area.innerHTML = "";
+  async function loadSite(theme) {
+  const area = document.getElementById("contentArea");
 
-    // We no longer have input fields → use fallback defaults only
-    const currentName    = '';  // or you can hardcode defaults if preferred
-    const currentTagline = '';
-    const currentAbout   = '';
-
-    if (theme === "EssentialTheme") {
-      area.innerHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Your Business Name</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family:'Inter', sans-serif;
-  background:#f7f9fc;
-  color:#1a2a3a;
-  line-height:1.6;
-}
-
-section { padding:120px 8%; }
-
-/* NAVBAR */
-.navbar {
-  width:100%;
-  padding:25px 8%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:white;
-  box-shadow:0 4px 20px rgba(0,0,0,0.05);
-}
-
-.logo {
-  font-weight:800;
-  font-size:22px;
-}
-
-.nav-links a {
-  margin-left:30px;
-  text-decoration:none;
-  color:#1a2a3a;
-  font-weight:600;
-  transition:0.2s;
-}
-
-.nav-links a:hover { color:#2ecc71; }
-
-/* HERO */
-.hero_section {
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.hero-text h1 {
-  font-size:56px;
-  font-weight:800;
-  line-height:1.1;
-  margin-bottom:25px;
-}
-
-.hero-text p {
-  font-size:20px;
-  color:#555;
-  margin-bottom:35px;
-}
-
-.cta-btn {
-  padding:16px 42px;
-  background:linear-gradient(135deg,#2ecc71,#27ae60);
-  border-radius:50px;
-  color:white;
-  font-weight:600;
-  text-decoration:none;
-  box-shadow:0 15px 35px rgba(46,204,113,0.35);
-  transition:0.3s;
-  display:inline-block;
-  border:none;
-  cursor:pointer;
-}
-
-.cta-btn:hover { transform:translateY(-4px); }
-
-.hero-image img {
-  width:100%;
-  border-radius:28px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.15);
-}
-
-/* TRUST STRIP */
-.trust-strip {
-  background:white;
-  padding:40px 8%;
-  text-align:center;
-  font-weight:600;
-  color:#666;
-  border-top:1px solid rgba(0,0,0,0.05);
-  border-bottom:1px solid rgba(0,0,0,0.05);
-}
-
-/* SERVICES */
-.services h2 {
-  font-size:42px;
-  margin-bottom:70px;
-  text-align:center;
-}
-
-.service-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:40px;
-}
-
-.service-card {
-  padding:50px 40px;
-  border-radius:24px;
-  background:#f9fbff;
-  transition:0.3s;
-}
-
-.service-card:hover {
-  transform:translateY(-10px);
-  box-shadow:0 25px 50px rgba(0,0,0,0.08);
-}
-
-/* ABOUT */
-.about {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.about img {
-  width:100%;
-  border-radius:28px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.15);
-}
-
-.about-text h2 {
-  font-size:42px;
-  margin-bottom:25px;
-}
-
-.about-text p {
-  font-size:18px;
-  color:#555;
-}
-
-/* TESTIMONIALS */
-.testimonials {
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-  text-align:center;
-}
-
-.testimonials h2 {
-  font-size:42px;
-  margin-bottom:70px;
-}
-
-.testimonial-card {
-  max-width:700px;
-  margin:30px auto;
-  background:white;
-  color:#1a2a3a;
-  padding:50px;
-  border-radius:28px;
-  box-shadow:0 25px 60px rgba(0,0,0,0.3);
-}
-
-/* CONTACT */
-.contact {
-  text-align:center;
-}
-
-.contact h2 {
-  font-size:42px;
-  margin-bottom:40px;
-}
-
-.contact-form {
-  max-width:500px;
-  margin:auto;
-  display:grid;
-  gap:20px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding:16px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  font-size:16px;
-}
-
-footer {
-  text-align:center;
-  padding:40px;
-  background:#111;
-  color:#aaa;
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero, .about { grid-template-columns:1fr; }
-  .hero { text-align:center; }
-}
-
-</style>
-</head>
-<body>
-
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="logo" id="bizNameNav"><h2>Your Business Name</h2></div>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </div>
-</div>
-
-<!-- HERO -->
-<section class="hero_section">
-  <div class="hero-text">
-    <h1 id="bizHeadline">Premium Professional Services</h1>
-    <p id="bizTagline">Delivering exceptional quality with a trusted modern approach.</p>
-    <a href="#contact" class="cta-btn" id="heroButtonText">Get Started</a>
-  </div>
-  <div class="hero-image">
-    <img id="heroImage" src="images/background1.jpg" alt="">
-  </div>
-</section>
-
-<!-- TRUST STRIP (NOW EDITABLE) -->
-<div class="trust-strip" id="trustText">
-  <h4>Trusted by 500+ Clients • 5-Star Rated • Fully Certified</h4>
-</div>
-
-<!-- SERVICES -->
-<section class="services" id="services">
-  <h2 id="servicesTitle">Our Services</h2>
-  <div class="service-grid">
-    <div class="service-card">
-      <h3 id="service1Title">Service One</h3>
-      <p id="service1Desc">High quality professional service delivered with care.</p>
-    </div>
-    <div class="service-card">
-      <h3 id="service2Title">Service Two</h3>
-      <p id="service2Desc">Reliable solutions tailored to your specific needs.</p>
-    </div>
-    <div class="service-card">
-      <h3 id="service3Title">Service Three</h3>
-      <p id="service3Desc">Expert workmanship and premium customer support.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <img id="aboutImage" src="images/photo.jpg" alt="">
-  <div class="about-text">
-    <h2 id="aboutTitle">About Our Company</h2>
-    <p id="aboutText">
-      We are committed to delivering outstanding service with professionalism and reliability.
-    </p>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <h2 id="testimonialTitle">What Clients Say</h2>
-  <div class="testimonial-card">
-    <p id="testimonial1Text">"Absolutely outstanding service from start to finish."</p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <h2 id="contactTitle">Contact Us</h2>
-
-  <form class="contact-form">
-    <input type="text" placeholder="Your Name" required>
-    <input type="tel" placeholder="Phone Number" required>
-    <textarea placeholder="Your Message" rows="5" required></textarea>
-    <button type="submit" class="cta-btn" id="contactButtonText">Send Message</button>
-  </form>
-</section>
-
-<footer>
-  © 2026 <span id="footerBizName">Your Business Name</span>. All rights reserved.
-</footer>
-
-</body>
-</html>
-`;
-      enableImageReplacement();
-      enableHeroImageReplacement();
-      enableTextEditing();
-      return;
-    }
-
-    if (theme === "GalleryTheme") {
-      const response = await fetch(`./Prefabs/${theme}.html`);
-      if (!response.ok) throw new Error("Template not found");
-
-      const html = await response.text();
-
-      enableImageReplacement();
-      enableHeroImageReplacement();
-      enableTextEditing();
-      return;
-    }
+  if (theme === "default") {
+    area.innerHTML = `
+      <h1>IdeaGo.ie Website Generator</h1>
+      <hr/>
+      <h2>Step 1. Choose Website</h2>
+      <h2>Step 2. Submit Images</h2>
+      <h2>Step 3. Subscribe</h2>
+      <h2>Step 4. Our Developers Launch Your Website</h2>
+    `;
+    return;
   }
+
+  try {
+    const response = await fetch(`./Prefabs/${theme}.html`);
+    if (!response.ok) throw new Error("Template not found");
+
+    const html = await response.text();   // ← IMPORTANT
+
+    area.innerHTML = html;
+
+    enableImageReplacement();
+    enableHeroImageReplacement();
+    enableTextEditing();
+    enableLinkPopup();
+
+  } catch (err) {
+    area.innerHTML = `<p style="color:red;">Error loading template: ${err.message}</p>`;
+  }
+}
 
   function enableHeroImageReplacement() {
     const hero = document.querySelector(".hero");
