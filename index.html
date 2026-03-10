@@ -1,882 +1,1165 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trades Person Site Switcher with Images</title>
+<!DOCTYPE html><!-- Google Tag Manager --><html lang="en" dir="ltr"><head>
 
-  <style>
+  <title>
+    Your Custom Website
+  </title>
 
-.sidebar {
-  padding: 20px;
-  background: #fff;
-  border-radius: 10px;
-}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-.template-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
-  gap: 15px;
-  margin-top: 15px;
-}
+<link href="styles.css" rel="stylesheet" type="text/css" media="all">
 
-.template-card {
-  background: #f8f8f8;
-  border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: 0.2s ease;
-  text-align: center;
-  border: 1px solid #e5e5e5;
-}
-
-.template-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.template-card img {
-  width: 100%;
-  height: 90px;
-  object-fit: cover;
-}
-
-.template-card span {
-  display: block;
-  padding: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #333;
-}
-
-/* GENERAL Essential Theme CSS */
-.site-wrapper {
-  font-family: 'Inter', sans-serif;
-  color: #1A2A3A;
-  line-height: 1.6;
-}
-
-h1, h2, h3 {
-  margin-bottom: 10px;
-  font-weight: 700;
-}
-
-section {
-  padding: 60px 20px;
-}
-
-
-
-</style>
 </head>
-<body>
-<aside class="sidebar">
-  <h3>Choose a Template</h3>
-  <p>Select a website style:</p>
 
-  <div class="template-grid">
-    <div class="template-card" onclick="loadSite('EssentialTheme')">
-      <img src="images/essential.png" alt="Essential Website Theme">
-      <span>Essential Website Theme</span>
-    </div>
+<body class="template-index
+" data-cc-animate-timeout="0">
 
-    <div class="template-card" onclick="loadSite('GalleryTheme')">
-      <img src="images/gallery.jpg" alt="Gallery Template">
-      <span>Gallery Website Template</span>
-    </div>
+<!----------------- Top Announcement Bar ---------------------------->
+<div id="shopify-section-announcement-bar" class="shopify-section section-announcement-bar">
+<div id="section-id-announcement-bar" class="announcement-bar announcement-bar--with-announcement" data-section-type="announcement-bar" data-cc-animate="">
+    <style data-shopify="">
+      #section-id-announcement-bar {
+        --announcement-background: #f4cbdc;
+        --announcement-text: #4c4c4b;
+        --link-underline: rgba(76, 76, 75, 0.6);
+        --announcement-font-size: 12px;
+      }
+    </style>
 
-    <div class="template-card" onclick="loadSite('contact')">
-      <img src="images/contatc.jpg" alt="Contact Website Theme">
-      <span>Contact Website Theme</span>
-    </div>
+    <div class="container container--no-max">
+      <div class="announcement-bar__left desktop-only">
+      </div>
 
-    <div class="template-card" onclick="loadSite('Personal')">
-      <img src="images/Personal.jpg" alt="Personal Website Theme">
-      <span>Personal Website Theme</span>
-    </div>
-  </div>
-</aside>
+      <div class="announcement-bar__middle"><div class="announcement-bar__announcements"><div class="announcement">
+                <div class="announcement__text"><h6>Enter Business Message Here </h6></div>
+              </div>
 
+              <div class="announcement announcement--inactive">
+                <div class="announcement__text"><h6>Enter Text Here</h6></div>
+              </div></div>
 
-<main class="content" id="contentArea">
+          <div class="announcement-bar__announcement-controller">
+            <button class="announcement-button announcement-button--previous notabutton" aria-label="Previous"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><title>Left</title><polyline points="15 18 9 12 15 6"></polyline></svg></button><button class="announcement-button announcement-button--next notabutton" aria-label="Next"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><title>Right</title><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+          </div></div>
 
-</main>
-
-<script>
-
-  function loadSite(theme) {
-    const area = document.getElementById("contentArea");
-    area.innerHTML = "";
-
-    // We no longer have input fields → use fallback defaults only
-    const currentName    = '';  // or you can hardcode defaults if preferred
-    const currentTagline = '';
-    const currentAbout   = '';
-
-    if (theme === "EssentialTheme") {
-      area.innerHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title id="pageTitle">Your Business Name</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; }
-
-body {
-  font-family:'Inter', sans-serif;
-  background:#f7f9fc;
-  color:#1a2a3a;
-  line-height:1.6;
-}
-
-section { padding:120px 8%; }
-
-/* NAVBAR */
-.navbar {
-  width:100%;
-  padding:25px 8%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:white;
-  box-shadow:0 4px 20px rgba(0,0,0,0.05);
-}
-
-.logo {
-  font-weight:800;
-  font-size:22px;
-}
-
-.nav-links a {
-  margin-left:30px;
-  text-decoration:none;
-  color:#1a2a3a;
-  font-weight:600;
-  transition:0.2s;
-}
-
-.nav-links a:hover { color:#2ecc71; }
-
-/* HERO */
-.hero_section {
-  display:grid;
-  grid-template-columns:1.2fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.hero-text h1 {
-  font-size:56px;
-  font-weight:800;
-  line-height:1.1;
-  margin-bottom:25px;
-}
-
-.hero-text p {
-  font-size:20px;
-  color:#555;
-  margin-bottom:35px;
-}
-
-.cta-btn {
-  padding:16px 42px;
-  background:linear-gradient(135deg,#2ecc71,#27ae60);
-  border-radius:50px;
-  color:white;
-  font-weight:600;
-  text-decoration:none;
-  box-shadow:0 15px 35px rgba(46,204,113,0.35);
-  transition:0.3s;
-  display:inline-block;
-  border:none;
-  cursor:pointer;
-}
-
-.cta-btn:hover { transform:translateY(-4px); }
-
-.hero-image img {
-  width:100%;
-  border-radius:28px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.15);
-}
-
-/* TRUST STRIP */
-.trust-strip {
-  background:white;
-  padding:40px 8%;
-  text-align:center;
-  font-weight:600;
-  color:#666;
-  border-top:1px solid rgba(0,0,0,0.05);
-  border-bottom:1px solid rgba(0,0,0,0.05);
-}
-
-/* SERVICES */
-.services h2 {
-  font-size:42px;
-  margin-bottom:70px;
-  text-align:center;
-}
-
-.service-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:40px;
-}
-
-.service-card {
-  padding:50px 40px;
-  border-radius:24px;
-  background:#f9fbff;
-  transition:0.3s;
-}
-
-.service-card:hover {
-  transform:translateY(-10px);
-  box-shadow:0 25px 50px rgba(0,0,0,0.08);
-}
-
-/* ABOUT */
-.about {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:60px;
-  align-items:center;
-}
-
-.about img {
-  width:100%;
-  border-radius:28px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.15);
-}
-
-.about-text h2 {
-  font-size:42px;
-  margin-bottom:25px;
-}
-
-.about-text p {
-  font-size:18px;
-  color:#555;
-}
-
-/* TESTIMONIALS */
-.testimonials {
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:white;
-  text-align:center;
-}
-
-.testimonials h2 {
-  font-size:42px;
-  margin-bottom:70px;
-}
-
-.testimonial-card {
-  max-width:700px;
-  margin:30px auto;
-  background:white;
-  color:#1a2a3a;
-  padding:50px;
-  border-radius:28px;
-  box-shadow:0 25px 60px rgba(0,0,0,0.3);
-}
-
-/* CONTACT */
-.contact {
-  text-align:center;
-}
-
-.contact h2 {
-  font-size:42px;
-  margin-bottom:40px;
-}
-
-.contact-form {
-  max-width:500px;
-  margin:auto;
-  display:grid;
-  gap:20px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding:16px;
-  border-radius:14px;
-  border:1px solid #ddd;
-  font-size:16px;
-}
-
-footer {
-  text-align:center;
-  padding:40px;
-  background:#111;
-  color:#aaa;
-}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero, .about { grid-template-columns:1fr; }
-  .hero { text-align:center; }
-}
-
-</style>
-</head>
-<body>
-
-<!-- NAVBAR -->
-<div class="navbar">
-  <div class="logo" id="bizNameNav"><h2>Your Business Name</h2></div>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </div>
+      <div class="announcement-bar__right desktop-only">
 </div>
-
-<!-- HERO -->
-<section class="hero_section">
-  <div class="hero-text">
-    <h1 id="bizHeadline">Premium Professional Services</h1>
-    <p id="bizTagline">Delivering exceptional quality with a trusted modern approach.</p>
-    <a href="#contact" class="cta-btn" id="heroButtonText">Get Started</a>
-  </div>
-  <div class="hero-image">
-    <img id="heroImage" src="images/background1.jpg" alt="">
-  </div>
-</section>
-
-<!-- TRUST STRIP (NOW EDITABLE) -->
-<div class="trust-strip" id="trustText">
-  <h4>Trusted by 500+ Clients • 5-Star Rated • Fully Certified</h4>
 </div>
+</div>
+</div>
+<!---------------------------- Top Announcement Bar End ----------------------------------------->
 
-<!-- SERVICES -->
-<section class="services" id="services">
-  <h2 id="servicesTitle">Our Services</h2>
-  <div class="service-grid">
-    <div class="service-card">
-      <h3 id="service1Title">Service One</h3>
-      <p id="service1Desc">High quality professional service delivered with care.</p>
-    </div>
-    <div class="service-card">
-      <h3 id="service2Title">Service Two</h3>
-      <p id="service2Desc">Reliable solutions tailored to your specific needs.</p>
-    </div>
-    <div class="service-card">
-      <h3 id="service3Title">Service Three</h3>
-      <p id="service3Desc">Expert workmanship and premium customer support.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <img id="aboutImage" src="images/photo.jpg" alt="">
-  <div class="about-text">
-    <h2 id="aboutTitle">About Our Company</h2>
-    <p id="aboutText">
-      We are committed to delivering outstanding service with professionalism and reliability.
-    </p>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <h2 id="testimonialTitle">What Clients Say</h2>
-  <div class="testimonial-card">
-    <p id="testimonial1Text">"Absolutely outstanding service from start to finish."</p>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <h2 id="contactTitle">Contact Us</h2>
-
-  <form class="contact-form">
-    <input type="text" placeholder="Your Name" required>
-    <input type="tel" placeholder="Phone Number" required>
-    <textarea placeholder="Your Message" rows="5" required></textarea>
-    <button type="submit" class="cta-btn" id="contactButtonText">Send Message</button>
-  </form>
-</section>
-
-<footer>
-  © 2026 <span id="footerBizName">Your Business Name</span>. All rights reserved.
-</footer>
-
-</body>
-</html>
-`;
-      enableImageReplacement();
-      enableHeroImageReplacement();
-      enableTextEditing();
-      return;
+  <div id="shopify-section-header" class="shopify-section section-header"><style data-shopify="">
+  .logo img {
+    width: 200px;
+  }
+  .logo-area__middle--logo-image {
+    max-width: 200px;
+  }
+  @media (max-width: 767.98px) {
+    .logo img {
+      width: 110px;
     }
+  }.section-header {
+    position: -webkit-sticky;
+    position: sticky;
+  }</style>
 
-    if (theme === "GalleryTheme") {
-      area.innerHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Tabbed Business Gallery</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  color: #222;
-}
-
-/* HERO BANNER */
-/* HERO BANNER WITH BACKGROUND IMAGE */
-.hero-banner {
-  position: relative;
-  padding: 140px 20px;
-  text-align: center;
-  color: #fff;
-  background: url('https://picsum.photos/1200/800?25') center/cover no-repeat; /* <-- your image */
-  overflow: hidden;
-}
-
-/* Dark overlay so text stays readable */
-.hero-banner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.8); /* adjustable darkness */
-  backdrop-filter: blur(1px);
-}
-
-/* Keep text above overlay */
-.hero-inner {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.hero-title {
-  font-size: 48px;
-  font-weight: 800;
-  margin-bottom: 14px;
-}
-
-.hero-title span {
-  color: #e5e5e5; /* soft silver */
-}
-
-
-.hero-tagline {
-  font-size: 20px;
-  color: #e2e8f0;
-  max-width: 640px;
-  margin: 0 auto 26px;
-}
-
-.cta-btn {
-  padding: 14px 34px;
-  background:#fff;
-  border-radius: 999px;
-  color: #000;
-  font-weight: 600;
-  text-decoration: none;
-  
-  transition: 0.3s;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.cta-btn:hover {
-  transform: translateY(-3px);
-}
-
-
-/* Header below hero (for gallery title) */
-.section-header {
-  padding: 30px 20px 10px;
-  text-align: center;
-}
-.section-header h2 {
-  margin: 0;
-  font-size: 26px;
-}
-.section-header p {
-  margin-top: 8px;
-  color: #666;
-}
-
-/* Tabs */
-.filters {
-  text-align: center;
-  padding: 15px 10px;
-  background: #fff;
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-}
-.filters button {
-  padding: 8px 16px;
-  margin: 4px;
-  border: none;
-  background: #ddd;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.filters button p {
-  margin: 0;
-}
-.filters button.active,
-.filters button:hover {
-  background: #333;
-  color: #fff;
-}
-
-/* Gallery layout */
-.gallery {
-  columns: 3;
-  column-gap: 12px;
-  padding: 20px;
-}
-.gallery-item {
-  margin-bottom: 12px;
-  break-inside: avoid;
-  cursor: pointer;
-}
-
-/* Fixed image size */
-.gallery-item img {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-.gallery-item:hover img {
-  opacity: 0.85;
-  transform: scale(1.02);
-}
-
-/* Lightbox */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-}
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-}
-.lightbox .close-area {
-  position: absolute;
-  inset: 0;
-  cursor: pointer;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .gallery { columns: 2; }
-  .hero-title { font-size: 34px; }
-}
-@media (max-width: 600px) {
-  .gallery { columns: 1; }
-  .hero-banner { padding: 90px 16px; }
-  .hero-title { font-size: 28px; }
-  .hero-tagline { font-size: 16px; }
-}
-</style>
-</head>
-
-<body>
-
-<!-- HERO BANNER -->
-<section class="hero-banner">
-  <div class="hero-inner">
-    <h1 class="hero-title" id="bizHeadline">
-      Premium <span>Professional Services</span>
-    </h1>
-    <p class="hero-tagline" id="bizTagline">
-      Delivering exceptional quality with a trusted modern approach.
-    </p>
-  </div>
-</section>
-
-
-<!-- GALLERY SECTION HEADER -->
-<div class="section-header" id="gallery">
-  <h2>Business Gallery</h2>
-  <p>Tabbed galleries with fixed image sizes and lightbox.</p>
-</div>
-
-<!-- TABS -->
-<div class="filters">
-  <button class="active" data-gallery="gallery1"><p>Gallery 1</p></button>
-  <button data-gallery="gallery2"><p>Gallery 2</p></button>
-  <button data-gallery="gallery3"><p>Gallery 3</p></button>
-  <button data-gallery="gallery4"><p>Gallery 4</p></button>
-</div>
-
-<!-- GALLERY 1 -->
-<div class="gallery-group" id="gallery1">
-  <div class="gallery">
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?1" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?2" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?3" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?4" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?5" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?6" alt=""></div>
-  </div>
-</div>
-
-<!-- GALLERY 2 -->
-<div class="gallery-group" id="gallery2" style="display:none;">
-  <div class="gallery">
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?7" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?8" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?9" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?10" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?11" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?12" alt=""></div>
-  </div>
-</div>
-
-<!-- GALLERY 3 -->
-<div class="gallery-group" id="gallery3" style="display:none;">
-  <div class="gallery">
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?13" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?14" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?15" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?16" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?17" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?18" alt=""></div>
-  </div>
-</div>
-
-<!-- GALLERY 4 -->
-<div class="gallery-group" id="gallery4" style="display:none;">
-  <div class="gallery">
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?19" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?20" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?21" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?22" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?23" alt=""></div>
-    <div class="gallery-item"><img src="https://picsum.photos/1200/800?24" alt=""></div>
-  </div>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox">
-  <div class="close-area"></div>
-  <img id="lightbox-img" alt="">
-</div>
-
-</body>
-</html>
-`;
-
-      enableImageReplacement();
-      enableHeroImageReplacement();
-      enableTextEditing();
+<div data-section-type="header" data-cc-animate="">
+  <div id="pageheader" class="pageheader pageheader--layout-inline-menu-left pageheader--sticky">
+    <div class="logo-area container container--no-max">
       
-// Tabs
-const tabButtons = document.querySelectorAll(".filters button");
-const galleryGroups = document.querySelectorAll(".gallery-group");
+      <div class="logo-area__middle logo-area__middle--logo-image">
+        <div class="logo-area__middle__inner">
 
-tabButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    tabButtons.forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
+            <!----------- Logo Image ----------------- Top -------------------->
+          <div class="logo"><a class="logo__link" href="/" title="LogoImage"><img class="logo__image" src="" alt="Business Logo" itemprop="logo" width="1022" height="524"></a></div>
+            <!----------- Logo Image End -------------------------------------->
 
-    const targetId = button.getAttribute("data-gallery");
+        </div>
+      </div>
 
-    galleryGroups.forEach(group => {
-      group.style.display = (group.id === targetId) ? "block" : "none";
-    });
-  });
-});
+      <div class="logo-area__right">
+        <!-------- right of top logo ------------------->
+        <div class="logo-area__right__inner">
 
-// Lightbox
-const lightbox = document.getElementById("lightbox");
-const lightboxImg = document.getElementById("lightbox-img");
+        </div>
+        <!------- right of top logo end --------------->
+      </div>
+    </div></div>
+ 
+</div>
+</div>
+<!------------------------------------------------------------------------------------ header end ----------------------------------------------------->
 
-document.querySelectorAll(".gallery-item img").forEach(img => {
-  img.addEventListener("click", () => {
-    lightboxImg.src = img.src;
-    lightbox.style.display = "flex";
-  });
-});
+<!---------------------------------------------------------- Contact Header ---------------------------------------->
+<div id="shopify-section-store-messages" class="shopify-section section-store-messages">
+<div id="section-id-store-messages" data-section-type="store-messages" data-cc-animate="">
+    <style data-shopify="">
+      #section-id-store-messages {
+        --background: #f4f6f8;
+        --text-1: #171717;
+        --text-2: #4c4c4b;
+      }
+    </style>
+    <div class="store-messages messages-2 desktop-only">
+      <div class="container cf"><div class="message message-1" data-cc-animate="" data-cc-animate-delay="0.15s">
 
-document.querySelector(".lightbox .close-area").addEventListener("click", () => {
-  lightbox.style.display = "none";
-});
+                <h6 class="title">Phone: +353 21 438 5818</h6>
 
-      return;
+          </div><div class="message message-2" data-cc-animate="" data-cc-animate-delay="0.3s">
+
+                <h6 class="title">Email: info@YourEmail</h6>
+
+            <div class="fluff"></div>
+          </div></div>
+    </div></div>
+</div>
+<!----------------------------------------------------------- Contact Header End --------------------------------------->
+  <main id="content" role="main">
+    <div class="container cf">
+
+      <div id="shopify-section-template--18568265924941__image_with_text_overlay_i4XTzH" class="shopify-section section-image-with-text-overlay"><div id="section-id-template--18568265924941__image_with_text_overlay_i4XTzH" data-section-type="image-with-text-overlay">
+  <style data-shopify="">
+#section-id-template--18568265924941__image_with_text_overlay_i4XTzH .fixed-height-item {
+      height: 600px;
+    }#section-id-template--18568265924941__image_with_text_overlay_i4XTzH .overlay-text__title {
+      font-size: 50px;
     }
-  }
 
-  function enableHeroImageReplacement() {
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
+    @media (min-width: 768px) {#section-id-template--18568265924941__image_with_text_overlay_i4XTzH .fixed-height-item {
+        height: 1000px;
+      }#section-id-template--18568265924941__image_with_text_overlay_i4XTzH .overlay-text__title {font-size: 58.8px;
+      }
+    }
+    @media (min-width: 1100px) {
+      #section-id-template--18568265924941__image_with_text_overlay_i4XTzH .overlay-text__title {
+        font-size: 84px;
+      }
+    }
+  </style>
 
-    hero.style.cursor = "pointer";
+<!-------------------------------------------- Main Image ------------------------------------------>
+<div class="height--fixed image-overlay image-overlay--bg-full" data-cc-animate data-cc-animate-delay="0.2s">
+    <img 
+      src="https://picsum.photos/1200/800?39" 
+      alt="Image" 
+      class="image-overlay__img"
+      style="width:100%; height:100%; object-fit:cover;">
+</div>
+<!-----------------------------------------------Main Image End ---------------------------------->
+</div></div>
+</div>
 
-    const picker = document.createElement("input");
-    picker.type = "file";
-    picker.accept = "image/*";
-    picker.style.display = "none";
 
-    document.body.appendChild(picker);
 
-    hero.addEventListener("click", () => picker.click());
+<div id="shopify-section-template--18568265924941__16359278676808bea5" class="shopify-section section-featured-collection"><div class="section-id-template--18568265924941__16359278676808bea5 collection-slider-row " data-section-type="featured-collection" data-components="accordion,modal,price-range">
+  <div class="container container--not-mobile container--no-max">
+    <div class="collection-slider">
+      <h2 class="hometitle h4-style align-center has-paging" data-cc-animate="" data-cc-animate-delay="0.3s">
+        <a class="prev ltr-icon" href=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><title>Left</title><polyline points="15 18 9 12 15 6"></polyline></svg></a>
 
-    picker.addEventListener("change", () => {
-      const file = picker.files[0];
-      if (!file) return;
+<!-------------------------------- Text Under Main image ----------------------------------------------->        
+        <a class="has-paging__title" href="/collections/2025-bridal"><span>Enter Text Here</span></a>
+<!--------------------------------- Text under main image end ------------------------------------------>
 
-      const reader = new FileReader();
-      reader.onload = e => {
-        const uploadedImg = new Image();
-        uploadedImg.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
+        <a class="next ltr-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><title>Right</title><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+      </h2><div class="view-all align-center" data-cc-animate="" data-cc-animate-delay="0.3s">
 
-          const targetRatio = 16 / 9;
-          let cropWidth = uploadedImg.width;
-          let cropHeight = cropWidth / targetRatio;
+<!-------------------------------- Text Under Main image ----------------------------------------------->
+          <a class="small-feature-link" href="">Enter Text</a>
+<!-------------------------------- Text Under Main image ----------------------------------------------->
 
-          if (cropHeight > uploadedImg.height) {
-            cropHeight = uploadedImg.height;
-            cropWidth = cropHeight * targetRatio;
-          }
+        </div><div class="collection-listing" data-cc-animate="cc-fade-in-up">
+        <div class="product-list product-list--per-row-4 product-list--per-row-mob-2 product-list--image-shape-portrait-23 carousel">
 
-          const startX = (uploadedImg.width - cropWidth) / 2;
-          const startY = (uploadedImg.height - cropHeight) / 2;
+<!--------------------------------- Image Slider Product 1 ------------------------------------->
+<div data-product-id="10319833563469" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
 
-          canvas.width = 1920;
-          canvas.height = 1080;
+      <div class="image-cont image-cont--with-secondary-image">
+        <a class="product-link" href="#" aria-label="Image 1" tabindex="">
+          <div class="image-label-wrap">
 
-          ctx.drawImage(
-            uploadedImg,
-            startX, startY, cropWidth, cropHeight,
-            0, 0, canvas.width, canvas.height
-          );
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active"
+                 style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper"
+                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
 
-          const finalImage = canvas.toDataURL("image/jpeg", 0.9);
-          hero.style.backgroundImage = `url('${finalImage}')`;
-        };
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?40"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+                </div>
+              </div>
+            </div>
 
-        uploadedImg.src = e.target.result;
-      };
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover"
+                 style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
 
-      reader.readAsDataURL(file);
-    });
-  }
+            <!-- EXTRA SECONDARY IMAGES -->
+            <div class="product-block__image product-block__image--secondary"
+                 style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
 
-  function enableImageReplacement() {
-    const images = document.querySelectorAll("#contentArea img");
+            <div class="product-block__image product-block__image--secondary"
+                 style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
 
-    images.forEach((img, index) => {
-      img.style.cursor = "pointer";
+          </div>
+        </a>
 
-      const picker = document.createElement("input");
-      picker.type = "file";
-      picker.accept = "image/*";
-      picker.style.display = "none";
-      picker.id = "imgPicker_" + index;
+        <!-- NAV BUTTONS -->
+        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
 
-      document.body.appendChild(picker);
+        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
 
-      img.addEventListener("click", () => picker.click());
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
 
-      picker.addEventListener("change", () => {
-        const file = picker.files[0];
-        if (!file) return;
+      </div>
 
-        const reader = new FileReader();
-        reader.onload = e => {
-          const uploadedImg = new Image();
-          uploadedImg.onload = () => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
 
-            const size = Math.min(uploadedImg.width, uploadedImg.height);
-            const startX = (uploadedImg.width - size) / 2;
-            const startY = (uploadedImg.height - size) / 2;
+    </div>
+  </div>
+</div>
 
-            const outputSize = 600;
-            canvas.width = outputSize;
-            canvas.height = outputSize;
 
-            ctx.drawImage(
-              uploadedImg,
-              startX, startY, size, size,
-              0, 0, outputSize, outputSize
-            );
+<!---------------------------------- image slider product 2 -------------------------------------->
+<div data-product-id="10319829664077" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
 
-            const finalImage = canvas.toDataURL("image/jpeg", 0.9);
-            img.src = finalImage;
-          };
+      <div class="image-cont image-cont--with-secondary-image">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
 
-          uploadedImg.src = e.target.result;
-        };
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active"
+                 style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper"
+                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
 
-        reader.readAsDataURL(file);
-      });
-    });
-  }
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?32"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+                </div>
+              </div>
+            </div>
 
-  function enableTextEditing() {
-    const editableSelectors = [
-      ".business_name",
-      ".tagline",
-      ".about_us p",
-      ".service-card p",
-      "h1", "h2", "h3","h4", "p", "span"
-    ];
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover"
+                 style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?32');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
 
-    const elements = document.querySelectorAll(editableSelectors.join(", "));
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary"
+                 style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
 
-    elements.forEach(el => {
-      if (el.closest(".sidebar")) return;
+            <div class="product-block__image product-block__image--secondary"
+                 style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
 
-      el.classList.add("editable-text");
-      el.style.cursor = "text";
+          </div>
+        </a>
 
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
+        <!-- NAV BUTTONS -->
+        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
 
-      el.addEventListener("click", () => {
-        if (el.isContentEditable) return;
+        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
 
-        el.contentEditable = "true";
-        el.focus();
-        document.execCommand("selectAll", false, null);
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
 
-        el.addEventListener("blur", () => {
-          el.contentEditable = "false";
-        }, { once: true });
-      });
-    });
-  }
-</script>
+      </div>
 
-</body>
-</html>
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!------------------------------------- image slider 3 ------------------------------------------------>
+<div data-product-id="10319818654029" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image image-cont--same-aspect-ratio">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?42"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+        </a>
+
+        <!-- NAV BUTTONS -->
+        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
+
+        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+
+      </div>
+
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!---------------------------- slider image 2 ----------------------------------------->
+     <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+        </a>
+
+        <!-- NAV BUTTONS -->
+        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
+
+        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+
+      </div>
+
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!---------------------------------- slider image 3 ------------------------------------->
+
+<div data-product-id="10319541469517" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position: relative; overflow:hidden;">
+                  
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?44"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+                
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?43');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+        </a>
+
+        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </a>
+
+        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </a>
+
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+
+      </div>
+
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!------------------------------------- slider image 4 --------------------------------------->
+
+              <div data-product-id="10216271020365" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper"
+                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?45"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </a>
+
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+      </div>
+
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!------------------------------------- slider image 5 --------------------------------------->
+
+              <div data-product-id="10216270332237" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper"
+                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?46"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </a>
+
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+      </div>
+
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!------------------------------------- slider image 6 --------------------------------------->
+
+             <div data-product-id="10216264859981" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont">
+        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active"
+                 style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper"
+                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?47"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </a>
+
+        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+      </div>
+
+      <div class="product-info">
+        <div class="inner">
+          <div class="innerer">
+            <a class="product-link" href="#">
+              <div class="product-block__title">Image Text Here</div>
+              <div class="product-price">
+                <span class="product-price__item product-price__amount theme-money">
+                  <span class="hidden">$0.00</span>
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+</div>
+<!------------------------------------- slider image end --------------------------------------->
+
+
+<!------------------------------------ Text Input Section --------------------------------------->
+<div id="shopify-section-template--18568265924941__1635927863703110df" class="shopify-section section-rich-text"><div class="article fully-spaced-row--medium" data-cc-animate="">
+  <div class="container">
+    <div class="align-center spaced-column">
+
+              <h1 class="majortitle in-content">Enter Text Here</h1>
+
+            <div class="rte lightly-spaced-row "><h5><em>Enter Text Here</em></h5></div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!------------------------------------ Customer Review Section --------------------------------------->
+<div id="shopify-section-template--18568265924941__9aaed622-f83b-4236-89fc-6822fdc7916b" class="shopify-section section-testimonials"><div id="section-id-template--18568265924941__9aaed622-f83b-4236-89fc-6822fdc7916b" class="fully-spaced-row--medium" data-section-type="testimonials"><style data-shopify="">#section-id-template--18568265924941__9aaed622-f83b-4236-89fc-6822fdc7916b .testimonial__blockquote {
+      font-size: 20px;
+    }
+    @media (min-width: 768px) {
+      #section-id-template--18568265924941__9aaed622-f83b-4236-89fc-6822fdc7916b .testimonial__blockquote {font-size: 21.0px;
+      }
+    }
+    @media (min-width: 1100px) {
+      #section-id-template--18568265924941__9aaed622-f83b-4236-89fc-6822fdc7916b .testimonial__blockquote {
+        font-size: 30px;
+      }
+    }</style><div class="container" data-cc-animate="cc-fade-in-up" data-cc-animate-delay="0.2s">
+    <div class="testimonial-list testimonial-list--image-right testimonial-list--with-images" data-testimonial-count="3" data-autoplay="true" data-autoplay-speed="5000">
+
+        <div class="subheading">Enter Reviews From Customers</div>
+
+      <div class="testimonial-list__inner"><div class="testimonial testimonial-1">
+            <div class="testimonial__column testimonial__column--text">
+
+                <div class="subheading">Enter Reviews From Customers</div>
+
+              <div class="testimonial__content"><div class="testimonial__star-rating heading-font"><span class="testimonial__star"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+</span><span class="testimonial__star"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+</span><span class="testimonial__star"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+</span><span class="testimonial__star"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+</span><span class="testimonial__star"><svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+</span></div><div class="testimonial__text">
+                    <blockquote class="testimonial__blockquote heading-font">Enter The customers review here</blockquote>
+                  </div><div class="testimonial__author">
+                    — Enter Customers Name Here or County
+                  </div></div>
+            </div>
+
+              <div class="testimonial__column testimonial__column--image">
+                <figure class="testimonial__image-with-caption"><div class="testimonial__image-wrapper">
+
+<div class="rimage-outer-wrapper">
+  <div class="rimage-wrapper lazyload--placeholder" style="padding-top:100.0%">
+    <img class="rimage__image lazyload--manual fade-in cover"
+         src="https://picsum.photos/1200/800?41"
+         data-widths="[180, 220, 300, 360, 460, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+         data-aspectratio="0.6762589928057554"
+         data-sizes="auto"
+         alt=""
+         data-parent-fit="cover"
+         style="object-position: 63.7339% 52.376%">
+  </div>
+</div>
+
+
+                  </div>
+
+</figure>
+              </div>
+
+          </div>
+</div>
+      <div class="testimonial-list__controls"></div>
+    </div>
+  </div>
+</div>
+
+</div><div id="shopify-section-template--18568265924941__rich_text_R9p3xT" class="shopify-section section-rich-text"><div class="article fully-spaced-row--medium" data-cc-animate="">
+  <div class="container">
+    <div class="align-center spaced-column">
+
+              <h2 class="majortitle in-content h1-style">Social Tag Text</h2>
+
+            <div class="rte lightly-spaced-row large-text"><p>TAG us in your pictures on Instagram @your business tag or email them to yourbusiness@email</p></div>
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!------------------------------------- bottom image gallery section ----------------------------------->
+<div id="shopify-section-template--18568265924941__scrolling_banner_BCfKDk" class="shopify-section section-scrolling-banner">
+  <div id="section-id-template--18568265924941__scrolling_banner_BCfKDk" data-section-type="scrolling-banner" data-cc-animate="">
+    <style>
+      #section-id-template--18568265924941__scrolling_banner_BCfKDk {
+        --vertical-padding: 20px;
+      }
+    </style>
+  </div>
+
+  <div id="shopify-section-template--18568265924941__custom_row_i6cwDK" class="shopify-section">
+    <div id="section-id-template--18568265924941__custom_row_i6cwDK" class="container fully-spaced-row--medium cf section-id-template--18568265924941__custom_row_i6cwDK" data-section-type="custom-row">
+
+      <div class="flexible-layout flexible-layout--align-center valign-middle">
+
+        <!-- BLOCK 1 -->
+        <div id="block-id-image_DYjkxi" class="column column--half block-id-image_DYjkxi" data-cc-animate="cc-fade-in-up" data-cc-animate-delay="0.15s">
+          <style>
+            #block-id-image_DYjkxi .fixed-height-item { height: 400px; }
+            @media (min-width: 768px) {
+              #block-id-image_DYjkxi .fixed-height-item { height: 600px; }
+            }
+          </style>
+
+          <div class="height--fixed image-overlay image-overlay--bg-shadow">
+            <div class="rimage-background-wrapper">
+              <img src="https://picsum.photos/1200/800?50"
+                   class="rimage-outer-wrapper rimage-background fixed-height-item"
+                   style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOCK 2 -->
+        <div id="block-id-image_wHdNhQ" class="column column--half block-id-image_wHdNhQ" data-cc-animate="cc-fade-in-up" data-cc-animate-delay="0.3s">
+          <style>
+            #block-id-image_wHdNhQ .fixed-height-item { height: 400px; }
+            @media (min-width: 768px) {
+              #block-id-image_wHdNhQ .fixed-height-item { height: 600px; }
+            }
+          </style>
+
+          <div class="height--fixed image-overlay image-overlay--bg-shadow">
+            <div class="rimage-background-wrapper">
+              <img src="https://picsum.photos/1200/800?51"
+                   class="rimage-outer-wrapper rimage-background fixed-height-item"
+                   style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOCK 3 -->
+        <div id="block-id-image_nMRRTp" class="column column--half block-id-image_nMRRTp" data-cc-animate="cc-fade-in-up" data-cc-animate-delay="0.45s">
+          <style>
+            #block-id-image_nMRRTp .fixed-height-item { height: 400px; }
+            @media (min-width: 768px) {
+              #block-id-image_nMRRTp .fixed-height-item { height: 600px; }
+            }
+          </style>
+
+          <div class="height--fixed image-overlay image-overlay--bg-shadow">
+            <div class="rimage-background-wrapper">
+              <img src="https://picsum.photos/1200/800?52"
+                   class="rimage-outer-wrapper rimage-background fixed-height-item"
+                   style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+          </div>
+        </div>
+
+        <!-- BLOCK 4 -->
+        <div id="block-id-image_paNMN3" class="column column--half block-id-image_paNMN3" data-cc-animate="cc-fade-in-up" data-cc-animate-delay="0.6s">
+          <style>
+            #block-id-image_paNMN3 .fixed-height-item { height: 400px; }
+            @media (min-width: 768px) {
+              #block-id-image_paNMN3 .fixed-height-item { height: 600px; }
+            }
+          </style>
+
+          <div class="height--fixed image-overlay image-overlay--bg-shadow">
+            <div class="rimage-background-wrapper">
+              <img src="https://picsum.photos/1200/800?53"
+                   class="rimage-outer-wrapper rimage-background fixed-height-item"
+                   style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!------------------------------------------------ /.container footer section  ------------------------------------------------>
+  </main><!-- /#content --><div id="pagefooter">
+      <div id="shopify-section-cross-page-promos" class="shopify-section">
+  <div class="cross-page-promos">
+    <div class="container cf">
+      <div class="flexible-layout layout-all-quarters">
+
+        <div class="column column--quarter align-center block-id-1478526632862">
+          <div class="">
+
+            <a href="">
+
+                <div class="icon-with-caption">
+                  <div class="icon-with-caption__icon">
+
+                      <svg class="icon icon--medium icon--type-star" stroke-width="1" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1c.21 0 .4.13.47.33l1.62 4.54 4.92.1a.5.5 0 01.29.9l-3.92 2.9 1.42 4.58a.5.5 0 01-.75.56L8 12.17 3.95 14.9a.5.5 0 01-.75-.56l1.42-4.58L.7 6.87a.5.5 0 01.29-.9l4.92-.1 1.62-4.54A.5.5 0 018 1zm0 2L6.74 6.52a.5.5 0 01-.46.33l-3.8.08L5.5 9.17a.5.5 0 01.18.55l-1.1 3.56 3.14-2.13a.5.5 0 01.56 0l3.15 2.13-1.1-3.56a.5.5 0 01.17-.55l3.02-2.23-3.8-.08a.5.5 0 01-.46-.33L8 2.99z"></path></svg>
+
+                  </div>
+
+                  <div class="icon-with-caption__text heading-font h6-style align-center">Enter Your Business Address here or leave empty.</div>
+
+                </div>
+
+            </a>
+
+          </div>
+        </div>
+
+        <div class="column column--quarter align-center block-id-1478526645605">
+          <div class="">
+
+                <div class="icon-with-caption">
+                  <div class="icon-with-caption__icon">
+
+                      <svg class="icon icon--medium icon--type-calendar" stroke-width="1" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect stroke="currentColor" fill="none" x="1.9032375" y="2.5116053" width="12.166035" height="12.166035" rx="1.3517816" ry="1.3517816"></rect>
+      <line stroke="currentColor" fill="none" x1="10.689817" y1="1.159824" x2="10.689817" y2="3.8633871"></line>
+      <line stroke="currentColor" fill="none" x1="5.2826915" y1="1.159824" x2="5.2826915" y2="3.8633871"></line>
+      <line stroke="currentColor" fill="none" x1="1.9032375" y1="6.5669503" x2="14.069271" y2="6.5669503"></line></svg>
+
+                  </div>
+
+                  <div class="icon-with-caption__text heading-font h6-style align-center">Email: info@YourEmail</div>
+
+                </div>
+
+          </div>
+        </div>
+
+        <div class="column column--quarter align-center block-id-1478526647261">
+          <div class="">
+
+                <div class="icon-with-caption">
+                  <div class="icon-with-caption__icon">
+
+                      <svg class="icon icon--medium icon--type-star" stroke-width="1" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill="currentColor" d="M8 1c.21 0 .4.13.47.33l1.62 4.54 4.92.1a.5.5 0 01.29.9l-3.92 2.9 1.42 4.58a.5.5 0 01-.75.56L8 12.17 3.95 14.9a.5.5 0 01-.75-.56l1.42-4.58L.7 6.87a.5.5 0 01.29-.9l4.92-.1 1.62-4.54A.5.5 0 018 1zm0 2L6.74 6.52a.5.5 0 01-.46.33l-3.8.08L5.5 9.17a.5.5 0 01.18.55l-1.1 3.56 3.14-2.13a.5.5 0 01.56 0l3.15 2.13-1.1-3.56a.5.5 0 01.17-.55l3.02-2.23-3.8-.08a.5.5 0 01-.46-.33L8 2.99z"></path></svg>
+
+                  </div>
+
+                  <div class="icon-with-caption__text heading-font h6-style align-center">Phone: +353 00 000 0000</div>
+
+                </div>
+
+          </div>
+        </div>
+
+        <div class="column column--quarter align-center block-id-1478527611164">
+          <div class="">
+
+            <a href="/pages/terms-of-service">
+
+                <div class="icon-with-caption">
+                  <div class="icon-with-caption__icon">
+
+                      <svg class="icon icon--medium icon--type-briefcase" stroke-width="1" aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><rect stroke="currentColor" fill="none" x="1.2850168" y="4.4139466" width="13.393794" height="9.3756561" rx="1.3393794" ry="1.3393794"></rect>
+      <path stroke="currentColor" fill="none" d="M 10.660673,13.789602 V 3.0745679 A 1.3393794,1.3393794 0 0 0 9.3212931,1.7351885 H 6.6425343 A 1.3393794,1.3393794 0 0 0 5.3031549,3.0745679 V 13.789602"></path></svg>
+
+                  </div>
+
+                  <div class="icon-with-caption__text heading-font h6-style align-center">Terms Of Service</div>
+
+                </div>
+
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div><style type="text/css">
+
+</style>
+
+</div>
+      <div id="shopify-section-footer" class="shopify-section section-footer"><div data-section-type="footer">
+
+<div class="container container--no-max section-footer__row-container ">
+    
+  </div>
+</div>
+
+</div>
+    </div>
+
+    <div id="shopify-section-popup" class="shopify-section section-popup">
+
+</div>
+
+</body></html>
