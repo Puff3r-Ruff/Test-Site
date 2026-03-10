@@ -10,6 +10,22 @@
 
 <link href="styles.css" rel="stylesheet" type="text/css" media="all">
 
+<style>.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.product-block {
+  scroll-snap-align: start;
+}
+</style>
 </head>
 
 <body class="template-index
@@ -1161,5 +1177,56 @@
     <div id="shopify-section-popup" class="shopify-section section-popup">
 
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const carousel = document.querySelector(".carousel");
+  const prev = document.querySelector(".hometitle .prev");
+  const next = document.querySelector(".hometitle .next");
 
+  if (!carousel) return;
+
+  const scrollStep = carousel.clientWidth * 0.8; // slide by 80% of width
+
+  // Desktop arrows
+  if (next) {
+    next.addEventListener("click", (e) => {
+      e.preventDefault();
+      carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+    });
+  }
+
+  if (prev) {
+    prev.addEventListener("click", (e) => {
+      e.preventDefault();
+      carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+    });
+  }
+
+  // Mobile swipe
+  let startX = 0;
+  let endX = 0;
+
+  carousel.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener("touchmove", (e) => {
+    endX = e.touches[0].clientX;
+  });
+
+  carousel.addEventListener("touchend", () => {
+    const diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+      } else {
+        carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+      }
+    }
+  });
+});
+ 
+
+</script>
 </body></html>
