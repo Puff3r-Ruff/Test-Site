@@ -10,21 +10,55 @@
 
 <link href="styles.css" rel="stylesheet" type="text/css" media="all">
 
-<style>.carousel {
+<style>
+ /* Allow full scrolling */
+.collection-listing {
+  overflow: visible !important;
+}
+
+/* Main carousel */
+.carousel {
   display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
   scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 
 .carousel::-webkit-scrollbar {
   display: none;
 }
 
+/* Each slide */
 .product-block {
-  scroll-snap-align: start;
+  flex: 0 0 auto;
+  margin-right: 20px; /* adjust if needed */
 }
+
+/* Prevent shrinking */
+.carousel > * {
+  flex-shrink: 0;
+}
+/* Allow first and last slides to center */
+/* Give room for the first slide to center */
+.carousel {
+  padding-left: calc(50vw - 150px);
+  padding-right: calc(50vw - 150px);
+}
+/* Remove extra space on the left of the slider */
+.product-list.carousel {
+  padding-left: 0 !important;
+}
+
+/* Make sure the very first card has no left margin */
+.product-list.carousel .product-block:first-child {
+  margin-left: 0 !important;
+}
+.product-list.carousel {
+  padding-left: 40vw;
+}
+
 </style>
 </head>
 
@@ -191,329 +225,11 @@
         <div class="product-list product-list--per-row-4 product-list--per-row-mob-2 product-list--image-shape-portrait-23 carousel">
 
 <!--------------------------------- Image Slider Product 1 ------------------------------------->
-<div data-product-id="10319833563469" class="product-block">
+   <div data-product-id="10319815147853" class="product-block">
   <div class="block-inner">
     <div class="block-inner-inner">
 
       <div class="image-cont image-cont--with-secondary-image">
-        <a class="product-link" href="#" aria-label="Image 1" tabindex="">
-          <div class="image-label-wrap">
-
-            <!-- PRIMARY IMAGE -->
-            <div class="product-block__image product-block__image--primary product-block__image--active"
-                 style="opacity:1 !important;">
-              <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper"
-                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
-
-                  <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?40"
-                       alt="Product Image"
-                       style="
-                         display:block !important;
-                         width:100% !important;
-                         height:100% !important;
-                         object-fit:cover !important;
-                         position:absolute !important;
-                         top:0; left:0;
-                         opacity:1 !important;
-                       ">
-                </div>
-              </div>
-            </div>
-
-            <!-- SECONDARY IMAGE (HOVER) -->
-            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover"
-                 style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?41');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-            <!-- EXTRA SECONDARY IMAGES -->
-            <div class="product-block__image product-block__image--secondary"
-                 style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?41');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-            <div class="product-block__image product-block__image--secondary"
-                 style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?41');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-          </div>
-        </a>
-
-        <!-- NAV BUTTONS -->
-        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
-
-      </div>
-
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<!---------------------------------- image slider product 2 -------------------------------------->
-<div data-product-id="10319829664077" class="product-block">
-  <div class="block-inner">
-    <div class="block-inner-inner">
-
-      <div class="image-cont image-cont--with-secondary-image">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
-          <div class="image-label-wrap">
-
-            <!-- PRIMARY IMAGE -->
-            <div class="product-block__image product-block__image--primary product-block__image--active"
-                 style="opacity:1 !important;">
-              <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper"
-                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
-
-                  <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?32"
-                       alt="Product Image"
-                       style="
-                         display:block !important;
-                         width:100% !important;
-                         height:100% !important;
-                         object-fit:cover !important;
-                         position:absolute !important;
-                         top:0; left:0;
-                         opacity:1 !important;
-                       ">
-                </div>
-              </div>
-            </div>
-
-            <!-- SECONDARY IMAGE (HOVER) -->
-            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover"
-                 style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?32');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
-            <div class="product-block__image product-block__image--secondary"
-                 style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?41');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-            <div class="product-block__image product-block__image--secondary"
-                 style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?41');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-          </div>
-        </a>
-
-        <!-- NAV BUTTONS -->
-        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
-
-      </div>
-
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-
-<!------------------------------------- image slider 3 ------------------------------------------------>
-<div data-product-id="10319818654029" class="product-block">
-  <div class="block-inner">
-    <div class="block-inner-inner">
-
-      <div class="image-cont image-cont--with-secondary-image image-cont--same-aspect-ratio">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
-          <div class="image-label-wrap">
-
-            <!-- PRIMARY IMAGE -->
-            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
-              <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
-
-                  <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?42"
-                       alt="Product Image"
-                       style="
-                         display:block !important;
-                         width:100% !important;
-                         height:100% !important;
-                         object-fit:cover !important;
-                         position:absolute !important;
-                         top:0; left:0;
-                         opacity:1 !important;
-                       ">
-
-                </div>
-              </div>
-            </div>
-
-            <!-- SECONDARY IMAGE (HOVER) -->
-            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
-              <div class="rimage-background fade-in cover"
-                   style="
-                     background-image: url('https://picsum.photos/1200/800?42');
-                     background-size:cover;
-                     background-position:center;
-                     width:100%;
-                     height:100%;
-                     opacity:1 !important;
-                   ">
-              </div>
-            </div>
-
-          </div>
-        </a>
-
-        <!-- NAV BUTTONS -->
-        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
-
-      </div>
-
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!---------------------------- slider image 2 ----------------------------------------->
-     <div data-product-id="10319815147853" class="product-block">
-  <div class="block-inner">
-    <div class="block-inner-inner">
-
-      <div class="image-cont image-cont--with-secondary-image">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
           <div class="image-label-wrap">
 
             <!-- PRIMARY IMAGE -->
@@ -580,60 +296,35 @@
             </div>
 
           </div>
-        </a>
 
-        <!-- NAV BUTTONS -->
-        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </a>
+        
 
-        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
 
       </div>
 
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
+      
 
     </div>
   </div>
 </div>
-<!---------------------------------- slider image 3 ------------------------------------->
 
-<div data-product-id="10319541469517" class="product-block">
+
+<!---------------------------------- image slider product 2 -------------------------------------->
+ <div data-product-id="10319815147853" class="product-block">
   <div class="block-inner">
     <div class="block-inner-inner">
 
       <div class="image-cont image-cont--with-secondary-image">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
           <div class="image-label-wrap">
 
             <!-- PRIMARY IMAGE -->
             <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
               <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position: relative; overflow:hidden;">
-                  
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
                   <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?44"
+                       src="https://picsum.photos/1200/800?43"
                        alt="Product Image"
                        style="
                          display:block !important;
@@ -644,7 +335,7 @@
                          top:0; left:0;
                          opacity:1 !important;
                        ">
-                
+
                 </div>
               </div>
             </div>
@@ -653,7 +344,34 @@
             <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
               <div class="rimage-background fade-in cover"
                    style="
-                     background-image: url('https://picsum.photos/1200/800?43');
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
                      background-size:cover;
                      background-position:center;
                      width:100%;
@@ -664,60 +382,290 @@
             </div>
 
           </div>
-        </a>
 
-        <a class="image-page-button image-page-button--previous ltr-icon" href="#" aria-label="Previous" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
-        </a>
+        
 
-        <a class="image-page-button image-page-button--next ltr-icon" href="#" aria-label="Next" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
 
       </div>
 
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+<!------------------------------------- image slider 3 ------------------------------------------------>
+<div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
               </div>
-            </a>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
           </div>
-        </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
       </div>
+
+      
+
+    </div>
+  </div>
+</div>
+<!---------------------------- slider image 2 ----------------------------------------->
+     <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+<!---------------------------------- slider image 3 ------------------------------------->
+
+ <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
+      </div>
+
+      
 
     </div>
   </div>
 </div>
 <!------------------------------------- slider image 4 --------------------------------------->
 
-              <div data-product-id="10216271020365" class="product-block">
+               <div data-product-id="10319815147853" class="product-block">
   <div class="block-inner">
     <div class="block-inner-inner">
 
-      <div class="image-cont">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+      <div class="image-cont image-cont--with-secondary-image">
           <div class="image-label-wrap">
 
             <!-- PRIMARY IMAGE -->
             <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
               <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper"
-                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
 
                   <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?45"
+                       src="https://picsum.photos/1200/800?43"
                        alt="Product Image"
                        style="
                          display:block !important;
@@ -733,48 +681,76 @@
               </div>
             </div>
 
-          </div>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
-      </div>
-
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
               </div>
-            </a>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
           </div>
-        </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
       </div>
+
+      
 
     </div>
   </div>
 </div>
 <!------------------------------------- slider image 5 --------------------------------------->
 
-              <div data-product-id="10216270332237" class="product-block">
+               <div data-product-id="10319815147853" class="product-block">
   <div class="block-inner">
     <div class="block-inner-inner">
 
-      <div class="image-cont">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+      <div class="image-cont image-cont--with-secondary-image">
           <div class="image-label-wrap">
 
             <!-- PRIMARY IMAGE -->
             <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
               <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper"
-                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
 
                   <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?46"
+                       src="https://picsum.photos/1200/800?43"
                        alt="Product Image"
                        style="
                          display:block !important;
@@ -790,49 +766,76 @@
               </div>
             </div>
 
-          </div>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
-      </div>
-
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
               </div>
-            </a>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
           </div>
-        </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
       </div>
+
+      
 
     </div>
   </div>
 </div>
 <!------------------------------------- slider image 6 --------------------------------------->
 
-             <div data-product-id="10216264859981" class="product-block">
+    <div data-product-id="10319815147853" class="product-block">
   <div class="block-inner">
     <div class="block-inner-inner">
 
-      <div class="image-cont">
-        <a class="product-link" href="#" aria-label="Product" tabindex="-1">
+      <div class="image-cont image-cont--with-secondary-image">
           <div class="image-label-wrap">
 
             <!-- PRIMARY IMAGE -->
-            <div class="product-block__image product-block__image--primary product-block__image--active"
-                 style="opacity:1 !important;">
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
               <div class="rimage-outer-wrapper">
-                <div class="rimage-wrapper"
-                     style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
 
                   <img class="rimage__image fade-in cover"
-                       src="https://picsum.photos/1200/800?47"
+                       src="https://picsum.photos/1200/800?43"
                        alt="Product Image"
                        style="
                          display:block !important;
@@ -848,26 +851,400 @@
               </div>
             </div>
 
-          </div>
-        </a>
-
-        <a class="btn btn--secondary quickbuy-toggle" href="#">Image Text Here</a>
-      </div>
-
-      <div class="product-info">
-        <div class="inner">
-          <div class="innerer">
-            <a class="product-link" href="#">
-              <div class="product-block__title">Image Text Here</div>
-              <div class="product-price">
-                <span class="product-price__item product-price__amount theme-money">
-                  <span class="hidden">$0.00</span>
-                </span>
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
               </div>
-            </a>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
           </div>
-        </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
       </div>
+
+      
+
+    </div>
+  </div>
+</div>
+
+<!------------------------------------- slider image 6 --------------------------------------->
+
+    <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+
+<!------------------------------------- slider image 6 --------------------------------------->
+
+    <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+
+<!------------------------------------- slider image 6 --------------------------------------->
+
+    <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+
+<!------------------------------------- slider image 6 --------------------------------------->
+
+    <div data-product-id="10319815147853" class="product-block">
+  <div class="block-inner">
+    <div class="block-inner-inner">
+
+      <div class="image-cont image-cont--with-secondary-image">
+          <div class="image-label-wrap">
+
+            <!-- PRIMARY IMAGE -->
+            <div class="product-block__image product-block__image--primary product-block__image--active" style="opacity:1 !important;">
+              <div class="rimage-outer-wrapper">
+                <div class="rimage-wrapper" style="padding-top:149.2537313432836%; position:relative; overflow:hidden;">
+
+                  <img class="rimage__image fade-in cover"
+                       src="https://picsum.photos/1200/800?43"
+                       alt="Product Image"
+                       style="
+                         display:block !important;
+                         width:100% !important;
+                         height:100% !important;
+                         object-fit:cover !important;
+                         position:absolute !important;
+                         top:0; left:0;
+                         opacity:1 !important;
+                       ">
+
+                </div>
+              </div>
+            </div>
+
+            <!-- SECONDARY IMAGE (HOVER) -->
+            <div class="product-block__image product-block__image--secondary product-block__image--show-on-hover" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?42');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <!-- EXTRA SECONDARY IMAGES (OPTIONAL) -->
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+            <div class="product-block__image product-block__image--secondary" style="opacity:1 !important;">
+              <div class="rimage-background fade-in cover"
+                   style="
+                     background-image: url('https://picsum.photos/1200/800?41');
+                     background-size:cover;
+                     background-position:center;
+                     width:100%;
+                     height:100%;
+                     opacity:1 !important;
+                   ">
+              </div>
+            </div>
+
+          </div>
+
+        
+
+        <p class="btn btn--secondary quickbuy-toggle">Image Text Here</p>
+
+      </div>
+
+      
 
     </div>
   </div>
@@ -1179,30 +1556,37 @@
 </div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const carousel = document.querySelector(".carousel");
+  const carousel = document.querySelector(".product-list.carousel");
   const prev = document.querySelector(".hometitle .prev");
   const next = document.querySelector(".hometitle .next");
 
   if (!carousel) return;
 
-  const scrollStep = carousel.clientWidth * 0.8; // slide by 80% of width
+  const getSlideWidth = () => {
+    const slide = carousel.querySelector(".product-block");
+    if (!slide) return 300;
 
-  // Desktop arrows
+    const style = window.getComputedStyle(slide);
+    const margin =
+      parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+
+    return slide.getBoundingClientRect().width + margin;
+  };
+
   if (next) {
     next.addEventListener("click", (e) => {
       e.preventDefault();
-      carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+      carousel.scrollBy({ left: getSlideWidth(), behavior: "smooth" });
     });
   }
 
   if (prev) {
     prev.addEventListener("click", (e) => {
       e.preventDefault();
-      carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+      carousel.scrollBy({ left: -getSlideWidth(), behavior: "smooth" });
     });
   }
 
-  // Mobile swipe
   let startX = 0;
   let endX = 0;
 
@@ -1219,14 +1603,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (Math.abs(diff) > 50) {
       if (diff > 0) {
-        carousel.scrollBy({ left: scrollStep, behavior: "smooth" });
+        carousel.scrollBy({ left: getSlideWidth(), behavior: "smooth" });
       } else {
-        carousel.scrollBy({ left: -scrollStep, behavior: "smooth" });
+        carousel.scrollBy({ left: -getSlideWidth(), behavior: "smooth" });
       }
     }
   });
 });
- 
 
 </script>
 </body></html>
