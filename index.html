@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trades Person Site Switcher with Images</title>
 
   <style>
-
 .sidebar {
   padding: 20px;
   background: #fff;
@@ -84,9 +83,11 @@ section {
 
 }
 
-</style>
+/* Save/Load panel small styles */
+#saveLoadContainer button { outline: none; }
+  </style>
 </head>
-<body>
+<body id="Sav">>
 
 <!-- ⭐ ADDED ID HERE -->
 <aside class="sidebar" id="templateSelector">
@@ -118,8 +119,29 @@ section {
 
 <main class="content" id="contentArea"></main>
 
-<script>
+<!-- SAVE / LOAD PANEL -->
+<div id="saveLoadContainer" style="position: fixed; left: 20px; bottom: 20px; width: 260px; z-index: 999999; padding: 12px; background: rgba(255, 255, 255, 0.98); border: 1px solid rgba(0, 0, 0, 0.08); border-radius: 10px; box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 18px; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;">
+  <button id="minifyBtn" type="button" title="Minify" style="width: 40px; padding: 0px; padding-bottom: 10px; margin-top: -20px; background: rgba(34, 34, 34, 0); color: rgb(0, 0, 0); border: none; border-radius: 8px; cursor: pointer; display: block; font-size: 20px;">⋯</button>
 
+  <button id="saveBtn" style="width:100%; padding:10px; margin-bottom:8px; background:#007bff; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Save Website</button>
+
+  <button id="loadBtn" style="width:100%; padding:10px; background:#28a745; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Load Saved Website</button>
+</div>
+
+<script>
+  /* ---------------------------
+     CORE: Template loader + editor features
+  ----------------------------*/
+
+  function hideTemplates() {
+    const sel = document.getElementById("templateSelector");
+    if (sel) sel.style.display = "none";
+  }
+
+  function showTemplates() {
+    const sel = document.getElementById("templateSelector");
+    if (sel) sel.style.display = "";
+  }
 
   function loadSite(theme) {
 
@@ -134,7 +156,35 @@ section {
     const currentAbout   = '';
 
     if (theme === "EssentialTheme") {
-      area.innerHTML = ``;
+      // Example essential theme markup - keep as-is for editing
+      area.innerHTML = `
+        <section class="hero" style="height:320px; background: linear-gradient(180deg,#e2e8f0,#cbd5e1); display:flex; align-items:center; justify-content:center;">
+          <div>
+            <h1 class="business_name">Your Business Name</h1>
+            <p class="tagline">Your tagline goes here</p>
+          </div>
+        </section>
+
+        <section class="about_us">
+          <h2>About Us</h2>
+          <p>Click to edit this about text. Describe your business, experience and values here.</p>
+        </section>
+
+        <section class="services">
+          <h2>Services</h2>
+          <div class="service-card"><p>Service description here. Click to edit.</p></div>
+          <div class="service-card"><p>Another service. Click to edit.</p></div>
+        </section>
+
+        <section class="gallery">
+          <h2>Gallery</h2>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <img src="images/essential.jpg" alt="sample" style="width:200px;height:150px;object-fit:cover;">
+            <img src="images/gallery.jpg" alt="sample" style="width:200px;height:150px;object-fit:cover;">
+            <img src="images/contact.jpg" alt="sample" style="width:200px;height:150px;object-fit:cover;">
+          </div>
+        </section>
+      `;
       enableImageReplacement();
       enableHeroImageReplacement();
       enableTextEditing();
@@ -142,57 +192,79 @@ section {
     }
 
     if (theme === "GalleryTheme") {
-      area.innerHTML = `<h2>Hi</h2>`;
+      area.innerHTML = `
+        <section class="hero" style="height:260px; background:#f3f4f6; display:flex; align-items:center; justify-content:center;">
+          <h2 class="business_name">Gallery Theme</h2>
+        </section>
+
+        <section class="gallery">
+          <h2>Gallery</h2>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <img src="images/gallery.jpg" alt="gallery" style="width:200px;height:150px;object-fit:cover;">
+            <img src="images/Personal.jpg" alt="gallery" style="width:200px;height:150px;object-fit:cover;">
+            <img src="images/contact.jpg" alt="gallery" style="width:200px;height:150px;object-fit:cover;">
+          </div>
+        </section>
+      `;
 
       enableImageReplacement();
       enableHeroImageReplacement();
       enableTextEditing();
       return;
-      
-      const tabButtons = document.querySelectorAll(".filters button");
-      const galleryGroups = document.querySelectorAll(".gallery-group");
+    }
 
-      tabButtons.forEach(button => {
-        button.addEventListener("click", () => {
-          tabButtons.forEach(b => b.classList.remove("active"));
-          button.classList.add("active");
+    // fallback / other templates
+    if (theme === "contact") {
+      area.innerHTML = `
+        <section class="hero" style="height:220px; background:#fff3cd; display:flex; align-items:center; justify-content:center;">
+          <h2 class="business_name">Contact Theme</h2>
+        </section>
 
-          const targetId = button.getAttribute("data-gallery");
+        <section class="contact_info">
+          <h2>Contact Us</h2>
+          <p>Address: 123 Main St</p>
+          <p>Phone: 0123456789</p>
+        </section>
+      `;
+      enableImageReplacement();
+      enableHeroImageReplacement();
+      enableTextEditing();
+      return;
+    }
 
-          galleryGroups.forEach(group => {
-            group.style.display = (group.id === targetId) ? "block" : "none";
-          });
-        });
-      });
+    if (theme === "Personal") {
+      area.innerHTML = `
+        <section class="hero" style="height:260px; background:#e6fffa; display:flex; align-items:center; justify-content:center;">
+          <h2 class="business_name">Personal Theme</h2>
+        </section>
 
-      const lightbox = document.getElementById("lightbox");
-      const lightboxImg = document.getElementById("lightbox-img");
-
-      document.querySelectorAll(".gallery-item img").forEach(img => {
-        img.addEventListener("click", () => {
-          lightboxImg.src = img.src;
-          lightbox.style.display = "flex";
-        });
-      });
-
-      document.querySelector(".lightbox .close-area").addEventListener("click", () => {
-        lightbox.style.display = "none";
-      });
-
+        <section class="about_us">
+          <h2>About Me</h2>
+          <p>Short bio here. Click to edit.</p>
+        </section>
+      `;
+      enableImageReplacement();
+      enableHeroImageReplacement();
+      enableTextEditing();
       return;
     }
   }
 
-  function enableHeroImageReplacement() {
+    function enableHeroImageReplacement() {
     const hero = document.querySelector(".hero");
     if (!hero) return;
 
     hero.style.cursor = "pointer";
 
+    // remove any existing pickers we created earlier to avoid duplicates
+    const existing = document.getElementById("heroPicker");
+    if (existing) existing.remove();
+
     const picker = document.createElement("input");
     picker.type = "file";
     picker.accept = "image/*";
     picker.style.display = "none";
+    picker.id = "heroPicker";
 
     document.body.appendChild(picker);
 
@@ -242,10 +314,14 @@ section {
   }
 
   function enableImageReplacement() {
-    const images = document.querySelectorAll("#contentArea img");
+    const images = document.querySelectorAll("img");
 
     images.forEach((img, index) => {
       img.style.cursor = "pointer";
+
+      // create a unique picker per image (remove existing if present)
+      const existing = document.getElementById("imgPicker_" + index);
+      if (existing) existing.remove();
 
       const picker = document.createElement("input");
       picker.type = "file";
@@ -328,6 +404,108 @@ section {
       });
     });
   }
+
+  /* ---------------------------
+     SAVE / LOAD Implementation
+     - Saves the contentArea innerHTML and hero background image (if any)
+     - Restores content and re-enables editing/image replacement
+  ----------------------------*/
+
+  const STORAGE_KEY = "trades_site_saved_v1";
+
+  function saveWebsite() {
+    const area = document.getElementById("Sav");
+    if (!area) return alert("Nothing to save.");
+
+    const hero = document.querySelector(".hero");
+    const heroBg = hero ? (hero.style.backgroundImage || "") : "";
+
+    const payload = {
+      contentHTML: area.innerHTML,
+      heroBackground: heroBg,
+      //templateSelectorHidden: document.getElementById("templateSelector").style.display === "none",
+      savedAt: new Date().toISOString()
+    };
+
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      alert("Website saved to localStorage.");
+    } catch (err) {
+      console.error(err);
+      alert("Failed to save. localStorage may be full or unavailable.");
+    }
+  }
+
+  function loadWebsite() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      alert("No saved website found.");
+      return;
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(raw);
+    } catch (err) {
+      console.error(err);
+      alert("Saved data is corrupted.");
+      return;
+    }
+
+    const area = document.getElementById("Sav");
+    if (!area) return alert("Content area missing.");
+
+    // Hide template selector if saved that way
+
+    // Restore HTML
+    area.innerHTML = payload.contentHTML || "";
+
+    // Restore hero background (if present)
+    const hero = document.querySelector(".hero");
+    if (hero && payload.heroBackground) {
+      hero.style.backgroundImage = payload.heroBackground;
+    }
+
+    // Re-enable interactive features on the newly injected DOM
+    enableImageReplacement();
+    enableHeroImageReplacement();
+    enableTextEditing();
+
+    alert("Website loaded from localStorage.");
+  }
+
+  /* ---------------------------
+     Panel button wiring
+  ----------------------------*/
+  document.getElementById("saveBtn").addEventListener("click", saveWebsite);
+  document.getElementById("loadBtn").addEventListener("click", loadWebsite);
+
+  document.getElementById("minifyBtn").addEventListener("click", () => {
+    const box = document.getElementById("saveLoadContainer");
+    const isCollapsed = box.getAttribute("data-collapsed") === "true";
+    if (isCollapsed) {
+      box.style.height = "";
+      box.setAttribute("data-collapsed", "false");
+    } else {
+      box.style.height = "40px";
+      box.setAttribute("data-collapsed", "true");
+    }
+  });
+
+  /* ---------------------------
+     Optional: load saved content automatically if present
+     (comment out if you prefer manual load only)
+  ----------------------------*/
+  // Uncomment the following lines to auto-load on page open:
+  // window.addEventListener("DOMContentLoaded", () => {
+  //   if (localStorage.getItem(STORAGE_KEY)) {
+  //     // Do not auto-load silently; ask user
+  //     if (confirm("A saved website was found. Load it now?")) {
+  //       loadWebsite();
+  //     }
+  //   }
+  // });
+
 </script>
 
 </body>
