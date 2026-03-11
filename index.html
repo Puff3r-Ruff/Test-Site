@@ -457,11 +457,13 @@ section {
 
   // If we are NOT on the saved page, redirect to it
   if (payload.Link && payload.Link !== path) {
+    localStorage.setItem("AUTO_LOAD", "true");
     window.location.href = payload.Link;
     return; // stop here — the next page will load the content
   }
 
   // If we ARE on the correct page, load the content
+
   injectSavedContent(payload);
 }
 

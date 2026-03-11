@@ -1102,6 +1102,7 @@ enableTextEditing();
 
   // If we are NOT on the saved page, redirect to it
   if (payload.Link && payload.Link !== path) {
+    localStorage.setItem("AUTO_LOAD", "true");
     window.location.href = payload.Link;
     return; // stop here — the next page will load the content
   }
@@ -1126,6 +1127,23 @@ function injectSavedContent(payload) {
 
   alert("Website loaded from localStorage.");
 }
+window.addEventListener("DOMContentLoaded", () => {
+  const shouldLoad = localStorage.getItem("AUTO_LOAD") === "true";
+  if (!shouldLoad) return;
+
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) return;
+
+  const payload = JSON.parse(raw);
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+  if (payload.Link === currentPage) {
+    injectSavedContent(payload);
+  }
+
+  // Clear the flag so it only loads once
+  localStorage.removeItem("AUTO_LOAD");
+});
 
 
   /* ---------------------------
