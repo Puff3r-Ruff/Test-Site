@@ -1062,8 +1062,11 @@ enableTextEditing();
 
     const hero = document.querySelector(".hero");
     const heroBg = hero ? (hero.style.backgroundImage || "") : "";
+    const path = window.location.pathname;
+    const page = path.split("/").pop();
 
     const payload = {
+      Link: page,
       contentHTML: area.innerHTML,
       heroBackground: heroBg,
       //templateSelectorHidden: document.getElementById("templateSelector").style.display === "none",
@@ -1080,42 +1083,50 @@ enableTextEditing();
   }
 
   function loadWebsite() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      alert("No saved website found.");
-      return;
-    }
-
-    let payload;
-    try {
-      payload = JSON.parse(raw);
-    } catch (err) {
-      console.error(err);
-      alert("Saved data is corrupted.");
-      return;
-    }
-
-    const area = document.getElementById("Sav");
-    if (!area) return alert("Content area missing.");
-
-    // Hide template selector if saved that way
-
-    // Restore HTML
-    area.innerHTML = payload.contentHTML || "";
-
-    // Restore hero background (if present)
-    const hero = document.querySelector(".hero");
-    if (hero && payload.heroBackground) {
-      hero.style.backgroundImage = payload.heroBackground;
-    }
-
-    // Re-enable interactive features on the newly injected DOM
-    enableImageReplacement();
-    enableHeroImageReplacement();
-    enableTextEditing();
-
-    alert("Website loaded from localStorage.");
+  const raw = localStorage.getItem(STORAGE_KEY);
+  if (!raw) {
+    alert("No saved website found.");
+    return;
   }
+
+  let payload;
+  try {
+    payload = JSON.parse(raw);
+  } catch (err) {
+    console.error(err);
+    alert("Saved data is corrupted.");
+    return;
+  }
+
+  const path = window.location.pathname.split("/").pop() || "index.html";
+
+  // If we are NOT on the saved page, redirect to it
+  if (payload.Link && payload.Link !== path) {
+    window.location.href = payload.Link;
+    return; // stop here — the next page will load the content
+  }
+
+  // If we ARE on the correct page, load the content
+  injectSavedContent(payload);
+}
+function injectSavedContent(payload) {
+  const area = document.getElementById("Sav");
+  if (!area) return alert("Content area missing.");
+
+  area.innerHTML = payload.contentHTML || "";
+
+  const hero = document.querySelector(".hero");
+  if (hero && payload.heroBackground) {
+    hero.style.backgroundImage = payload.heroBackground;
+  }
+
+  enableImageReplacement();
+  enableHeroImageReplacement();
+  enableTextEditing();
+
+  alert("Website loaded from localStorage.");
+}
+
 
   /* ---------------------------
      Panel button wiring
