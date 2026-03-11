@@ -1112,8 +1112,6 @@ enableTextEditing();
 }
 function injectSavedContent(payload) {
   const area = document.getElementById("Sav");
-  if (!area) return alert("Content area missing.");
-
   area.innerHTML = payload.contentHTML || "";
 
   const hero = document.querySelector(".hero");
@@ -1125,8 +1123,11 @@ function injectSavedContent(payload) {
   enableHeroImageReplacement();
   enableTextEditing();
 
+  rebindButtons(); // ← THIS FIXES YOUR ISSUE
+
   alert("Website loaded from localStorage.");
 }
+
 window.addEventListener("DOMContentLoaded", () => {
   const shouldLoad = localStorage.getItem("AUTO_LOAD") === "true";
   if (!shouldLoad) return;
@@ -1177,6 +1178,11 @@ window.addEventListener("DOMContentLoaded", () => {
   //     }
   //   }
   // });
+  function rebindButtons() {
+  document.getElementById("saveBtn")?.addEventListener("click", saveWebsite);
+  document.getElementById("loadBtn")?.addEventListener("click", loadWebsite);
+}
+
 
 </script>
 </body></html>
