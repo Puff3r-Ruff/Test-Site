@@ -1,3 +1,54 @@
+<style>
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 20px;
+        background: #0f182a;
+        border-bottom: 1px solid #e5e5e5;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .back-btn {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 16px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
+    }
+
+    .back-btn:hover {
+        opacity: 0.6;
+    }
+
+    .back-btn i {
+        font-size: 20px;
+        margin-right: 6px;
+    }
+
+    .logo img {
+        height: 42px;
+        object-fit: contain;
+    }
+</style>
+
+<nav class="navbar">
+    <a class="back-btn" href="javascript:history.back()">
+        <i>&larr;</i> Back
+    </a>
+
+    <div class="logo">
+        <img src="your-logo.png" alt="Business Logo">
+    </div>
+</nav>
+
 <!DOCTYPE html><!-- Google Tag Manager --><html lang="en" dir="ltr"><head>
 
   <title>
@@ -99,48 +150,6 @@
 </div>
 <!---------------------------- Top Announcement Bar End ----------------------------------------->
 
-  <div id="shopify-section-header" class="shopify-section section-header"><style data-shopify="">
-  .logo img {
-    width: 200px;
-  }
-  .logo-area__middle--logo-image {
-    max-width: 200px;
-  }
-  @media (max-width: 767.98px) {
-    .logo img {
-      width: 110px;
-    }
-  }.section-header {
-    position: -webkit-sticky;
-    position: sticky;
-  }</style>
-
-<div data-section-type="header" data-cc-animate="">
-  <div id="pageheader" class="pageheader pageheader--layout-inline-menu-left pageheader--sticky">
-    <div class="logo-area container container--no-max">
-      
-      <div class="logo-area__middle logo-area__middle--logo-image">
-        <div class="logo-area__middle__inner">
-
-            <!----------- Logo Image ----------------- Top -------------------->
-          <div class="logo"><a class="logo__link"
-           title="LogoImage"><img class="logo__image" src="" alt="Business Logo" itemprop="logo" width="1022" height="524"></a></div>
-            <!----------- Logo Image End -------------------------------------->
-
-        </div>
-      </div>
-
-      <div class="logo-area__right">
-        <!-------- right of top logo ------------------->
-        <div class="logo-area__right__inner">
-
-        </div>
-        <!------- right of top logo end --------------->
-      </div>
-    </div></div>
- 
-</div>
-</div>
 <!------------------------------------------------------------------------------------ header end ----------------------------------------------------->
 
 <!---------------------------------------------------------- Contact Header ---------------------------------------->
