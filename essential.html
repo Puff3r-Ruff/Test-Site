@@ -33,10 +33,23 @@
         margin-right: 6px;
     }
 
-    .logo img {
-        height: 42px;
-        object-fit: contain;
-    }
+    .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* space between text and logo */
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff; /* adjust to match your theme */
+}
+
+.logo img {
+    height: 42px;
+    object-fit: contain;
+}
+
 </style>
 
 <nav class="navbar">
@@ -45,9 +58,11 @@
     </a>
 
     <div class="logo">
+        <span class="logo-text">IdeaGo</span>
         <img src="favicon.ico" alt="Business Logo">
     </div>
 </nav>
+
 
 <!DOCTYPE html><!-- Google Tag Manager --><html lang="en" dir="ltr"><head>
 
