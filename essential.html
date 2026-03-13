@@ -83,23 +83,35 @@
 }
 
 /* Main carousel */
+.collection-slider .product-list.carousel:not(.owl-carousel) {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;
+}
 .carousel {
+  width: 100%;
   display: flex;
-  flex-wrap: nowrap;
   overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
-  width: 100%;
+  gap: 20px;
+  padding: 0 0px;
+  scroll-snap-type: x mandatory;
 }
 
 .carousel::-webkit-scrollbar {
   display: none;
 }
 
-/* Each slide */
 .product-block {
-  flex: 0 0 auto;
-  margin-right: 20px; /* adjust if needed */
+  flex: 0 0 80%;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 768px) {
+  .product-block {
+    flex: 0 0 40%;
+  }
 }
 
 /* Prevent shrinking */
@@ -186,7 +198,7 @@
 
                 <h4 class="title">Email: info@YourEmail</h4>
 
-            <div class="fluff"></div
+            <div class="fluff"></div>
           </div></div>
     </div></div>
 </div>
