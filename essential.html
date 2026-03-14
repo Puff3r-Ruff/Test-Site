@@ -287,6 +287,19 @@
   outline: 2px solid lime !important;
   background: rgba(0,255,0,0.08) !important;
 }
+.thg-slider {
+  /* … your existing rules … */
+  
+  overscroll-behavior-x: contain;     /* ← KEY FIX: stops rubber-banding / peek of outside content */
+  -webkit-overflow-scrolling: touch;  /* already have this — good, keep it */
+  touch-action: pan-x;                /* improves swipe feel, prevents vertical interference */
+}
+
+/* Also force the wrapper to clip anything trying to escape during momentum */
+.thg-slider-wrapper {
+  overflow: hidden;                   /* already have — make sure it's there */
+  overscroll-behavior-x: none;        /* extra safety on wrapper if needed */
+}
 </style>
 <!------------------------------------- slider image end --------------------------------------->
 
