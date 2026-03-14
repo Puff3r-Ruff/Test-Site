@@ -243,43 +243,58 @@
 
 
 
-<div class="thg-slider-wrapper">
-  <h2 class="thg-slider-title">Enter Text Here</h2>
-  <p class="thg-slider-subtitle">Enter Text</p>
+<div id="shopify-section-template--18568265924941__16359278676808bea5" class="shopify-section section-featured-collection"><div class="section-id-template--18568265924941__16359278676808bea5 collection-slider-row " data-section-type="featured-collection" data-components="accordion,modal,price-range">
+  <div class="container container--not-mobile container--no-max">
+    <div class="collection-slider">
+      <h2 class="hometitle h4-style align-center has-paging" data-cc-animate="" data-cc-animate-delay="0.3s">
+        <a class="prev ltr-icon" href=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><title>Left</title><polyline points="15 18 9 12 15 6"></polyline></svg></a>
+
+<!-------------------------------- Text Under Main image ----------------------------------------------->        
+        <a class="has-paging__title" ><span>Enter Text Here</span></a>
+<!--------------------------------- Text under main image end ------------------------------------------>
+
+        <a class="next ltr-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><title>Right</title><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+      </h2><div class="view-all align-center" data-cc-animate="" data-cc-animate-delay="0.3s">
+
+<!-------------------------------- Text Under Main image ----------------------------------------------->
+          <p class="small-feature-link" >Enter Text</p>
+<!-------------------------------- Text Under Main image ----------------------------------------------->
+
+        </div>
+
+        <div class="thg-slider-wrapper">
+  <h2 class="thg-slider-title">Another Slider</h2>
+  <p class="thg-slider-subtitle">More content</p>
 
   <div class="thg-slider">
-    
     <div class="thg-slide">
-      <img src="https://picsum.photos/1200/800?40" alt="">
+      <img src="https://picsum.photos/1200/800?100" alt="">
       <p class="thg-slide-label">Image Text Here</p>
     </div>
 
     <div class="thg-slide">
-      <img src="https://picsum.photos/1200/800?41" alt="">
+      <img src="https://picsum.photos/1200/800?101" alt="">
       <p class="thg-slide-label">Image Text Here</p>
     </div>
 
     <div class="thg-slide">
-      <img src="https://picsum.photos/1200/800?42" alt="">
+      <img src="https://picsum.photos/1200/800?102" alt="">
+      <p class="thg-slide-label">Image Text Here</p>
+    </div>
+    <div class="thg-slide">
+      <img src="https://picsum.photos/1200/800?101" alt="">
       <p class="thg-slide-label">Image Text Here</p>
     </div>
 
     <div class="thg-slide">
-      <img src="https://picsum.photos/1200/800?43" alt="">
+      <img src="https://picsum.photos/1200/800?102" alt="">
       <p class="thg-slide-label">Image Text Here</p>
     </div>
-
-    <div class="thg-slide">
-      <img src="https://picsum.photos/1200/800?45" alt="">
-      <p class="thg-slide-label">Image Text Here</p>
-    </div>
-
-    <div class="thg-slide">
-      <img src="https://picsum.photos/1200/800?46" alt="">
-      <p class="thg-slide-label">Image Text Here</p>
-    </div>
-
   </div>
+
+  <!-- Optional arrows -->
+  <button class="thg-arrow thg-left">‹</button>
+  <button class="thg-arrow thg-right">›</button>
 </div>
 <style>
   /* Wrapper */
@@ -288,6 +303,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px 0;
+  position: relative;
   font-family: inherit;
 }
 
@@ -344,6 +360,36 @@
   background: #fff;
   font-size: 14px;
   font-weight: 500;
+}
+
+/* Arrow buttons */
+.thg-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.7;
+  border-radius: 4px;
+  font-size: 22px;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.thg-arrow:hover {
+  opacity: 1;
+}
+
+.thg-left {
+  left: 10px;
+}
+
+.thg-right {
+  right: 10px;
 }
 
 </style>
@@ -652,15 +698,21 @@
   <button id="loadBtn" style="width:100%; padding:10px; background:#28a745; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">Load Saved Website</button>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  const carousel = document.querySelector(".product-list.carousel");
-  const prev = document.querySelector(".hometitle .prev");
-  const next = document.querySelector(".hometitle .next");
+/* ---------------------------
+   SLIDER INITIALIZATION
+----------------------------*/
+function initSlider() {
+  const carousel = document.querySelector(".thg-slider");
+  const prev = document.querySelector(".thg-left");
+  const next = document.querySelector(".thg-right");
 
-  if (!carousel) return;
+  if (!carousel) {
+    console.warn("Slider not found — skipping slider init.");
+    return;
+  }
 
   const getSlideWidth = () => {
-    const slide = carousel.querySelector(".product-block");
+    const slide = carousel.querySelector(".thg-slide");
     if (!slide) return 300;
 
     const style = window.getComputedStyle(slide);
@@ -706,29 +758,94 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-enableImageReplacement();
-enableHeroImageReplacement();
-enableTextEditing(); 
-});
-  function enableHeroImageReplacement() {
-    const hero = document.querySelector(".hero");
-    if (!hero) return;
+}
 
-    hero.style.cursor = "pointer";
+/* ---------------------------
+   HERO IMAGE REPLACEMENT
+----------------------------*/
+function enableHeroImageReplacement() {
+  const hero = document.querySelector(".hero");
+  if (!hero) return;
 
-    // remove any existing pickers we created earlier to avoid duplicates
-    const existing = document.getElementById("heroPicker");
+  hero.style.cursor = "pointer";
+
+  const existing = document.getElementById("heroPicker");
+  if (existing) existing.remove();
+
+  const picker = document.createElement("input");
+  picker.type = "file";
+  picker.accept = "image/*";
+  picker.style.display = "none";
+  picker.id = "heroPicker";
+
+  document.body.appendChild(picker);
+
+  hero.addEventListener("click", () => picker.click());
+
+  picker.addEventListener("change", () => {
+    const file = picker.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      const uploadedImg = new Image();
+      uploadedImg.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        const targetRatio = 16 / 9;
+        let cropWidth = uploadedImg.width;
+        let cropHeight = cropWidth / targetRatio;
+
+        if (cropHeight > uploadedImg.height) {
+          cropHeight = uploadedImg.height;
+          cropWidth = cropHeight * targetRatio;
+        }
+
+        const startX = (uploadedImg.width - cropWidth) / 2;
+        const startY = (uploadedImg.height - cropHeight) / 2;
+
+        canvas.width = 1920;
+        canvas.height = 1080;
+
+        ctx.drawImage(
+          uploadedImg,
+          startX, startY, cropWidth, cropHeight,
+          0, 0, canvas.width, canvas.height
+        );
+
+        const finalImage = canvas.toDataURL("image/jpeg", 0.9);
+        hero.style.backgroundImage = `url('${finalImage}')`;
+      };
+
+      uploadedImg.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---------------------------
+   IMAGE REPLACEMENT
+----------------------------*/
+function enableImageReplacement() {
+  const images = document.querySelectorAll("img");
+
+  images.forEach((img, index) => {
+    img.style.cursor = "pointer";
+
+    const existing = document.getElementById("imgPicker_" + index);
     if (existing) existing.remove();
 
     const picker = document.createElement("input");
     picker.type = "file";
     picker.accept = "image/*";
     picker.style.display = "none";
-    picker.id = "heroPicker";
+    picker.id = "imgPicker_" + index;
 
     document.body.appendChild(picker);
 
-    hero.addEventListener("click", () => picker.click());
+    img.addEventListener("click", () => picker.click());
 
     picker.addEventListener("change", () => {
       const file = picker.files[0];
@@ -741,29 +858,22 @@ enableTextEditing();
           const canvas = document.createElement("canvas");
           const ctx = canvas.getContext("2d");
 
-          const targetRatio = 16 / 9;
-          let cropWidth = uploadedImg.width;
-          let cropHeight = cropWidth / targetRatio;
+          const size = Math.min(uploadedImg.width, uploadedImg.height);
+          const startX = (uploadedImg.width - size) / 2;
+          const startY = (uploadedImg.height - size) / 2;
 
-          if (cropHeight > uploadedImg.height) {
-            cropHeight = uploadedImg.height;
-            cropWidth = cropHeight * targetRatio;
-          }
-
-          const startX = (uploadedImg.width - cropWidth) / 2;
-          const startY = (uploadedImg.height - cropHeight) / 2;
-
-          canvas.width = 1920;
-          canvas.height = 1080;
+          const outputSize = 600;
+          canvas.width = outputSize;
+          canvas.height = outputSize;
 
           ctx.drawImage(
             uploadedImg,
-            startX, startY, cropWidth, cropHeight,
-            0, 0, canvas.width, canvas.height
+            startX, startY, size, size,
+            0, 0, outputSize, outputSize
           );
 
           const finalImage = canvas.toDataURL("image/jpeg", 0.9);
-          hero.style.backgroundImage = `url('${finalImage}')`;
+          img.src = finalImage;
         };
 
         uploadedImg.src = e.target.result;
@@ -771,135 +881,78 @@ enableTextEditing();
 
       reader.readAsDataURL(file);
     });
-  }
+  });
+}
 
-  function enableImageReplacement() {
-    const images = document.querySelectorAll("img");
+/* ---------------------------
+   TEXT EDITING
+----------------------------*/
+function enableTextEditing() {
+  const editableSelectors = [
+    ".business_name",
+    ".tagline",
+    ".about_us p",
+    ".service-card p",
+    "h1", "h2", "h3", "h4", "p", "span"
+  ];
 
-    images.forEach((img, index) => {
-      img.style.cursor = "pointer";
+  const elements = document.querySelectorAll(editableSelectors.join(", "));
 
-      // create a unique picker per image (remove existing if present)
-      const existing = document.getElementById("imgPicker_" + index);
-      if (existing) existing.remove();
+  elements.forEach(el => {
+    if (el.closest(".sidebar")) return;
 
-      const picker = document.createElement("input");
-      picker.type = "file";
-      picker.accept = "image/*";
-      picker.style.display = "none";
-      picker.id = "imgPicker_" + index;
+    el.classList.add("editable-text");
+    el.style.cursor = "text";
 
-      document.body.appendChild(picker);
-
-      img.addEventListener("click", () => picker.click());
-
-      picker.addEventListener("change", () => {
-        const file = picker.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = e => {
-          const uploadedImg = new Image();
-          uploadedImg.onload = () => {
-            const canvas = document.createElement("canvas");
-            const ctx = canvas.getContext("2d");
-
-            const size = Math.min(uploadedImg.width, uploadedImg.height);
-            const startX = (uploadedImg.width - size) / 2;
-            const startY = (uploadedImg.height - size) / 2;
-
-            const outputSize = 600;
-            canvas.width = outputSize;
-            canvas.height = outputSize;
-
-            ctx.drawImage(
-              uploadedImg,
-              startX, startY, size, size,
-              0, 0, outputSize, outputSize
-            );
-
-            const finalImage = canvas.toDataURL("image/jpeg", 0.9);
-            img.src = finalImage;
-          };
-
-          uploadedImg.src = e.target.result;
-        };
-
-        reader.readAsDataURL(file);
-      });
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
     });
-  }
 
-  function enableTextEditing() {
-    const editableSelectors = [
-      ".business_name",
-      ".tagline",
-      ".about_us p",
-      ".service-card p",
-      "h1", "h2", "h3","h4", "p", "span"
-    ];
+    el.addEventListener("click", () => {
+      if (el.isContentEditable) return;
 
-    const elements = document.querySelectorAll(editableSelectors.join(", "));
+      el.contentEditable = "true";
+      el.focus();
+      document.execCommand("selectAll", false, null);
 
-    elements.forEach(el => {
-      if (el.closest(".sidebar")) return;
-
-      el.classList.add("editable-text");
-      el.style.cursor = "text";
-
-      el.addEventListener("click", (e) => {
-        e.stopPropagation();
-      });
-
-      el.addEventListener("click", () => {
-        if (el.isContentEditable) return;
-
-        el.contentEditable = "true";
-        el.focus();
-        document.execCommand("selectAll", false, null);
-
-        el.addEventListener("blur", () => {
-          el.contentEditable = "false";
-        }, { once: true });
-      });
+      el.addEventListener("blur", () => {
+        el.contentEditable = "false";
+      }, { once: true });
     });
+  });
+}
+
+/* ---------------------------
+   SAVE / LOAD SYSTEM
+----------------------------*/
+const STORAGE_KEY = "trades_site_saved_v1";
+
+function saveWebsite() {
+  const area = document.getElementById("Sav");
+  if (!area) return alert("Nothing to save.");
+
+  const hero = document.querySelector(".hero");
+  const heroBg = hero ? (hero.style.backgroundImage || "") : "";
+  const path = window.location.pathname;
+  const page = path.split("/").pop();
+
+  const payload = {
+    Link: page,
+    contentHTML: area.innerHTML,
+    heroBackground: heroBg,
+    savedAt: new Date().toISOString()
+  };
+
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    alert("Website saved to localStorage.");
+  } catch (err) {
+    console.error(err);
+    alert("Failed to save. localStorage may be full or unavailable.");
   }
+}
 
-  /* ---------------------------
-     SAVE / LOAD Implementation
-     - Saves the contentArea innerHTML and hero background image (if any)
-     - Restores content and re-enables editing/image replacement
-  ----------------------------*/
-
-  const STORAGE_KEY = "trades_site_saved_v1";
-
-  function saveWebsite() {
-    const area = document.getElementById("Sav");
-    if (!area) return alert("Nothing to save.");
-
-    const hero = document.querySelector(".hero");
-    const heroBg = hero ? (hero.style.backgroundImage || "") : "";
-    const path = window.location.pathname;
-    const page = path.split("/").pop();
-
-    const payload = {
-      Link: page,
-      contentHTML: area.innerHTML,
-      heroBackground: heroBg,
-      //templateSelectorHidden: document.getElementById("templateSelector").style.display === "none",
-      savedAt: new Date().toISOString()
-    };
-
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-      alert("Website saved to localStorage.");
-    } catch (err) {
-      console.error(err);
-      alert("Failed to save. localStorage may be full or unavailable.");
-    }
-  }
-
-  function loadWebsite() {
+function loadWebsite() {
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) {
     alert("No saved website found.");
@@ -917,16 +970,15 @@ enableTextEditing();
 
   const path = window.location.pathname.split("/").pop() || "index.html";
 
-  // If we are NOT on the saved page, redirect to it
   if (payload.Link && payload.Link !== path) {
     localStorage.setItem("AUTO_LOAD", "true");
     window.location.href = payload.Link;
-    return; // stop here — the next page will load the content
+    return;
   }
 
-  // If we ARE on the correct page, load the content
   injectSavedContent(payload);
 }
+
 function injectSavedContent(payload) {
   const area = document.getElementById("Sav");
   area.innerHTML = payload.contentHTML || "";
@@ -939,15 +991,21 @@ function injectSavedContent(payload) {
   enableImageReplacement();
   enableHeroImageReplacement();
   enableTextEditing();
-
-  rebindButtons(); // ← THIS FIXES YOUR ISSUE
+  initSlider();   // ← CRITICAL FIX
+  rebindButtons();
 
   alert("Website loaded from localStorage.");
 }
 
 window.addEventListener("DOMContentLoaded", () => {
   const shouldLoad = localStorage.getItem("AUTO_LOAD") === "true";
-  if (!shouldLoad) return;
+  if (!shouldLoad) {
+    initSlider();
+    enableImageReplacement();
+    enableHeroImageReplacement();
+    enableTextEditing();
+    return;
+  }
 
   const raw = localStorage.getItem(STORAGE_KEY);
   if (!raw) return;
@@ -959,47 +1017,16 @@ window.addEventListener("DOMContentLoaded", () => {
     injectSavedContent(payload);
   }
 
-  // Clear the flag so it only loads once
   localStorage.removeItem("AUTO_LOAD");
 });
 
-
-  /* ---------------------------
-     Panel button wiring
-  ----------------------------*/
-  document.getElementById("saveBtn").addEventListener("click", saveWebsite);
-  document.getElementById("loadBtn").addEventListener("click", loadWebsite);
-
-  document.getElementById("minifyBtn").addEventListener("click", () => {
-    const box = document.getElementById("saveLoadContainer");
-    const isCollapsed = box.getAttribute("data-collapsed") === "true";
-    if (isCollapsed) {
-      box.style.height = "";
-      box.setAttribute("data-collapsed", "false");
-    } else {
-      box.style.height = "40px";
-      box.setAttribute("data-collapsed", "true");
-    }
-  });
-
-  /* ---------------------------
-     Optional: load saved content automatically if present
-     (comment out if you prefer manual load only)
-  ----------------------------*/
-  // Uncomment the following lines to auto-load on page open:
-  // window.addEventListener("DOMContentLoaded", () => {
-  //   if (localStorage.getItem(STORAGE_KEY)) {
-  //     // Do not auto-load silently; ask user
-  //     if (confirm("A saved website was found. Load it now?")) {
-  //       loadWebsite();
-  //     }
-  //   }
-  // });
-  function rebindButtons() {
+/* ---------------------------
+   PANEL BUTTON REBIND
+----------------------------*/
+function rebindButtons() {
   document.getElementById("saveBtn")?.addEventListener("click", saveWebsite);
   document.getElementById("loadBtn")?.addEventListener("click", loadWebsite);
 }
-
 
 </script>
 </body></html>
