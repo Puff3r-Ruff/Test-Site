@@ -1,3 +1,14 @@
+<!DOCTYPE html><!-- Google Tag Manager --><html lang="en" dir="ltr"><head>
+
+  <title>
+    Your Custom Website
+  </title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<link href="styles.css" rel="stylesheet" type="text/css" media="all">
 <style>
 
     .navbar {
@@ -51,6 +62,10 @@
 }
 
 </style>
+</head>
+
+<body class="template-index
+" data-cc-animate-timeout="0" id="Sav">
 
 <nav class="navbar">
     <a class="back-btn" href="javascript:history.back()">
@@ -62,24 +77,6 @@
         <img src="favicon.ico" alt="Business Logo">
     </div>
 </nav>
-
-
-<!DOCTYPE html><!-- Google Tag Manager --><html lang="en" dir="ltr"><head>
-
-  <title>
-    Your Custom Website
-  </title>
-
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<link href="styles.css" rel="stylesheet" type="text/css" media="all">
-</head>
-
-<body class="template-index
-" data-cc-animate-timeout="0" id="Sav">
-
 <!----------------- Top Announcement Bar ---------------------------->
 <div id="shopify-section-announcement-bar" class="shopify-section section-announcement-bar">
 <div id="section-id-announcement-bar" class="announcement-bar announcement-bar--with-announcement" data-section-type="announcement-bar" data-cc-animate="">
@@ -240,18 +237,19 @@
 }
 
 .thg-slider {
-    --slide-gap: 0px;                /* change to 12–24px if you want gaps later */
+    --slide-gap: 0px;
 
     display: flex;
     gap: var(--slide-gap);
+
     overflow-x: auto;
     scroll-snap-type: x mandatory;
+    scroll-padding-left: 0;
+
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+
     scrollbar-width: none;
-    margin: 0;
-    padding: 0;
-    list-style: none;
 }
 
 .thg-slider::-webkit-scrollbar {
@@ -259,15 +257,12 @@
 }
 
 .thg-slide {
-    flex: 0 0 100%;                  /* ← this + box-sizing prevents overflow */
-    width: 100%;
-    min-width: 100%;
+    flex: 0 0 100%;
     scroll-snap-align: start;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 3px 12px rgba(0,0,0,0.08);
     background: #f9f9f9;
-    box-sizing: border-box;
 }
 
 .thg-slide img {
@@ -292,6 +287,13 @@
 /* Force images not to overflow even if something weird happens */
 .thg-slide img {
     max-width: 100% !important;
+}
+.thg-slider{
+    cursor: grab;
+}
+
+.thg-slider:active{
+    cursor: grabbing;
 }
 </style>
 <!------------------------------------- slider image end --------------------------------------->
