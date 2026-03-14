@@ -302,14 +302,18 @@
 </div>
 
 <style>
- /* Wrapper */
+ html, body {
+  overflow-x: hidden;
+}
+
+/* Wrapper */
 .thg-slider-wrapper {
   width: 100%;
-  
   margin: 0 auto;
   padding: 20px 0;
   font-family: inherit;
   overflow-x: hidden;
+  position: relative;
 }
 
 /* Title + subtitle */
@@ -327,23 +331,28 @@
   opacity: 0.7;
 }
 
-/* Slider container */
+/* Slider container — MERGED FIXED VERSION */
 .thg-slider {
   display: flex;
   gap: 20px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   padding: 10px;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  touch-action: pan-y;
 }
 
 .thg-slider::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 /* Individual slide */
 .thg-slide {
   min-width: 250px;
+  max-width: calc(100vw - 40px);
   flex: 0 0 auto;
   scroll-snap-align: start;
   border-radius: 10px;
@@ -351,6 +360,7 @@
   background: #f7f7f7;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-sizing: border-box;
 }
 
 .thg-slide img {
@@ -366,13 +376,7 @@
   font-size: 14px;
   font-weight: 500;
 }
-.thg-slider {
-  overscroll-behavior-x: contain;
-  -webkit-overflow-scrolling: touch;
-}
-html, body {
-  overflow-x: hidden;
-}
+
 
 </style>
 <!------------------------------------- slider image end --------------------------------------->
