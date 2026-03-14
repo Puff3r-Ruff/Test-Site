@@ -75,71 +75,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 <link href="styles.css" rel="stylesheet" type="text/css" media="all">
-
-<style>
- /* Allow full scrolling */
-.collection-listing {
-  overflow: visible !important;
-}
-
-/* Main carousel */
-.collection-slider .product-list.carousel:not(.owl-carousel) {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
-}
-.carousel {
-  width: 100%;
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  gap: 10px;
-  padding: 0 0px;
-  scroll-snap-type: x mandatory;
-}
-
-.carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.product-block {
-  flex: 0 0 80%;
-  scroll-snap-align: center;
-}
-
-@media (min-width: 768px) {
-  .product-block {
-    flex: 0 0 40%;
-   scroll-snap-type: x mandatory;
-  }
-}
-
-/* Prevent shrinking */
-.carousel > * {
-  flex-shrink: 0;
-}
-/* Allow first and last slides to center */
-
-/* Remove extra space on the left of the slider */
-.product-list.carousel {
-  padding-left: 0 !important;
-}
-
-/* Make sure the very first card has no left margin */
-.product-list.carousel .product-block:first-child {
-  margin-left: 50 !important;
-}
-.product-list.carousel {
-  padding-left: 0vw;
-}
-.product-list.carousel .product-block:first-child{
-    margin-left: 0 !important;
-}
-.collection-slider .product-list.carousel .product-block{
-        width: 100%;
-    }
-</style>
 </head>
 
 <body class="template-index
@@ -243,7 +178,7 @@
 
 <!-------------------------------- Slider Start ----------------------------------------------->
 
-        <div class="thg-slider-wrapper">
+  <div class="thg-slider-wrapper">
   <h2 class="thg-slider-title">Enter Text Here</h2>
   <p class="thg-slider-subtitle">Enter Text</p>
 
