@@ -305,10 +305,11 @@
  /* Wrapper */
 .thg-slider-wrapper {
   width: 100%;
-  max-width: 1400px;
+  
   margin: 0 auto;
   padding: 20px 0;
   font-family: inherit;
+  overflow-x: hidden;
 }
 
 /* Title + subtitle */
@@ -364,6 +365,10 @@
   background: #fff;
   font-size: 14px;
   font-weight: 500;
+}
+.thg-slider {
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 </style>
